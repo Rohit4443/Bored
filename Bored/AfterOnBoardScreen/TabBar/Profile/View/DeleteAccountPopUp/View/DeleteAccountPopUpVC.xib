@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.ttf">
+            <string>Poppins-Medium</string>
+        </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeleteAccountPopUpVC" customModule="Bored" customModuleProvider="target">
+            <connections>
+                <outlet property="deleteAccountButton" destination="Agw-N5-hM2" id="W0K-SK-Auk"/>
+                <outlet property="messageLabel" destination="zrT-Y0-m0J" id="oyf-rD-NLw"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MR5-Vc-l8B">
+                    <rect key="frame" x="42" y="257" width="291" height="153"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to delete Account." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrT-Y0-m0J">
+                            <rect key="frame" x="20" y="10" width="251" height="68"/>
+                            <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egP-xO-o90">
+                            <rect key="frame" x="30" y="88" width="231" height="1"/>
+                            <color key="backgroundColor" red="0.72549019609999998" green="0.72549019609999998" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="b9a-Kl-K5k"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="drl-we-i8i">
+                            <rect key="frame" x="30" y="99" width="231" height="44"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agw-N5-hM2">
+                                    <rect key="frame" x="0.0" y="0.0" width="138" height="44"/>
+                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Delete Account">
+                                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="9"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="deleteAccountAction:" destination="-1" eventType="touchUpInside" id="Ch0-sm-Yof"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qnn-ow-j5f">
+                                    <rect key="frame" x="146" y="0.0" width="85" height="44"/>
+                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleColor" red="0.72549019609999998" green="0.72549019609999998" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="9"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="2GU-6z-bmY"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="gZZ-VA-Ooj"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="drl-we-i8i" secondAttribute="trailing" constant="30" id="112-XC-hG6"/>
+                        <constraint firstItem="zrT-Y0-m0J" firstAttribute="centerX" secondItem="MR5-Vc-l8B" secondAttribute="centerX" id="3Oo-Cd-ICQ"/>
+                        <constraint firstAttribute="trailing" secondItem="zrT-Y0-m0J" secondAttribute="trailing" constant="20" id="AgS-cW-ulB"/>
+                        <constraint firstAttribute="bottom" secondItem="drl-we-i8i" secondAttribute="bottom" constant="10" id="Hge-2u-2nS"/>
+                        <constraint firstItem="drl-we-i8i" firstAttribute="leading" secondItem="MR5-Vc-l8B" secondAttribute="leading" constant="30" id="NCZ-cx-4H0"/>
+                        <constraint firstAttribute="trailing" secondItem="egP-xO-o90" secondAttribute="trailing" constant="30" id="Nnr-NZ-QOV"/>
+                        <constraint firstItem="zrT-Y0-m0J" firstAttribute="leading" secondItem="MR5-Vc-l8B" secondAttribute="leading" constant="20" id="PKZ-B6-XsB"/>
+                        <constraint firstItem="egP-xO-o90" firstAttribute="leading" secondItem="MR5-Vc-l8B" secondAttribute="leading" constant="30" id="SnW-6E-Brz"/>
+                        <constraint firstItem="egP-xO-o90" firstAttribute="top" secondItem="zrT-Y0-m0J" secondAttribute="bottom" constant="10" id="VKz-uW-hdC"/>
+                        <constraint firstAttribute="height" constant="153" id="Wat-Bs-mHS"/>
+                        <constraint firstItem="egP-xO-o90" firstAttribute="centerX" secondItem="MR5-Vc-l8B" secondAttribute="centerX" id="Zg3-Og-3bo"/>
+                        <constraint firstItem="drl-we-i8i" firstAttribute="top" secondItem="egP-xO-o90" secondAttribute="bottom" constant="10" id="ldY-NE-pkg"/>
+                        <constraint firstItem="zrT-Y0-m0J" firstAttribute="top" secondItem="MR5-Vc-l8B" secondAttribute="top" constant="10" id="yXm-JJ-PA2"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="28"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="0.0" alpha="0.5004185267857143" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="MR5-Vc-l8B" secondAttribute="trailing" constant="42" id="8Ht-GO-L8X"/>
+                <constraint firstItem="MR5-Vc-l8B" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="42" id="Kgw-bt-ilu"/>
+                <constraint firstItem="MR5-Vc-l8B" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Ppz-zb-X6v"/>
+                <constraint firstItem="MR5-Vc-l8B" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="dhz-kf-tXS"/>
+            </constraints>
+            <point key="canvasLocation" x="364" y="24"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

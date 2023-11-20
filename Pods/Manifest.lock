@@ -1,0 +1,32 @@
+PODS:
+  - AvailableHapticFeedback (1.0.4)
+  - GrowingTextView (0.7.2)
+  - IQKeyboardManager (6.5.15)
+  - MultiSlider (2.1.2):
+    - AvailableHapticFeedback
+    - SweeterSwift
+  - SweeterSwift (1.2.3)
+
+DEPENDENCIES:
+  - GrowingTextView
+  - IQKeyboardManager
+  - MultiSlider
+
+SPEC REPOS:
+  trunk:
+    - AvailableHapticFeedback
+    - GrowingTextView
+    - IQKeyboardManager
+    - MultiSlider
+    - SweeterSwift
+
+SPEC CHECKSUMS:
+  AvailableHapticFeedback: cd3cb476743764b3efe8645d25e6b359d375ddb0
+  GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
+  IQKeyboardManager: 22ffab9bd300ad493485a390a095f5db0c841776
+  MultiSlider: 81f5eb60f0a05073e6ee49c0b90426e4d1267b02
+  SweeterSwift: 3910bab8ba35b6964d5169a3c52b2c87d930b61c
+
+PODFILE CHECKSUM: c2961493a52eef12aa15fcc98909d401d3d4ae7a
+
+COCOAPODS: 1.12.1

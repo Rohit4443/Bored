@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="interestCVCell" id="gTV-IL-0wX" customClass="interestCVCell" customModule="Bored" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="318" height="76"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="318" height="76"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1eK-tc-98q">
+                        <rect key="frame" x="5" y="5" width="308" height="66"/>
+                        <subviews>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtg-Qb-U2k">
+                                <rect key="frame" x="15" y="0.0" width="278" height="66"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Rock Climbing">
+                                    <color key="titleColor" red="0.40392156862745099" green="0.40392156862745099" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="wtg-Qb-U2k" secondAttribute="bottom" id="8qI-sm-KOc"/>
+                            <constraint firstItem="wtg-Qb-U2k" firstAttribute="leading" secondItem="1eK-tc-98q" secondAttribute="leading" constant="15" id="92g-LJ-bQU"/>
+                            <constraint firstItem="wtg-Qb-U2k" firstAttribute="top" secondItem="1eK-tc-98q" secondAttribute="top" id="HSP-rM-udV"/>
+                            <constraint firstAttribute="trailing" secondItem="wtg-Qb-U2k" secondAttribute="trailing" constant="15" id="qyt-Zy-YUZ"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isRounded" value="NO"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="1eK-tc-98q" secondAttribute="trailing" constant="5" id="Epq-0M-B0U"/>
+                <constraint firstAttribute="bottom" secondItem="1eK-tc-98q" secondAttribute="bottom" constant="5" id="eVX-Wp-OfY"/>
+                <constraint firstItem="1eK-tc-98q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="o5x-dN-LCp"/>
+                <constraint firstItem="1eK-tc-98q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="x4m-jn-5PR"/>
+            </constraints>
+            <size key="customSize" width="318" height="76"/>
+            <connections>
+                <outlet property="backgroundCellView" destination="1eK-tc-98q" id="eFB-FT-4PF"/>
+                <outlet property="interestNameButton" destination="wtg-Qb-U2k" id="yuu-3U-rAP"/>
+            </connections>
+            <point key="canvasLocation" x="267" y="-51"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

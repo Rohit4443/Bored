@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyEventTVCell" rowHeight="335" id="KGk-i7-Jjw" customClass="MyEventTVCell" customModule="Bored" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="442" height="335"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="442" height="335"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ipZ-Uq-oW6">
+                        <rect key="frame" x="0.0" y="0.0" width="442" height="280"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="280" id="MoW-xs-sQa"/>
+                        </constraints>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="zqI-le-2JY">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="20"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="XhM-sw-mWH">
+                        <rect key="frame" x="163" y="189" width="116" height="26"/>
+                    </pageControl>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="ipZ-Uq-oW6" secondAttribute="trailing" id="9wV-ng-2Y1"/>
+                    <constraint firstItem="XhM-sw-mWH" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="EBd-4G-Yq6"/>
+                    <constraint firstAttribute="bottom" secondItem="ipZ-Uq-oW6" secondAttribute="bottom" id="aik-tq-44r"/>
+                    <constraint firstItem="ipZ-Uq-oW6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="au4-Jv-Gyh"/>
+                    <constraint firstItem="ipZ-Uq-oW6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hLm-7B-tDq"/>
+                    <constraint firstItem="XhM-sw-mWH" firstAttribute="bottom" secondItem="ipZ-Uq-oW6" secondAttribute="bottom" constant="-65" id="krO-Dw-C9P"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="myEventCollectionView" destination="ipZ-Uq-oW6" id="0YA-ME-uR3"/>
+            </connections>
+            <point key="canvasLocation" x="116" y="91"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

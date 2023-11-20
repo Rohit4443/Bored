@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="UploadImagesCVCell" id="gTV-IL-0wX" customClass="UploadImagesCVCell" customModule="Bored" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="404" height="572"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="404" height="572"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6k-nm-hNg">
+                        <rect key="frame" x="0.0" y="5" width="404" height="562"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_addPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="sV8-TE-vTe">
+                                <rect key="frame" x="5" y="5" width="394" height="552"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRW-TS-xhi">
+                                <rect key="frame" x="384" y="542" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="2Dc-wO-Rft"/>
+                                    <constraint firstAttribute="width" constant="22" id="mBT-OK-677"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ic_deletePhoto"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="sV8-TE-vTe" firstAttribute="leading" secondItem="o6k-nm-hNg" secondAttribute="leading" constant="5" id="6tu-QC-TWd"/>
+                            <constraint firstItem="TRW-TS-xhi" firstAttribute="top" secondItem="sV8-TE-vTe" secondAttribute="bottom" constant="-15" id="DSN-oW-DDo"/>
+                            <constraint firstItem="sV8-TE-vTe" firstAttribute="top" secondItem="o6k-nm-hNg" secondAttribute="top" constant="5" id="SBt-B1-5Eq"/>
+                            <constraint firstAttribute="trailing" secondItem="sV8-TE-vTe" secondAttribute="trailing" constant="5" id="e1E-4l-cM1"/>
+                            <constraint firstAttribute="bottom" secondItem="sV8-TE-vTe" secondAttribute="bottom" constant="5" id="sK9-W8-HVz"/>
+                            <constraint firstItem="TRW-TS-xhi" firstAttribute="leading" secondItem="sV8-TE-vTe" secondAttribute="trailing" constant="-15" id="sKj-S7-463"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="o6k-nm-hNg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="GE3-U0-6A2"/>
+                <constraint firstAttribute="trailing" secondItem="o6k-nm-hNg" secondAttribute="trailing" id="UZM-yt-Ki0"/>
+                <constraint firstAttribute="bottom" secondItem="o6k-nm-hNg" secondAttribute="bottom" constant="5" id="ZJY-3Y-o6A"/>
+                <constraint firstItem="o6k-nm-hNg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="k93-fQ-Gmg"/>
+            </constraints>
+            <size key="customSize" width="404" height="572"/>
+            <connections>
+                <outlet property="addPhotoImage" destination="sV8-TE-vTe" id="BRe-n0-84G"/>
+                <outlet property="deletePhotoButton" destination="TRW-TS-xhi" id="4PW-9Y-BfK"/>
+            </connections>
+            <point key="canvasLocation" x="-641" y="283"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_addPhoto" width="94" height="131.33332824707031"/>
+        <image name="ic_deletePhoto" width="30.666666030883789" height="31.666666030883789"/>
+    </resources>
+</document>

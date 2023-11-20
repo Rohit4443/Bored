@@ -1,0 +1,6 @@
+${PODS_ROOT}/Target Support Files/Pods-Bored/Pods-Bored-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AvailableHapticFeedback/AvailableHapticFeedback.framework
+${BUILT_PRODUCTS_DIR}/GrowingTextView/GrowingTextView.framework
+${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework
+${BUILT_PRODUCTS_DIR}/MultiSlider/MultiSlider.framework
+${BUILT_PRODUCTS_DIR}/SweeterSwift/SweeterSwift.framework
