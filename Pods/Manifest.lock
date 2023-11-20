@@ -1,32 +1,52 @@
 PODS:
+  - Alamofire (5.6.4)
   - AvailableHapticFeedback (1.0.4)
+  - Branch (1.45.2)
+  - BRYXBanner (0.8.4)
   - GrowingTextView (0.7.2)
-  - IQKeyboardManager (6.5.15)
+  - IQKeyboardManager (6.5.10)
+  - Kingfisher (7.7.0)
   - MultiSlider (2.1.2):
     - AvailableHapticFeedback
     - SweeterSwift
+  - SVProgressHUD (2.2.5)
   - SweeterSwift (1.2.3)
 
 DEPENDENCIES:
+  - Alamofire
+  - Branch
+  - BRYXBanner
   - GrowingTextView
   - IQKeyboardManager
+  - Kingfisher (~> 7.0)
   - MultiSlider
+  - SVProgressHUD
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - AvailableHapticFeedback
+    - Branch
+    - BRYXBanner
     - GrowingTextView
     - IQKeyboardManager
+    - Kingfisher
     - MultiSlider
+    - SVProgressHUD
     - SweeterSwift
 
 SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   AvailableHapticFeedback: cd3cb476743764b3efe8645d25e6b359d375ddb0
+  Branch: c1a7fa1811ef9203c01bc6c2588a229eb3ee1a84
+  BRYXBanner: 4fbd266f96ce000e4c6cc9a0558c446bd88d9801
   GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
-  IQKeyboardManager: 22ffab9bd300ad493485a390a095f5db0c841776
+  IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
+  Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
   MultiSlider: 81f5eb60f0a05073e6ee49c0b90426e4d1267b02
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SweeterSwift: 3910bab8ba35b6964d5169a3c52b2c87d930b61c
 
-PODFILE CHECKSUM: c2961493a52eef12aa15fcc98909d401d3d4ae7a
+PODFILE CHECKSUM: 9ac70e6c720123d97df282b908be07eeba5f15bc
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.11.3

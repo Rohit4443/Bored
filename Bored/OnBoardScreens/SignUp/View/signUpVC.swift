@@ -25,24 +25,33 @@ class signUpVC: UIViewController {
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var profileImage: UIImageView!
     
+    
     //MARK: - Variables -
    
     var imagePickerController = UIImagePickerController()
-  
+    var gender: Int?
+    var viewModel: SignUpVM?
+    var interestItems: String?
+    var selectedInterestedItem: [String]?
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
         super.viewDidLoad()
         createDatePicker()
         setCollectionViewDelegates()
+        setViewModel()
         
     }
     
     func setCollectionViewDelegates(){
-//        interestsCollectionView.delegate = self
-//        interestsCollectionView.dataSource = self
+        interestsCollectionView.delegate = self
+        interestsCollectionView.dataSource = self
         interestsCollectionView.register(UINib(nibName: "interestCVCell", bundle: nil), forCellWithReuseIdentifier: "interestCVCell")
        
+    }
+    
+    func setViewModel(){
+        self.viewModel = SignUpVM(observer: self)
     }
 
     //MARK: - CustomFunction -
@@ -84,12 +93,15 @@ class signUpVC: UIViewController {
     }
     
     @IBAction func signInAction(_ sender: UIButton) {
-
+        print(gender)
+        signUPApi()
+        
         
     }
     
     
     @IBAction func signUpAction(_ sender: UIButton) {
+      
         let vc = LoginVC()
         self.navigationController?.navigationBar.isHidden = true
         self.pushViewController(vc, true)
@@ -97,13 +109,157 @@ class signUpVC: UIViewController {
     
     @IBAction func interestCollectionButton(_ sender: UIButton) {
         let vc = InterestVC()
-    
+        vc.delegate = self
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true, completion: {
             vc.presentationController?.presentedView?.gestureRecognizers?[0].isEnabled = false
         })
     }
 
+    @IBAction func maleBtnAction(_ sender: UIButton) {
+        if !sender.isSelected {
+            // Female button is not selected, set the border and gender accordingly
+            sender.setBorder(.black, corner: 37.5, 2)
+            gender = 1
+            
+            // Additionally, if there's a male button, you might want to clear its border
+            genderFemaleButton.setBorder(.clear, corner: 37.5, 2)
+            genderFemaleButton.isSelected = false
+        } else {
+            // Female button is already selected, clear the border and set the gender to male
+            sender.setBorder(.clear, corner: 37.5, 2)
+            gender = 2
+        }
+        
+        // Toggle the selected state of the female button
+        sender.isSelected = !sender.isSelected
+        
+        
+        
+//        if sender.isSelected == true{
+//            genderFemaleButton.setBorder(.black, corner: 37.5, 2)
+//            gender = 2
+//        }else{
+//            genderMaleButton.setBorder(.clear, corner: 37.5, 2)
+//            gender = 1
+//        }
+    }
+
+    
+    @IBAction func femaleBtnAction(_ sender: UIButton) {
+        
+        if !sender.isSelected {
+            // Female button is not selected, set the border and gender accordingly
+            sender.setBorder(.black, corner: 37.5, 2)
+            gender = 2
+            
+            // Additionally, if there's a male button, you might want to clear its border
+            genderMaleButton.setBorder(.clear, corner: 37.5, 2)
+            genderMaleButton.isSelected = false
+        } else {
+            // Female button is already selected, clear the border and set the gender to male
+            sender.setBorder(.clear, corner: 37.5, 2)
+            gender = 1
+        }
+        
+        // Toggle the selected state of the female button
+        sender.isSelected = !sender.isSelected
+        
+        
+        
+//        if sender.isSelected == true{
+//            genderFemaleButton.setBorder(.black, corner: 37.5, 2)
+//            gender = 2
+//        }else{
+//            genderMaleButton.setBorder(.clear, corner: 37.5, 2)
+//            gender = 1
+//        }
+    }
+    
+    @IBAction func passwordEyeAction(_ sender: UIButton) {
+        sender.isSelected.toggle()
+        passwordTextField.isSecureTextEntry = !sender.isSelected
+    }
+    
+    //MARK: SignUp api
+    
+    func signUPApi() {
+        let isValidFirstName = Validator.validateName(name: firstNameTextField.text ?? "", message: "Please enter First Name")
+        
+        let isValidLastName = Validator.validateName(name: lastNameTextField.text ?? "", message: "Please enter Last Name")
+        
+        let isValidEmail = Validator.validateEmail(candidate: emailTextField.text ?? "")
+        
+        let isValidPassword = Validator.validatePassword(password: passwordTextField.text ?? "")
+
+        let isValidCollectionView = Validator.validateCollectionView(collectionView: interestsCollectionView)
+        
+        let isValidBirthday = Validator.validateName(name: birthdayTextField.text ?? "", message: "Please select DOB")
+        
+        let isValidGender = Validator.validateButtonSelection(buttons: [genderMaleButton, genderFemaleButton])
+        let isValidDisp = Validator.validateDescription(words: aboutMeTextView.text ?? "")
+        
+        guard isValidFirstName.0 == true else {
+            Singleton.showMessage(message: isValidFirstName.1, isError: .error)
+            return
+        }
+        guard isValidLastName.0 == true else {
+            Singleton.showMessage(message: isValidLastName.1, isError: .error)
+            return
+        }
+        
+        guard isValidEmail.0 == true else {
+            Singleton.showMessage(message: isValidEmail.1, isError: .error)
+            return
+        }
+
+        guard isValidPassword.0 == true else {
+            Singleton.showMessage(message: isValidPassword.1, isError: .error)
+            return
+        }
+        
+        guard isValidCollectionView.0 == true else {
+            Singleton.showMessage(message: isValidCollectionView.1, isError: .error)
+            return
+        }
+        guard isValidBirthday.0 == true else {
+            Singleton.showMessage(message: isValidBirthday.1, isError: .error)
+            return
+        }
+        guard isValidGender.0 == true else {
+            Singleton.showMessage(message: isValidGender.1, isError: .error)
+            return
+        }
+        guard isValidDisp.0 == true else {
+            Singleton.showMessage(message: isValidDisp.1, isError: .error)
+            return
+        }
+        if self.checkUncheckButton.isSelected == false{
+            showMessage(message: "Please agree with Privacy Policy.", isError: .error)
+        }else{
+            let gender = "\(gender ?? 0)"
+            viewModel?.signUPApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: "1,2", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: "", interestName: "test,test")
+        }
+        
+    }
+    
+}
+
+extension signUpVC: UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return selectedInterestedItem?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "interestCVCell", for: indexPath) as! interestCVCell
+        cell.interestNameButton.setTitle(selectedInterestedItem?[indexPath.row], for: .normal)
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let text = selectedInterestedItem?[indexPath.row] ?? ""
+        let width = UILabel.textWidth(font: UIFont.setCustom(.Poppins_Regular, 16), text: text)
+        return CGSize(width: (width + 20) - 5, height: collectionView.frame.size.height - 200)
+    }
     
     
 }
@@ -145,6 +301,30 @@ extension signUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
         alert.addAction(action2)
         present(alert, animated: true, completion: nil)
     }
+}
+
+
+extension signUpVC: InterestVCDelegate{
+    func didSelectItems(_ items: [String], other: String) {
+        print("Selected items: \(items) \(other)")
+        selectedInterestedItem = items
+        print(selectedInterestedItem)
+        let itemsString = items.joined(separator: ",")
+        print(itemsString)
+        interestItems = itemsString
+        print(interestItems)
+        interestsCollectionView.reloadData()
+        
+    }
+  
+    
+}
+extension signUpVC: SignUpVMObserver{
+    func observerSignUpApi() {
+        self.popVC()
+    }
+    
+    
 }
 
 //extension signUpVC : UICollectionViewDelegate, UICollectionViewDataSource {

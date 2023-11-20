@@ -21,15 +21,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#import <objc/runtime.h>
-
 #import "IQUIView+Hierarchy.h"
 #import "IQUITextFieldView+Additions.h"
 #import "IQUIViewController+Additions.h"
+
+#import <UIKit/UICollectionView.h>
+#import <UIKit/UIAlertController.h>
+#import <UIKit/UITableView.h>
+#import <UIKit/UITextView.h>
+#import <UIKit/UITextField.h>
+#import <UIKit/UISearchBar.h>
+#import <UIKit/UINavigationController.h>
+#import <UIKit/UITabBarController.h>
+#import <UIKit/UISplitViewController.h>
+#import <UIKit/UIWindow.h>
+
+#import <objc/runtime.h>
+
 #import "IQNSArray+Sort.h"
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation UIView (IQ_UIView_Hierarchy)
 
 -(UIViewController*)viewContainingController
@@ -43,8 +53,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         if ([nextResponder isKindOfClass:[UIViewController class]])
             return (UIViewController*)nextResponder;
 
-    }
-    while (nextResponder);
+    } while (nextResponder);
 
     return nil;
 }
@@ -60,8 +69,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         [controllersHierarchy addObject:topController];
     }
     
-    while ([topController presentedViewController])
-    {
+    while ([topController presentedViewController]) {
         
         topController = [topController presentedViewController];
         [controllersHierarchy addObject:topController];
@@ -75,8 +83,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         {
             matchController = (UIViewController*)[matchController nextResponder];
             
-        }
-        while (matchController && [matchController isKindOfClass:[UIViewController class]] == NO);
+        } while (matchController && [matchController isKindOfClass:[UIViewController class]] == NO);
     }
     
     return matchController;
@@ -92,8 +99,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         UINavigationController *navController = matchController.navigationController;
         
-        while (navController.navigationController)
-        {
+        while (navController.navigationController) {
             navController = navController.navigationController;
         }
         
@@ -199,8 +205,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 {
     BOOL _IQcanBecomeFirstResponder = NO;
     
-    if ([self conformsToProtocol:@protocol(UITextInput)])
-    {
+    if ([self conformsToProtocol:@protocol(UITextInput)]) {
         if ([self respondsToSelector:@selector(isEditable)] && [self isKindOfClass:[UIScrollView class]])
         {
             _IQcanBecomeFirstResponder = [(UITextView*)self isEditable];
@@ -424,7 +429,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 @end
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation NSObject (IQ_Logging)
 
 -(NSString *)_IQDescription

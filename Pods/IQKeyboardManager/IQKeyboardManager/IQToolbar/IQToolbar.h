@@ -21,15 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-
 #import "IQTitleBarButtonItem.h"
 
+#import <UIKit/UIToolbar.h>
+#import <UIKit/UIDevice.h>
 
 /**
  IQToolbar for IQKeyboardManager.
  */
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQToolbar : UIToolbar <UIInputViewAudioFeedback>
 
 /**

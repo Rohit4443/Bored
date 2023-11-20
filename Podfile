@@ -9,6 +9,11 @@ target 'Bored' do
 pod 'IQKeyboardManager'
 pod 'GrowingTextView'
 pod 'MultiSlider'
+pod 'SVProgressHUD'
+  pod 'Alamofire'
+  pod 'Branch' 
+pod 'BRYXBanner'
+pod 'Kingfisher', '~> 7.0'
 post_install do |installer|
      installer.pods_project.targets.each do |target|
        target.build_configurations.each do |config|

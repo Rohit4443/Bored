@@ -21,12 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-
 #import "IQToolbar.h"
 
+#import <UIKit/UIView.h>
+#import <UIKit/UIImage.h>
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQBarButtonItemConfiguration : NSObject
 
 -(nonnull instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)barButtonSystemItem action:(nullable SEL)action;
@@ -40,8 +39,12 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 @end
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIImage (IQKeyboardToolbarNextPreviousImage)
+
++(nullable UIImage*)keyboardLeftImage;
++(nullable UIImage*)keyboardRightImage;
++(nullable UIImage*)keyboardUpImage;
++(nullable UIImage*)keyboardDownImage;
 
 +(nullable UIImage*)keyboardPreviousImage;
 +(nullable UIImage*)keyboardNextImage;
@@ -51,7 +54,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 /**
  UIView category methods to add IQToolbar on UIKeyboard.
  */
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface UIView (IQToolbarAddition)
 
 ///-------------------------

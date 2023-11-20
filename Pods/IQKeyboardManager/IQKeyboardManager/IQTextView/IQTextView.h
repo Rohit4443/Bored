@@ -21,15 +21,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-
 #import "IQKeyboardManagerConstants.h"
 
+#import <UIKit/UITextView.h>
 
 /**
  UITextView with placeholder support
  */
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQTextView : UITextView
 
 /**

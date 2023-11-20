@@ -21,10 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <QuartzCore/QuartzCore.h>
-#import <UIKit/UIKit.h>
-#import <objc/runtime.h>
-
 #import "IQKeyboardManager.h"
 #import "IQUIView+Hierarchy.h"
 #import "IQUIView+IQKeyboardToolbar.h"
@@ -35,14 +31,38 @@
 #import "IQUIViewController+Additions.h"
 #import "IQPreviousNextView.h"
 
+#import <QuartzCore/CABase.h>
+
+#import <objc/runtime.h>
+
+#import <UIKit/UIAlertController.h>
+#import <UIKit/UISearchBar.h>
+#import <UIKit/UIScreen.h>
+#import <UIKit/UINavigationBar.h>
+#import <UIKit/UITapGestureRecognizer.h>
+#import <UIKit/UITextField.h>
+#import <UIKit/UITextView.h>
+#import <UIKit/UITableViewController.h>
+#import <UIKit/UICollectionViewController.h>
+#import <UIKit/UICollectionViewCell.h>
+#import <UIKit/UICollectionViewLayout.h>
+#import <UIKit/UINavigationController.h>
+#import <UIKit/UITouch.h>
+#import <UIKit/UIWindow.h>
+#import <UIKit/UIStackView.h>
+#import <UIKit/NSLayoutConstraint.h>
+#import <UIKit/UIStackView.h>
+#import <UIKit/UIAccessibility.h>
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+#import <UIKit/UIWindowScene.h>
+#import <UIKit/UIStatusBarManager.h>
+#endif
+
 NSInteger const kIQDoneButtonToolbarTag             =   -1002;
 NSInteger const kIQPreviousNextButtonToolbarTag     =   -1005;
 
 #define kIQCGPointInvalid CGPointMake(CGFLOAT_MAX, CGFLOAT_MAX)
 
-typedef void (^SizeBlock)(CGSize size);
-
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQKeyboardManager()<UIGestureRecognizerDelegate>
 
 /*******************************************/
@@ -63,9 +83,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 /** To save rootViewController.view.frame.origin. */
 @property(nonatomic, assign) CGPoint    topViewBeginOrigin;
-
-/** To save rootViewController.view.frame.origin. */
-@property(nonatomic, assign) UIEdgeInsets    topViewBeginSafeAreaInsets;
 
 /** To save rootViewController */
 @property(nullable, nonatomic, weak) UIViewController *rootViewController;
@@ -127,7 +144,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
 @end
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @implementation IQKeyboardManager
 {
 	@package
@@ -139,10 +155,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     
     /** To save keyboard size. */
     CGRect                   _kbFrame;
-
-    CGSize                   _keyboardLastNotifySize;
-    NSMutableDictionary<id<NSCopying>, SizeBlock>* _keyboardSizeObservers;
-
+    
     /*******************************************/
 }
 
@@ -212,7 +225,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             [strongSelf.resignFirstResponderGesture setDelegate:strongSelf];
             strongSelf.resignFirstResponderGesture.enabled = strongSelf.shouldResignOnTouchOutside;
             strongSelf.topViewBeginOrigin = kIQCGPointInvalid;
-            strongSelf.topViewBeginSafeAreaInsets = UIEdgeInsetsZero;
             strongSelf.topViewBeginOriginWhilePopGestureRecognizerActive = kIQCGPointInvalid;
             
             //Setting it's initial values
@@ -230,7 +242,14 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             [strongSelf setLayoutIfNeededOnUpdate:NO];
             [strongSelf setShouldToolbarUsesTextFieldTintColor:NO];
 
-            strongSelf->_keyboardSizeObservers = [[NSMutableDictionary alloc] init];
+            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
+            {
+                //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
+                UITextField *view = [[UITextField alloc] init];
+                [view addDoneOnKeyboardWithTarget:nil action:nil];
+                [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
+            }
+            
             //Initializing disabled classes Set.
             strongSelf.disabledDistanceHandlingClasses = [[NSMutableSet alloc] initWithObjects:[UITableViewController class],[UIAlertController class], nil];
             strongSelf.enabledDistanceHandlingClasses = [[NSMutableSet alloc] init];
@@ -243,14 +262,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             strongSelf.disabledTouchResignedClasses = [[NSMutableSet alloc] initWithObjects:[UIAlertController class], nil];
             strongSelf.enabledTouchResignedClasses = [[NSMutableSet alloc] init];
             strongSelf.touchResignedGestureIgnoreClasses = [[NSMutableSet alloc] initWithObjects:[UIControl class],[UINavigationBar class], nil];
-
-            //Loading IQToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay (Bug ID: #550)
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //If you experience exception breakpoint issue at below line then try these solutions https://stackoverflow.com/questions/27375640/all-exception-break-point-is-stopping-for-no-reason-on-simulator
-                UITextField *view = [[UITextField alloc] init];
-                [view addDoneOnKeyboardWithTarget:nil action:nil];
-                [view addPreviousNextDoneOnKeyboardWithTarget:nil previousAction:nil nextAction:nil doneAction:nil];
-            });
         });
     }
     return self;
@@ -345,11 +356,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         if (textFieldViewController)
         {
             //If it is searchBar textField embedded in Navigation Bar
-            if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]])
-            {
+            if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
+                
                 UINavigationController *navController = (UINavigationController*)textFieldViewController;
-                if (navController.topViewController)
-                {
+                if (navController.topViewController) {
                     textFieldViewController = navController.topViewController;
                 }
             }
@@ -440,11 +450,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         if (textFieldViewController)
         {
             //If it is searchBar textField embedded in Navigation Bar
-            if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]])
-            {
+            if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
+                
                 UINavigationController *navController = (UINavigationController*)textFieldViewController;
-                if (navController.topViewController)
-                {
+                if (navController.topViewController) {
                     textFieldViewController = navController.topViewController;
                 }
             }
@@ -496,8 +505,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 -(void)setMovedDistance:(CGFloat)movedDistance
 {
     _movedDistance = movedDistance;
-    if (self.movedDistanceChanged != nil)
-    {
+    if (self.movedDistanceChanged != nil) {
         self.movedDistanceChanged(movedDistance);
     }
 }
@@ -532,11 +540,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     if (textFieldViewController)
     {
         //If it is searchBar textField embedded in Navigation Bar
-        if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]])
-        {
+        if ([strongTextFieldView textFieldSearchBar] != nil && [textFieldViewController isKindOfClass:[UINavigationController class]]) {
+            
             UINavigationController *navController = (UINavigationController*)textFieldViewController;
-            if (navController.topViewController)
-            {
+            if (navController.topViewController) {
                 textFieldViewController = navController.topViewController;
             }
         }
@@ -603,26 +610,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         UIWindow *originalKeyWindow = nil;
 
         #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        if (@available(iOS 13.0, *))
-        {
+        if (@available(iOS 13.0, *)) {
             NSSet<UIScene *> *connectedScenes = [UIApplication sharedApplication].connectedScenes;
-            for (UIScene *scene in connectedScenes)
-            {
-                if (scene.activationState == UISceneActivationStateForegroundActive && [scene isKindOfClass:[UIWindowScene class]])
-                {
+            for (UIScene *scene in connectedScenes) {
+                if (scene.activationState == UISceneActivationStateForegroundActive && [scene isKindOfClass:[UIWindowScene class]]) {
                     UIWindowScene *windowScene = (UIWindowScene *)scene;
-                    for (UIWindow *window in windowScene.windows)
-                    {
-                        if (window.isKeyWindow)
-                        {
+                    for (UIWindow *window in windowScene.windows) {
+                        if (window.isKeyWindow) {
                             originalKeyWindow = window;
                             break;
                         }
                     }
                 }
             }
-        }
-        else
+        } else
         #endif
         {
         #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -635,45 +636,26 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         {
             cachedKeyWindow = originalKeyWindow;
         }
-
-        __strong UIWindow *strongCachedKeyWindow = cachedKeyWindow;
-
-        return strongCachedKeyWindow;
-    }
-}
-
--(void)applicationDidBecomeActive:(NSNotification*)aNotification
-{
-    if ([self privateIsEnabled] == YES)
-    {
-        UIView *textFieldView = _textFieldView;
-
-        if (textFieldView &&
-            _keyboardShowing == YES &&
-            CGPointEqualToPoint(_topViewBeginOrigin, kIQCGPointInvalid) == false &&
-            [textFieldView isAlertViewTextField] == NO)
-        {
-            [self optimizedAdjustPosition];
-        }
+        
+        return cachedKeyWindow;
     }
 }
 
 -(void)optimizedAdjustPosition
 {
-    if (_hasPendingAdjustRequest == NO &&
-        [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
+    if (_hasPendingAdjustRequest == NO)
     {
         _hasPendingAdjustRequest = YES;
         
         __weak __typeof__(self) weakSelf = self;
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            
             __strong __typeof__(self) strongSelf = weakSelf;
 
             [strongSelf adjustPosition];
             strongSelf.hasPendingAdjustRequest = NO;
-        });
+        }];
     }
 }
 
@@ -696,7 +678,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         return;
     
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //  Converting Rectangle according to window bounds.
     CGRect textFieldViewRectInWindow = [[textFieldView superview] convertRect:textFieldView.frame toView:keyWindow];
@@ -719,17 +701,13 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CGFloat keyboardDistanceFromTextField = (specialKeyboardDistanceFromTextField == kIQUseDefaultKeyboardDistance)?_keyboardDistanceFromTextField:specialKeyboardDistanceFromTextField;
 
     CGSize kbSize;
-    CGSize originalKbSize;
-
+    
     {
         CGRect kbFrame = _kbFrame;
         
         kbFrame.origin.y -= keyboardDistanceFromTextField;
         kbFrame.size.height += keyboardDistanceFromTextField;
-
-        kbFrame.origin.y -= _topViewBeginSafeAreaInsets.bottom;
-        kbFrame.size.height += _topViewBeginSafeAreaInsets.bottom;
-
+        
         //Calculating actual keyboard displayed size, keyboard frame may be different when hardware keyboard is attached (Bug ID: #469) (Bug ID: #381) (Bug ID: #1506)
         CGRect intersectRect = CGRectIntersection(kbFrame, keyWindow.frame);
         
@@ -743,49 +721,24 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         }
     }
 
-    {
-        CGRect intersectRect = CGRectIntersection(_kbFrame, keyWindow.frame);
+    CGFloat statusBarHeight = 0;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
+    if (@available(iOS 13.0, *)) {
+        statusBarHeight = [self keyWindow].windowScene.statusBarManager.statusBarFrame.size.height;
 
-        if (CGRectIsNull(intersectRect))
-        {
-            originalKbSize = CGSizeMake(_kbFrame.size.width, 0);
-        }
-        else
-        {
-            originalKbSize = intersectRect.size;
-        }
+    } else
+#endif
+    {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
+        statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+#endif
     }
 
-    CGFloat navigationBarAreaHeight = 0;
-
-    if (rootController.navigationController != nil)
-    {
-        navigationBarAreaHeight = CGRectGetMaxY(rootController.navigationController.navigationBar.frame);
-    }
-    else
-    {
-        CGFloat statusBarHeight = 0;
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        if (@available(iOS 13.0, *))
-        {
-            statusBarHeight = [self keyWindow].windowScene.statusBarManager.statusBarFrame.size.height;
-
-        }
-        else
-    #endif
-        {
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
-            statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-    #endif
-        }
-
-        navigationBarAreaHeight = statusBarHeight;
-    }
-
-    CGFloat layoutAreaHeight = rootController.view.directionalLayoutMargins.top;
-
+    CGFloat navigationBarAreaHeight = statusBarHeight + rootController.navigationController.navigationBar.frame.size.height;
+    CGFloat layoutAreaHeight = rootController.view.layoutMargins.top;
+    
     CGFloat topLayoutGuide = MAX(navigationBarAreaHeight, layoutAreaHeight) + 5;
-    CGFloat bottomLayoutGuide = ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]]) ? 0 : rootController.view.directionalLayoutMargins.bottom; //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
+    CGFloat bottomLayoutGuide = ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]]) ? 0 : rootController.view.layoutMargins.bottom; //Validation of textView for case where there is a tab bar at the bottom or running on iPhone X and textView is at the bottom.
 
     //  +Move positive = textField is hidden.
     //  -Move negative = textField is showing.
@@ -841,12 +794,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 
                 BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                if (animatedContentOffset)
-                {
+                if (animatedContentOffset) {
                     [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
-                }
-                else
-                {
+                } else {
                     strongLastScrollView.contentOffset = _startingContentOffset;
                 }
             }
@@ -881,12 +831,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                 BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                if (animatedContentOffset)
-                {
+                if (animatedContentOffset) {
                     [strongLastScrollView setContentOffset:_startingContentOffset animated:UIView.areAnimationsEnabled];
-                }
-                else
-                {
+                } else {
                     strongLastScrollView.contentOffset = _startingContentOffset;
                 }
             }
@@ -896,11 +843,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             _startingContentInsets = superScrollView.contentInset;
             _startingContentOffset = superScrollView.contentOffset;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-            if (@available(iOS 11.1, *))
-            {
+            if (@available(iOS 11.1, *)) {
                 _startingScrollIndicatorInsets = superScrollView.verticalScrollIndicatorInsets;
-            }
-            else
+            } else
 #endif
             {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -920,11 +865,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         _startingContentInsets = superScrollView.contentInset;
         _startingContentOffset = superScrollView.contentOffset;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-        if (@available(iOS 11.1, *))
-        {
+        if (@available(iOS 11.1, *)) {
             _startingScrollIndicatorInsets = superScrollView.verticalScrollIndicatorInsets;
-        }
-        else
+        } else
 #endif
         {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -1008,8 +951,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         //If the textField is hidden at the top
                         shouldContinue = textFieldViewRectInRootSuperview.origin.y < topLayoutGuide;
                         
-                        if (shouldContinue)
-                        {
+                        if (shouldContinue) {
                             move = MIN(0, textFieldViewRectInRootSuperview.origin.y - topLayoutGuide);
                         }
                     }
@@ -1090,12 +1032,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         
                         BOOL animatedContentOffset = ([textFieldView superviewOfClassType:[UIStackView class] belowView:superScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                        if (animatedContentOffset)
-                        {
+                        if (animatedContentOffset) {
                             [superScrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
-                        }
-                        else
-                        {
+                        } else {
                             superScrollView.contentOffset = newContentOffset;
                         }
                     } completion:^(BOOL finished){
@@ -1116,19 +1055,21 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             }
             
             //Updating contentInset
-            if (strongLastScrollView.shouldIgnoreContentInsetAdjustment == NO)
+            if (strongLastScrollView.shouldIgnoreContentInsetAdjustment == false)
             {
                 CGRect lastScrollViewRect = [[strongLastScrollView superview] convertRect:strongLastScrollView.frame toView:keyWindow];
 
                 CGFloat bottomInset = (kbSize.height)-(CGRectGetHeight(keyWindow.frame)-CGRectGetMaxY(lastScrollViewRect));
-                CGFloat bottomScrollIndicatorInset = bottomInset - keyboardDistanceFromTextField - _topViewBeginSafeAreaInsets.bottom;
+                CGFloat bottomScrollIndicatorInset = bottomInset - keyboardDistanceFromTextField;
 
                 // Update the insets so that the scroll vew doesn't shift incorrectly when the offset is near the bottom of the scroll view.
                 bottomInset = MAX(_startingContentInsets.bottom, bottomInset);
                 bottomScrollIndicatorInset = MAX(_startingScrollIndicatorInsets.bottom, bottomScrollIndicatorInset);
 
-                bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
-                bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
+                if (@available(iOS 11, *)) {
+                    bottomInset -= strongLastScrollView.safeAreaInsets.bottom;
+                    bottomScrollIndicatorInset -= strongLastScrollView.safeAreaInsets.bottom;
+                }
 
                 UIEdgeInsets movedInsets = strongLastScrollView.contentInset;
                 movedInsets.bottom = bottomInset;
@@ -1142,11 +1083,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                         strongLastScrollView.contentInset = movedInsets;
                         UIEdgeInsets newScrollIndicatorInset;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-                        if (@available(iOS 11.1, *))
-                        {
+                        if (@available(iOS 11.1, *)) {
                             newScrollIndicatorInset = strongLastScrollView.verticalScrollIndicatorInsets;
-                        }
-                        else
+                        } else
 #endif
                         {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -1172,7 +1111,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         {
             UIScrollView *textView = (UIScrollView*)textFieldView;
 
-            CGFloat keyboardYPosition = CGRectGetHeight(keyWindow.frame)-originalKbSize.height;
+            CGFloat keyboardYPosition = CGRectGetHeight(keyWindow.frame)-(kbSize.height-keyboardDistanceFromTextField);
 
             CGRect rootSuperViewFrameInWindow = [rootController.view.superview convertRect:rootController.view.superview.bounds toView:keyWindow];
 
@@ -1188,11 +1127,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     self.startingTextViewContentInsets = textView.contentInset;
                     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-                    if (@available(iOS 11.1, *))
-                    {
+                    if (@available(iOS 11.1, *)) {
                         self.startingTextViewScrollIndicatorInsets = textView.verticalScrollIndicatorInsets;
-                    }
-                    else
+                    } else
 #endif
                     {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -1202,7 +1139,10 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 }
 
                 CGFloat bottomInset = textFieldView.frame.size.height-textViewHeight;
-                bottomInset -= textFieldView.safeAreaInsets.bottom;
+
+                if (@available(iOS 11, *)) {
+                    bottomInset -= textFieldView.safeAreaInsets.bottom;
+                }
 
                 UIEdgeInsets newContentInset = textView.contentInset;
                 newContentInset.bottom = bottomInset;
@@ -1235,7 +1175,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 rootViewOrigin.y -= move;
                 
                 //  From now prevent keyboard manager to slide up the rootView to more than keyboard height. (Bug ID: #93)
-                rootViewOrigin.y = MAX(rootViewOrigin.y, MIN(0, -originalKbSize.height));
+                rootViewOrigin.y = MAX(rootViewOrigin.y, MIN(0, -(kbSize.height-keyboardDistanceFromTextField)));
 
                 [self showLog:@"Moving Upward"];
                 //  Setting adjusted rootViewOrigin.ty
@@ -1305,7 +1245,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
     
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 -(void)restorePosition
@@ -1333,8 +1273,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                 strongSelf.movedDistance = 0;
                 
-                if (strongRootController.navigationController.interactivePopGestureRecognizer.state == UIGestureRecognizerStateBegan)
-                {
+                if (strongRootController.navigationController.interactivePopGestureRecognizer.state == UIGestureRecognizerStateBegan) {
                     strongSelf.rootViewControllerWhilePopGestureRecognizerActive = strongRootController;
                     strongSelf.topViewBeginOriginWhilePopGestureRecognizerActive = strongSelf.topViewBeginOrigin;
                 }
@@ -1389,32 +1328,22 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
     
     //Saving animation duration
-    if (duration!= 0.0f)
-    {
-        _animationDuration = duration;
-    }
-    else
-    {
-        _animationDuration = 0.25;
-    }
-
+    if (duration != 0.0)    _animationDuration = duration;
+    
     CGRect oldKBFrame = _kbFrame;
     
     //  Getting UIKeyboardSize.
     _kbFrame = [[aNotification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
-    [self notifyKeyboardSize:_kbFrame.size];
-
     if ([self privateIsEnabled] == NO)
     {
         [self restorePosition];
         _topViewBeginOrigin = kIQCGPointInvalid;
-        _topViewBeginSafeAreaInsets = UIEdgeInsetsZero;
         return;
     }
 	
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     UIView *textFieldView = _textFieldView;
 
@@ -1431,7 +1360,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         else
         {
             _topViewBeginOrigin = rootController.view.frame.origin;
-            _topViewBeginSafeAreaInsets = rootController.view.safeAreaInsets;
         }
         
         _rootViewControllerWhilePopGestureRecognizerActive = nil;
@@ -1454,7 +1382,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /*  UIKeyboardDidShowNotification. */
@@ -1463,10 +1391,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     if ([self privateIsEnabled] == NO)	return;
     
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
-
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", aNotification.object]];
-
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
+    
     UIView *textFieldView = _textFieldView;
 
     //  Getting topMost ViewController.
@@ -1482,7 +1408,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
     
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /*  UIKeyboardWillHideNotification. So setting rootViewController to it's default frame. */
@@ -1495,23 +1421,17 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     _keyboardShowing = NO;
     
     //  Getting keyboard animation duration
-    CGFloat duration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    if (duration!= 0.0f)
+    CGFloat aDuration = [[aNotification userInfo][UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    if (aDuration!= 0.0f)
     {
-        _animationDuration = duration;
-    }
-    else
-    {
-        _animationDuration = 0.25;
+        _animationDuration = aDuration;
     }
     
     //If not enabled then do nothing.
     if ([self privateIsEnabled] == NO)	return;
     
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
-
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", aNotification.object]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //Commented due to #56. Added all the conditions below to handle WKWebView's textFields.    (Bug ID: #56)
     //  We are unable to get textField object while keyboard showing on WKWebView's textField.  (Bug ID: #11)
@@ -1544,12 +1464,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                 BOOL animatedContentOffset = ([strongTextFieldView superviewOfClassType:[UIStackView class] belowView:strongLastScrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                if (animatedContentOffset)
-                {
+                if (animatedContentOffset) {
                     [strongLastScrollView setContentOffset:strongSelf.startingContentOffset animated:UIView.areAnimationsEnabled];
-                }
-                else
-                {
+                } else {
                     strongLastScrollView.contentOffset = strongSelf.startingContentOffset;
                 }
             }
@@ -1572,18 +1489,14 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 
                         BOOL animatedContentOffset = ([strongSelf.textFieldView superviewOfClassType:[UIStackView class] belowView:superscrollView] != nil);   //  (Bug ID: #1365, #1508, #1541)
 
-                        if (animatedContentOffset)
-                        {
+                        if (animatedContentOffset) {
                             [superscrollView setContentOffset:newContentOffset animated:UIView.areAnimationsEnabled];
-                        }
-                        else
-                        {
+                        } else {
                             superscrollView.contentOffset = newContentOffset;
                         }
                     }
                 }
-            }
-            while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]));
+            } while ((superscrollView = (UIScrollView*)[superscrollView superviewOfClassType:[UIScrollView class]]));
 
         } completion:NULL];
     }
@@ -1593,72 +1506,37 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     //Reset all values
     _lastScrollView = nil;
     _kbFrame = CGRectZero;
-    [self notifyKeyboardSize:_kbFrame.size];
     _startingContentInsets = UIEdgeInsetsZero;
     _startingScrollIndicatorInsets = UIEdgeInsetsZero;
     _startingContentOffset = CGPointZero;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /*  UIKeyboardDidHideNotification. So topViewBeginRect can be set to CGRectZero. */
 - (void)keyboardDidHide:(NSNotification*)aNotification
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
-
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", aNotification.object]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     _topViewBeginOrigin = kIQCGPointInvalid;
-    _topViewBeginSafeAreaInsets = UIEdgeInsetsZero;
 
     _kbFrame = CGRectZero;
-    [self notifyKeyboardSize:_kbFrame.size];
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
-}
-
--(void)registerKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier sizeHandler:(void (^_Nonnull)(CGSize size))sizeHandler
-{
-    _keyboardSizeObservers[identifier] = sizeHandler;
-}
-
--(void)unregisterKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier
-{
-    _keyboardSizeObservers[identifier] = nil;
-}
-
--(void)notifyKeyboardSize:(CGSize)size
-{
-    if (!CGSizeEqualToSize(size, _keyboardLastNotifySize))
-    {
-        _keyboardLastNotifySize = size;
-        for (SizeBlock block in _keyboardSizeObservers.allValues)
-        {
-            block(size);
-        }
-    }
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 #pragma mark - UITextFieldView Delegate methods
 /**  UITextFieldTextDidBeginEditingNotification, UITextViewTextDidBeginEditingNotification. Fetching UITextFieldView object. */
 -(void)textFieldViewDidBeginEditing:(NSNotification*)notification
 {
-    UIView *object = (UIView*)notification.object;
-    if (object.window.isKeyWindow == NO)
-    {
-        return;
-    }
-
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
-
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", notification.object]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //  Getting object
-    _textFieldView = object;
+    _textFieldView = notification.object;
     
     UIView *textFieldView = _textFieldView;
 
@@ -1685,7 +1563,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         if ([textFieldView respondsToSelector:@selector(isEditable)] && [textFieldView isKindOfClass:[UIScrollView class]] &&
             textFieldView.inputAccessoryView == nil)
         {
-            [self addToolbarIfRequired];
+            __weak __typeof__(self) weakSelf = self;
+
+            [UIView animateWithDuration:0.00001 delay:0 options:(_animationCurve|UIViewAnimationOptionBeginFromCurrentState) animations:^{
+
+                __strong __typeof__(self) strongSelf = weakSelf;
+
+                [strongSelf addToolbarIfRequired];
+            } completion:^(BOOL finished) {
+
+                __strong __typeof__(self) strongSelf = weakSelf;
+
+                //On textView toolbar didn't appear on first time, so forcing textView to reload it's inputViews.
+                [strongSelf.textFieldView reloadInputViews];
+            }];
         }
         //Else adding toolbar
         else
@@ -1706,7 +1597,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         [self restorePosition];
         _topViewBeginOrigin = kIQCGPointInvalid;
-        _topViewBeginSafeAreaInsets = UIEdgeInsetsZero;
     }
     else
     {
@@ -1723,7 +1613,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             else
             {
                 _topViewBeginOrigin = rootController.view.frame.origin;
-                _topViewBeginSafeAreaInsets = rootController.view.safeAreaInsets;
             }
             
             _rootViewControllerWhilePopGestureRecognizerActive = nil;
@@ -1749,22 +1638,14 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 //    }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /**  UITextFieldTextDidEndEditingNotification, UITextViewTextDidEndEditingNotification. Removing fetched object. */
 -(void)textFieldViewDidEndEditing:(NSNotification*)notification
 {
-    UIView *object = (UIView*)notification.object;
-    if (object.window.isKeyWindow == NO)
-    {
-        return;
-    }
-
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
-
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", notification.object]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     UIView *textFieldView = _textFieldView;
 
@@ -1799,31 +1680,12 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             } completion:NULL];
         }
     }
-
-
+    
     //Setting object to nil
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 160000
-    if (@available(iOS 16.0, *))
-    {
-        if ([textFieldView isKindOfClass:[UITextView class]] && [(UITextView*)textFieldView isFindInteractionEnabled])
-        {
-            //Not setting it nil, because it may be doing find interaction.
-            //As of now, here textView.findInteraction.isFindNavigatorVisible returns NO
-            //So there is no way to detect if this is dismissed due to findInteraction
-        }
-        else
-        {
-            textFieldView = nil;
-        }
-    }
-    else
-#endif
-    {
-        textFieldView = nil;
-    }
+    _textFieldView = nil;
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 //-(void)editingDidEndOnExit:(UITextField*)textField
@@ -1838,11 +1700,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     UIInterfaceOrientation currentStatusBarOrientation = UIInterfaceOrientationUnknown;
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 130000
-    if (@available(iOS 13.0, *))
-    {
+    if (@available(iOS 13.0, *)) {
         currentStatusBarOrientation = [self keyWindow].windowScene.interfaceOrientation;
-    }
-    else
+    } else
 #endif
     {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < 130000
@@ -1855,15 +1715,12 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     UIInterfaceOrientation statusBarOrientation = [aNotification.userInfo[UIApplicationStatusBarOrientationUserInfoKey] integerValue];
 #pragma clang diagnostic pop
     
-    if (statusBarOrientation != currentStatusBarOrientation)
-    {
+    if (statusBarOrientation != currentStatusBarOrientation) {
         return;
     }
     
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
-
-    [self showLog:[NSString stringWithFormat:@"Notification Object: %@", aNotification.object]];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     __strong __typeof__(UIView) *strongTextFieldView = _textFieldView;
 
@@ -1894,7 +1751,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     [self restorePosition];
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 #pragma mark AutoResign methods
@@ -2017,14 +1874,20 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         UITextField *nextTextField = textFields[index-1];
         
+        //  Retaining textFieldView
+        UIView *textFieldRetain = _textFieldView;
+        
         BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
-
+        
         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
         if (isAcceptAsFirstResponder == NO)
         {
+            //If next field refuses to become first responder then restoring old textField as first responder.
+            [textFieldRetain becomeFirstResponder];
+            
             [self showLog:[NSString stringWithFormat:@"Refuses to become first responder: %@",nextTextField]];
         }
-
+        
         return isAcceptAsFirstResponder;
     }
     else
@@ -2047,15 +1910,21 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
         index < textFields.count-1)
     {
         UITextField *nextTextField = textFields[index+1];
-
+        
+        //  Retaining textFieldView
+        UIView *textFieldRetain = _textFieldView;
+        
         BOOL isAcceptAsFirstResponder = [nextTextField becomeFirstResponder];
-
+        
         //  If it refuses then becoming previous textFieldView as first responder again.    (Bug ID: #96)
         if (isAcceptAsFirstResponder == NO)
         {
+            //If next field refuses to become first responder then restoring old textField as first responder.
+            [textFieldRetain becomeFirstResponder];
+            
             [self showLog:[NSString stringWithFormat:@"Refuses to become first responder: %@",nextTextField]];
         }
-
+        
         return isAcceptAsFirstResponder;
     }
     else
@@ -2120,7 +1989,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 -(void)addToolbarIfRequired
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
     
     //    Getting all the sibling textFields.
     NSArray<UIView*> *siblings = [self responderViews];
@@ -2157,46 +2026,18 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
             }
             rightConfiguration.accessibilityLabel = _toolbarDoneBarButtonItemAccessibilityLabel ? : @"Done";
 
-            BOOL isTableCollectionView = NO;
-            if ([textFieldView superviewOfClassType:[UITableView class]] != nil
-                || [textFieldView superviewOfClassType:[UICollectionView class]] != nil)
+            //    If only one object is found, then adding only Done button.
+            if ((siblings.count <= 1 && self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysHide)
             {
-                isTableCollectionView = YES;
-            }
-            else
-            {
-                isTableCollectionView = NO;
-            }
+                [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
 
-            BOOL shouldHavePreviousNext = NO;
-            switch (self.previousNextDisplayMode)
-            {
-                case IQPreviousNextDisplayModeDefault:
-                    if (isTableCollectionView)
-                    {
-                        shouldHavePreviousNext = YES;
-                    }
-                    else if (siblings.count <= 1)
-                    {
-                        shouldHavePreviousNext = NO;
-                    }
-                    else
-                    {
-                        shouldHavePreviousNext = YES;
-                    }
-                    break;
-                case IQPreviousNextDisplayModeAlwaysShow:
-                    shouldHavePreviousNext = YES;
-                    break;
-                case IQPreviousNextDisplayModeAlwaysHide:
-                    shouldHavePreviousNext = NO;
-                    break;
+                textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
             }
-
-            if (shouldHavePreviousNext)
+            //If there is multiple siblings of textField
+            else if ((self.previousNextDisplayMode == IQPreviousNextDisplayModeDefault) || self.previousNextDisplayMode == IQPreviousNextDisplayModeAlwaysShow)
             {
                 IQBarButtonItemConfiguration *prevConfiguration = nil;
-
+                
                 //Supporting Custom Done button image (Enhancement ID: #366)
                 if (_toolbarPreviousBarButtonItemImage)
                 {
@@ -2212,9 +2053,9 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     prevConfiguration = [[IQBarButtonItemConfiguration alloc] initWithImage:[UIImage keyboardPreviousImage] action:@selector(previousAction:)];
                 }
                 prevConfiguration.accessibilityLabel = _toolbarPreviousBarButtonItemAccessibilityLabel ? : @"Previous";
-
+                
                 IQBarButtonItemConfiguration *nextConfiguration = nil;
-
+                
                 //Supporting Custom Done button image (Enhancement ID: #366)
                 if (_toolbarNextBarButtonItemImage)
                 {
@@ -2234,28 +2075,8 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                 [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:prevConfiguration nextBarButtonConfiguration:nextConfiguration];
 
                 textField.inputAccessoryView.tag = kIQPreviousNextButtonToolbarTag; //  (Bug ID: #78)
-
-                if (isTableCollectionView)
-                {
-                    // In case of UITableView (Special), the next/previous buttons should always be enabled.    (Bug ID: #56)
-                    textField.keyboardToolbar.previousBarButton.enabled = YES;
-                    textField.keyboardToolbar.nextBarButton.enabled = YES;
-                }
-                else
-                {
-                    // If firstTextField, then previous should not be enabled.
-                    textField.keyboardToolbar.previousBarButton.enabled = (siblings.firstObject != textField);
-                    // If lastTextField then next should not be enaled.
-                    textField.keyboardToolbar.nextBarButton.enabled = (siblings.lastObject != textField);
-                }
             }
-            else
-            {
-                [textField addKeyboardToolbarWithTarget:self titleText:(_shouldShowToolbarPlaceholder ? textField.drawingToolbarPlaceholder : nil) rightBarButtonConfiguration:rightConfiguration previousBarButtonConfiguration:nil nextBarButtonConfiguration:nil];
-
-                textField.inputAccessoryView.tag = kIQDoneButtonToolbarTag; //  (Bug ID: #78)
-            }
-
+            
             IQToolbar *toolbar = textField.keyboardToolbar;
             
             //Bar style according to keyboard appearance
@@ -2327,18 +2148,45 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
                     toolbar.titleBarButton.title = nil;
                 }
             }
+
+            //In case of UITableView (Special), the next/previous buttons has to be refreshed everytime.    (Bug ID: #56)
+            //    If firstTextField, then previous should not be enabled.
+            if (siblings.firstObject == textField)
+            {
+                if (siblings.count == 1)
+                {
+                    textField.keyboardToolbar.previousBarButton.enabled = NO;
+                    textField.keyboardToolbar.nextBarButton.enabled = NO;
+                }
+                else
+                {
+                    textField.keyboardToolbar.previousBarButton.enabled = NO;
+                    textField.keyboardToolbar.nextBarButton.enabled = YES;
+                }
+            }
+            //    If lastTextField then next should not be enaled.
+            else if ([siblings lastObject] == textField)
+            {
+                textField.keyboardToolbar.previousBarButton.enabled = YES;
+                textField.keyboardToolbar.nextBarButton.enabled = NO;
+            }
+            else
+            {
+                textField.keyboardToolbar.previousBarButton.enabled = YES;
+                textField.keyboardToolbar.nextBarButton.enabled = YES;
+            }
         }
     }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /** Remove any toolbar if it is IQToolbar. */
 -(void)removeToolbarIfRequired  //  (Bug ID: #18)
 {
     CFTimeInterval startTime = CACurrentMediaTime();
-    [self showLog:[NSString stringWithFormat:@">>>>> %@ started >>>>>",NSStringFromSelector(_cmd)] indentation:1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ started ******",NSStringFromSelector(_cmd)] indentation:1];
 
     //    Getting all the sibling textFields.
     NSArray<UIView*> *siblings = [self responderViews];
@@ -2360,7 +2208,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     }
 
     CFTimeInterval elapsedTime = CACurrentMediaTime() - startTime;
-    [self showLog:[NSString stringWithFormat:@"<<<<< %@ ended: %g seconds <<<<<",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
+    [self showLog:[NSString stringWithFormat:@"****** %@ ended: %g seconds ******",NSStringFromSelector(_cmd),elapsedTime] indentation:-1];
 }
 
 /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
@@ -2527,9 +2375,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-
+    
     //  Registering for UITextField notification.
     [self registerTextFieldViewClass:[UITextField class]
      didBeginEditingNotificationName:UITextFieldTextDidBeginEditingNotification
@@ -2554,8 +2400,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 
     //  Unregistering for UITextField notification.
     [self unregisterTextFieldViewClass:[UITextField class]
@@ -2592,8 +2436,7 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
     {
         NSMutableString *preLog = [[NSMutableString alloc] init];
         
-        for (int i = 0; i<=indentation; i++)
-        {
+        for (int i = 0; i<=indentation; i++) {
             [preLog appendString:@"|\t"];
         }
 

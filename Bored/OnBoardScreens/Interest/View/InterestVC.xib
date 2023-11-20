@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,6 +22,7 @@
                 <outlet property="contentBgView" destination="i5M-Pr-FkT" id="0gQ-Dk-sNa"/>
                 <outlet property="interestListCollectionView" destination="iDf-ja-s2J" id="jin-Ji-osD"/>
                 <outlet property="mainBgview" destination="Nwz-EZ-dVW" id="TRs-uk-SGd"/>
+                <outlet property="otherTV" destination="aDB-rc-jLy" id="79v-Bb-LCV"/>
                 <outlet property="submitButton" destination="jVh-Zo-oXh" id="Qok-6l-IGl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -32,13 +33,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nwz-EZ-dVW">
-                    <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                    <rect key="frame" x="0.0" y="50" width="375" height="617"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJm-0u-zOU">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What are your interest? " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dYD-Fh-dOk">
-                                    <rect key="frame" x="43.5" y="40" width="288" height="31.5"/>
+                                    <rect key="frame" x="25.5" y="40" width="324.5" height="38"/>
                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="27"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -49,7 +50,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select at least three interests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="av0-wZ-DZ4">
-                                    <rect key="frame" x="43.5" y="76.5" width="326.5" height="20"/>
+                                    <rect key="frame" x="25.5" y="83" width="344.5" height="24"/>
                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="17"/>
                                     <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -79,13 +80,13 @@
                             </constraints>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hln-Xg-783">
-                            <rect key="frame" x="0.0" y="120" width="375" height="477"/>
+                            <rect key="frame" x="0.0" y="120" width="375" height="497"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvJ-xQ-elp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="485"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="505"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="iDf-ja-s2J">
-                                            <rect key="frame" x="20" y="0.0" width="335" height="256"/>
+                                            <rect key="frame" x="20" y="0.0" width="335" height="276"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="mrT-hb-mIx">
                                                 <size key="itemSize" width="128" height="128"/>
@@ -95,19 +96,19 @@
                                             </collectionViewFlowLayout>
                                         </collectionView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDZ-c3-rN2">
-                                            <rect key="frame" x="20" y="256" width="335" height="130"/>
+                                            <rect key="frame" x="20" y="276" width="335" height="130"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMi-8O-xTU">
-                                                    <rect key="frame" x="2" y="10" width="45.5" height="21"/>
+                                                    <rect key="frame" x="2" y="10" width="51" height="25.5"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OlC-J1-7Hw">
-                                                    <rect key="frame" x="0.0" y="43" width="335" height="85.5"/>
+                                                    <rect key="frame" x="0.0" y="47.5" width="335" height="81"/>
                                                     <subviews>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="lorem Ipsum" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aDB-rc-jLy">
-                                                            <rect key="frame" x="10" y="8" width="315" height="69.5"/>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aDB-rc-jLy">
+                                                            <rect key="frame" x="10" y="8" width="315" height="65"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <color key="textColor" systemColor="labelColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -145,7 +146,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVh-Zo-oXh">
-                                            <rect key="frame" x="20" y="405" width="335" height="50"/>
+                                            <rect key="frame" x="20" y="425" width="335" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="50" id="c6c-7y-0ku"/>

@@ -21,12 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-
 #import "IQNSArray+Sort.h"
 #import "IQUIView+Hierarchy.h"
 
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
+#import <UIKit/UIView.h>
+
 @implementation NSArray (IQ_NSArray_Sort)
 
 - (NSArray<UIView*>*)sortedArrayByTag

@@ -21,10 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <CoreGraphics/CoreGraphics.h>
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 #import "IQKeyboardManagerConstants.h"
 #import "IQUIView+IQKeyboardToolbar.h"
 #import "IQPreviousNextView.h"
@@ -37,6 +33,14 @@
 #import "IQBarButtonItem.h"
 #import "IQTitleBarButtonItem.h"
 #import "IQUIView+Hierarchy.h"
+
+#import <CoreGraphics/CGBase.h>
+
+#import <Foundation/NSObject.h>
+#import <Foundation/NSObjCRuntime.h>
+#import <Foundation/NSSet.h>
+
+#import <UIKit/UITextInputTraits.h>
 
 @class UIFont, UIColor, UITapGestureRecognizer, UIView, UIImage;
 
@@ -61,8 +65,6 @@ extern NSInteger const kIQPreviousNextButtonToolbarTag;
 /**
  Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextField/UITextView. Neither need to write any code nor any setup required and much more. A generic version of KeyboardManagement. https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/KeyboardManagement/KeyboardManagement.html
  */
-
-NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
 @interface IQKeyboardManager : NSObject
 
 ///--------------------------
@@ -298,20 +300,6 @@ NS_EXTENSION_UNAVAILABLE_IOS("Unavailable in extension")
  if shouldResignOnTouchOutside is enabled then you can customise the behaviour to not recognise gesture touches on some specific view subclasses. Class should be kind of UIView. Default is [UIControl, UINavigationBar]
  */
 @property(nonatomic, strong, nonnull, readonly) NSMutableSet<Class> *touchResignedGestureIgnoreClasses;
-
-///---------------------------------------------
-/// @name Register for keyboard size events
-///---------------------------------------------
-
-/**
- register an object to get keyboard size change events
- */
--(void)registerKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier sizeHandler:(void (^_Nonnull)(CGSize size))sizeHandler;
-
-/**
- unregister the object which was registered before
- */
--(void)unregisterKeyboardSizeChangeWithIdentifier:(nonnull id<NSCopying>)identifier;
 
 ///-------------------------------------------
 /// @name Third Party Library support

@@ -7,6 +7,9 @@
 
 import UIKit
 
+protocol InterestVCDelegate{
+    func didSelectItems(_ items: [String], other: String)
+}
 
 class InterestVC: UIViewController {
     
@@ -17,9 +20,14 @@ class InterestVC: UIViewController {
     @IBOutlet weak var mainBgview: UIView!
     
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var otherTV: UITextView!
+    
+    
     //MARK: - Variables -
     
     var interArr = [UserInterestt]()
+     
+    var delegate: InterestVCDelegate?
 
 
 
@@ -112,9 +120,20 @@ class InterestVC: UIViewController {
     
     
     @IBAction func submitAction(_ sender: UIButton) {
-        DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
+        if arraySelectedValue.isEmpty {
+            showMessage(message: "Please select interest from the list", isError: .error)
+        } else if self.otherTV.text.isEmpty {
+            showMessage(message: "Please enter other", isError: .error)
+            print("otherTV.text is empty")
+        } else {
+            print(arraySelectedValue)
+            DispatchQueue.main.async {
+                self.delegate?.didSelectItems(self.arraySelectedValue, other: self.otherTV.text ?? "")
+                self.dismiss(animated: true, completion: nil)
+            }
         }
+
+       
     }
     
     

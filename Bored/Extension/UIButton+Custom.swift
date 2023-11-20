@@ -105,3 +105,20 @@ extension UIViewController {
     
 }
 
+extension NSObject {
+
+    func showMessage(message:String, isError:ERROR_TYPE) {
+        Singleton.shared.showErrorMessage(error: message, isError: isError)
+    }
+    static func showMessage(message:String, isError:ERROR_TYPE) {
+        Singleton.shared.showErrorMessage(error: message, isError: isError)
+    }
+
+//    var window: UIWindow? {
+//        return UIApplication.shared.windows.first(where: {$0.isKeyWindow})
+//    }
+
+    static var window: UIWindow? {
+        return UIApplication.shared.windows.first(where: {$0.isKeyWindow})
+    }
+}
