@@ -33,6 +33,8 @@ class signUpVC: UIViewController {
     var viewModel: SignUpVM?
     var interestItems: String?
     var selectedInterestedItem: [String]?
+    var interestID: String?
+    var profileSignUpImage: UIImage?
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
@@ -235,17 +237,17 @@ class signUpVC: UIViewController {
             return
         }
         if self.checkUncheckButton.isSelected == false{
-            showMessage(message: "Please agree with Privacy Policy.", isError: .error)
+            showMessage(message: "Please agree with terms & conditions.", isError: .error)
         }else{
             let gender = "\(gender ?? 0)"
-            viewModel?.signUPApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: "1,2", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: "", interestName: "test,test")
+            viewModel?.signUPApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: "", interestName: interestItems ?? "")
         }
         
     }
     
 }
 
-extension signUpVC: UICollectionViewDelegate, UICollectionViewDataSource{
+extension signUpVC: UICollectionViewDelegate, UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return selectedInterestedItem?.count ?? 0
     }
@@ -255,10 +257,12 @@ extension signUpVC: UICollectionViewDelegate, UICollectionViewDataSource{
         cell.interestNameButton.setTitle(selectedInterestedItem?[indexPath.row], for: .normal)
         return cell
     }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let text = selectedInterestedItem?[indexPath.row] ?? ""
-        let width = UILabel.textWidth(font: UIFont.setCustom(.Poppins_Regular, 16), text: text)
-        return CGSize(width: (width + 20) - 5, height: collectionView.frame.size.height - 200)
+        let width = UILabel.textWidth(font: UIFont.setCustom(.Poppins_Regular, 10), text: text)
+        return CGSize(width: (width + 72) , height: collectionView.frame.size.height)
     }
     
     
@@ -269,6 +273,8 @@ extension signUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let tempImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         profileImage.image  = tempImage
+        print(tempImage)
+        self.profileSignUpImage = tempImage
         self.dismiss(animated: true, completion: nil)
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -305,23 +311,28 @@ extension signUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
 
 
 extension signUpVC: InterestVCDelegate{
-    func didSelectItems(_ items: [String], other: String) {
-        print("Selected items: \(items) \(other)")
+    func didSelectItems(_ items: [String], other: String, id: [String]) {
+        print("Selected items: \(items) \(other)\(id)")
         selectedInterestedItem = items
         print(selectedInterestedItem)
         let itemsString = items.joined(separator: ",")
         print(itemsString)
         interestItems = itemsString
         print(interestItems)
-        interestsCollectionView.reloadData()
         
+        let itemId = id.joined(separator: ",")
+        print(itemId)
+        self.interestID = itemId
+        interestsCollectionView.reloadData()
     }
-  
+ 
     
 }
 extension signUpVC: SignUpVMObserver{
     func observerSignUpApi() {
-        self.popVC()
+//        self.popVC()
+        let vc = LoginVC()
+        self.pushViewController(vc, true)
     }
     
     

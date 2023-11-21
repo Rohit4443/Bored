@@ -29,8 +29,9 @@ struct Constant {
     //MARK: Bored
     
     static let signUp = baseUrl + "user/signup"
-    
-    
+    static let interest = baseUrl + "user/interest-listing"
+    static let login = baseUrl + "user/login"
+    static let forgotPassword = baseUrl + "user/forgotpassword"
 }
 
 

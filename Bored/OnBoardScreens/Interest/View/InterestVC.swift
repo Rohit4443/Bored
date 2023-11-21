@@ -8,7 +8,7 @@
 import UIKit
 
 protocol InterestVCDelegate{
-    func didSelectItems(_ items: [String], other: String)
+    func didSelectItems(_ items: [String], other: String, id:[String])
 }
 
 class InterestVC: UIViewController {
@@ -28,13 +28,14 @@ class InterestVC: UIViewController {
     var interArr = [UserInterestt]()
      
     var delegate: InterestVCDelegate?
-
+    var viewModel: InterestVM?
 
 
     var arrayName = ["Baking","Cooking","Dance","Swing Dancing","Picnics","Hiking","Rock Climbing","Pickleball","Plants","Yoga","Museums","Video Game","Fitness","BBQ","Singing","Festivals","Sports","Camping","Concerts","Trivia",]
    
     var completion : (() -> Void)? = nil
     var arraySelectedValue:[String] = []
+    var arraySelectedID:[String] = []
     var selectedInterest: String?
     
     override func viewDidLoad() {
@@ -45,9 +46,7 @@ class InterestVC: UIViewController {
           interArr.append(UserInterestt(id:"4",name: "Swing Dancing",isSelected: false))
           interArr.append(UserInterestt(id:"5",name: "Picnics",isSelected: false))
           interArr.append(UserInterestt(id:"6",name: "Hiking",isSelected: false))
-        
-        
-        
+  
         
         setCollectionViewDelegates()
         
@@ -55,7 +54,7 @@ class InterestVC: UIViewController {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
                         self.mainBgview.addGestureRecognizer(panGesture)
 
-     
+        setViewModel()
         
     }
 
@@ -69,6 +68,13 @@ class InterestVC: UIViewController {
         }
 
 
+    func setViewModel(){
+        if self.viewModel == nil {
+            self.viewModel = InterestVM(observer: self)
+        }
+        self.viewModel?.getMyInterest()
+    }
+    
     
     
     
@@ -128,7 +134,7 @@ class InterestVC: UIViewController {
         } else {
             print(arraySelectedValue)
             DispatchQueue.main.async {
-                self.delegate?.didSelectItems(self.arraySelectedValue, other: self.otherTV.text ?? "")
+                self.delegate?.didSelectItems(self.arraySelectedValue, other: self.otherTV.text ?? "", id: self.arraySelectedID)
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -143,18 +149,19 @@ class InterestVC: UIViewController {
 //MARK: - CollectionView Delegate and DataSource -
 extension InterestVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrayName.count
+//        return arrayName.count
+        print(viewModel?.interestData.count)
+        return viewModel?.interestData.count ?? 0
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "interestCVCell", for: indexPath) as! interestCVCell
-        cell.interestNameButton.setTitle(arrayName[indexPath.row], for: .normal);
-        
+//        cell.interestNameButton.setTitle(arrayName[indexPath.row], for: .normal);
+        cell.interestNameButton.setTitle(viewModel?.interestData[indexPath.row].interest_name, for: .normal)
         return cell
     }
-    
-    
-    
+   
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -164,17 +171,19 @@ extension InterestVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataS
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedInterest = arrayName[indexPath.item]
+        let selectedInterest = viewModel?.interestData[indexPath.row].interest_name //arrayName[indexPath.item]
+        let selectedID = viewModel?.interestData[indexPath.row].interest_id
         
         if let cell = collectionView.cellForItem(at: indexPath) as? interestCVCell {
             
-            if arraySelectedValue.contains(selectedInterest) {
+            if arraySelectedValue.contains(selectedInterest ?? "") {
                 arraySelectedValue.removeAll { $0 == selectedInterest }
             } else {
-                arraySelectedValue.append(selectedInterest)
+                arraySelectedValue.append(selectedInterest ?? "")
+                arraySelectedID.append(selectedID ?? "")
             }
             
-            let isSelected = arraySelectedValue.contains(selectedInterest)
+            let isSelected = arraySelectedValue.contains(selectedInterest ?? "")
             cell.backgroundCellView.borderColor = isSelected ? .black : .systemGray
             cell.interestNameButton.setTitleColor(isSelected ? .black : .systemGray, for: .normal)
             
@@ -182,6 +191,23 @@ extension InterestVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataS
     }
     
 }
+extension InterestVC: InterestVMObserver{
+    func getListing() {
+        print("getListing")
+        if viewModel?.interestData.count ?? 0 > 0 {
+            self.interestListCollectionView.backgroundView = nil
+        } else {
+            self.interestListCollectionView.setBackgroundView(message: "No Data Found")
+        }
+        self.interestListCollectionView.reloadData()
+    }
+    
+    
+}
+
+
+
+
 struct UserInterestt: Codable {
     var id, name: String?
     var isSelected :Bool?

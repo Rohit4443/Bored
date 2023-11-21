@@ -15,6 +15,54 @@ class AFWrapperClass{
     
     static let sharedInstance = AFWrapperClass()
     
+    //MARK: For upload image
+    
+    func requestImagePOSTSURL(_ strURL : String, params : Parameters?, success:@escaping (NSDictionary) -> Void, failure:@escaping (NSError) -> Void){
+        let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
+        print("Param  ====> ",params, "URL ===> ",strURL, "Token ===> ",AppDefaults.token ?? "")
+        let url = URL(string: strURL)
+        var urlRequest = URLRequest(url: url!, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0 * 1000)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("application/form-data", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue(AppDefaults.token ?? "", forHTTPHeaderField: "Authorization")
+        print("AppDefaults.token : \(AppDefaults.token ?? "")")
+    //    if AppDefaults.token != nil{
+    //    urlRequest.addValue(AppDefaults.token!, forHTTPHeaderField: "access_token")
+    //    }
+        AF.upload(multipartFormData: { multiPart in
+            if params != nil{
+                for (key, value) in params!{
+                    if let temp = value as? String {
+                        multiPart.append(temp.data(using: .utf8)!, withName: key)
+                    }
+                    if let image = value as? Data{
+                        multiPart.append(image, withName: "image", fileName: "\(UUID()).jpg", mimeType: "image/jpg")
+                    }
+                }
+                print(multiPart)
+            }
+            
+            
+            
+        }, with: urlRequest)
+            .uploadProgress(queue: .main, closure: { progress in
+                print("Upload Progress: \(progress.fractionCompleted)")
+            })
+            .responseJSON(completionHandler: { data in
+                switch data.result {
+                case .success(let value):
+                    if let JSON = value as? NSDictionary {
+                        success(JSON)
+                    }
+                case .failure(let error):
+                    failure(error as NSError)
+                }
+            })
+    }
+
+    
+    
+    
 func requestPOSTSURL(_ strURL : String, params : Parameters?, success:@escaping (NSDictionary) -> Void, failure:@escaping (NSError) -> Void){
     let urlwithPercentEscapes = strURL.addingPercentEncoding( withAllowedCharacters: CharacterSet.urlQueryAllowed)
     print("Param  ====> ",params, "URL ===> ",strURL, "Token ===> ",AppDefaults.token ?? "")

@@ -124,6 +124,12 @@
 		5FF978872AEFB84F0081EC13 /* HomeFindInterestCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FF978852AEFB84F0081EC13 /* HomeFindInterestCVCell.xib */; };
 		5FF9788C2AEFD01D0081EC13 /* OneToOneChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF9788A2AEFD01D0081EC13 /* OneToOneChatVC.swift */; };
 		5FF9788D2AEFD01D0081EC13 /* OneToOneChatVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FF9788B2AEFD01D0081EC13 /* OneToOneChatVC.xib */; };
+		A86C68C02B0CBBF1004CEB1C /* ForgotPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86C68BF2B0CBBF1004CEB1C /* ForgotPasswordVM.swift */; };
+		A86F16852B0C7C36003F342C /* InterestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16842B0C7C36003F342C /* InterestModel.swift */; };
+		A86F16872B0C7DF4003F342C /* InterestVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16862B0C7DF4003F342C /* InterestVM.swift */; };
+		A86F16892B0C8526003F342C /* UICollectionView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */; };
+		A86F168B2B0C85F8003F342C /* UITableView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F168A2B0C85F8003F342C /* UITableView+Custom.swift */; };
+		A86F168D2B0C8BD9003F342C /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F168C2B0C8BD9003F342C /* LoginVM.swift */; };
 		A893E8352B0B3169004A1980 /* AFWrapperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8342B0B3169004A1980 /* AFWrapperClass.swift */; };
 		A893E8372B0B31D0004A1980 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8362B0B31D0004A1980 /* AppConstant.swift */; };
 		A893E8392B0B3380004A1980 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8382B0B3380004A1980 /* AppDefaults.swift */; };
@@ -267,6 +273,12 @@
 		5FF9788A2AEFD01D0081EC13 /* OneToOneChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneToOneChatVC.swift; sourceTree = "<group>"; };
 		5FF9788B2AEFD01D0081EC13 /* OneToOneChatVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OneToOneChatVC.xib; sourceTree = "<group>"; };
 		8501CC5AE979193D019DEF6D /* Pods-Bored.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bored.release.xcconfig"; path = "Target Support Files/Pods-Bored/Pods-Bored.release.xcconfig"; sourceTree = "<group>"; };
+		A86C68BF2B0CBBF1004CEB1C /* ForgotPasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVM.swift; sourceTree = "<group>"; };
+		A86F16842B0C7C36003F342C /* InterestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestModel.swift; sourceTree = "<group>"; };
+		A86F16862B0C7DF4003F342C /* InterestVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestVM.swift; sourceTree = "<group>"; };
+		A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Custom.swift"; sourceTree = "<group>"; };
+		A86F168A2B0C85F8003F342C /* UITableView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Custom.swift"; sourceTree = "<group>"; };
+		A86F168C2B0C8BD9003F342C /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		A893E8342B0B3169004A1980 /* AFWrapperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFWrapperClass.swift; sourceTree = "<group>"; };
 		A893E8362B0B31D0004A1980 /* AppConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		A893E8382B0B3380004A1980 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -463,6 +475,7 @@
 				5F95971F2AE68D9A00618196 /* InterestVC.xib */,
 				5F9597222AE6987B00618196 /* interestCVCell.swift */,
 				5F9597232AE6987B00618196 /* interestCVCell.xib */,
+				A86F16862B0C7DF4003F342C /* InterestVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -533,6 +546,7 @@
 			children = (
 				5F9BE3602AE2A1ED004AD2F4 /* LoginVC.swift */,
 				5F9BE3612AE2A1ED004AD2F4 /* LoginVC.xib */,
+				A86F168C2B0C8BD9003F342C /* LoginVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -707,6 +721,7 @@
 			children = (
 				5FC34A112AE8FCF600C5D2FF /* ForgotPasswordVC.swift */,
 				5FC34A122AE8FCF600C5D2FF /* ForgotPasswordVC.xib */,
+				A86C68BF2B0CBBF1004CEB1C /* ForgotPasswordVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1017,7 +1032,9 @@
 			isa = PBXGroup;
 			children = (
 				A89EEF122B0B96210066382F /* UILabel+Custom.swift */,
+				A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */,
 				A893E8812B0B4C27004A1980 /* Date+Custom.swift */,
+				A86F168A2B0C85F8003F342C /* UITableView+Custom.swift */,
 				A893E87F2B0B4BBA004A1980 /* String+Custom.swift */,
 				A893E86A2B0B4AEC004A1980 /* UIColor+Custom.swift */,
 				A893E83F2B0B430F004A1980 /* cancel_notes@2x.png */,
@@ -1033,6 +1050,7 @@
 			children = (
 				A893E84A2B0B435D004A1980 /* SignupImagesModel.swift */,
 				A893E8522B0B4977004A1980 /* SignUpModel.swift */,
+				A86F16842B0C7C36003F342C /* InterestModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1226,6 +1244,7 @@
 				5FD526CE2AF4D4A100BC2C5B /* BlockedUserVC.swift in Sources */,
 				A89EEF112B0B836A0066382F /* SignUpVM.swift in Sources */,
 				5F9BE3622AE2A1ED004AD2F4 /* LoginVC.swift in Sources */,
+				A86F16892B0C8526003F342C /* UICollectionView+Custom.swift in Sources */,
 				183869022AF3D6B700AFA991 /* ProfileEventsCVCell.swift in Sources */,
 				5FAE8FCA2AE29AF700B222D5 /* Constants.swift in Sources */,
 				5FD624A02AF0D04A0096A347 /* LeftTVCell.swift in Sources */,
@@ -1239,8 +1258,10 @@
 				5FAE8FB72AE297C300B222D5 /* SelectLoginSignUpVC.swift in Sources */,
 				5F00AAAF2AEBD744006EA5F3 /* BlockReportPopUpVC.swift in Sources */,
 				A893E84B2B0B435D004A1980 /* SignupImagesModel.swift in Sources */,
+				A86F16852B0C7C36003F342C /* InterestModel.swift in Sources */,
 				5FB96A4B2AEBC0150054112B /* FilterVC.swift in Sources */,
 				A893E8532B0B4977004A1980 /* SignUpModel.swift in Sources */,
+				A86C68C02B0CBBF1004CEB1C /* ForgotPasswordVM.swift in Sources */,
 				5F629ADE2AF36C0F002AD6B4 /* DeleteAccountPopUpVC.swift in Sources */,
 				5FAE8FBE2AE29AB300B222D5 /* UIView+Custom.swift in Sources */,
 				5FB2E37D2AF12EFB00CFF385 /* MediaLeftTVCell.swift in Sources */,
@@ -1258,10 +1279,12 @@
 				5FC34A1E2AE9091200C5D2FF /* TabBarVC.swift in Sources */,
 				5F00AAC02AEBF1DE006EA5F3 /* SearchUserTVCell.swift in Sources */,
 				5FC3AC512AF0F44100BA5C06 /* SettingsVC.swift in Sources */,
+				A86F16872B0C7DF4003F342C /* InterestVM.swift in Sources */,
 				A893E8372B0B31D0004A1980 /* AppConstant.swift in Sources */,
 				5F629AE22AF398A5002AD6B4 /* ProfileEventsTVCell.swift in Sources */,
 				5F9BE3682AE2AE88004AD2F4 /* signUpVC.swift in Sources */,
 				5F569F382AEBA149008CA03F /* MapCVCell.swift in Sources */,
+				A86F168B2B0C85F8003F342C /* UITableView+Custom.swift in Sources */,
 				5F99E5DB2AF26DC1003F2065 /* InterestEventTags.swift in Sources */,
 				5FB0DAA42AEAA56A00EAB464 /* ChatListTVCell.swift in Sources */,
 				5FD526D22AF4D4B400BC2C5B /* BlockedUserTVCell.swift in Sources */,
@@ -1274,6 +1297,7 @@
 				5FD890A82AEF7E83005AAC86 /* PlaceDetailVC.swift in Sources */,
 				5F2894E32AFB69D700196416 /* UIFont+Custom 2.swift in Sources */,
 				A893E8802B0B4BBB004A1980 /* String+Custom.swift in Sources */,
+				A86F168D2B0C8BD9003F342C /* LoginVM.swift in Sources */,
 				5F99E5E52AF27C3A003F2065 /* SelectLocationTVCell.swift in Sources */,
 				5FC34A132AE8FCF600C5D2FF /* ForgotPasswordVC.swift in Sources */,
 				A893E8352B0B3169004A1980 /* AFWrapperClass.swift in Sources */,

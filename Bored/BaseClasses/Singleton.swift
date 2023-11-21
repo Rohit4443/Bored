@@ -178,7 +178,7 @@ class Singleton: NSObject {
         if window == nil {
             window = UIApplication.shared.windows.first(where: {$0.isKeyWindow})
         }
-        let splash = LoginVC()
+        let splash = SelectLoginSignUpVC()
         let navController = UINavigationController(rootViewController: splash)
         navController.navigationBar.isHidden = true
         window?.rootViewController = navController
@@ -196,6 +196,8 @@ class Singleton: NSObject {
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
+    
+    
     
     
     func setHomeScreenView() {

@@ -6,23 +6,50 @@
 //
 
 import UIKit
-
+import IQKeyboardManager
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
+    var window: UIWindow?
+    
+    static var shared: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-         let splash = SelectLoginSignUpVC()
-        let navController = UINavigationController(rootViewController: splash)
+//         let splash = SelectLoginSignUpVC()
+//        let navController = UINavigationController(rootViewController: splash)
         sleep(2)
-        navController.navigationBar.isHidden = true
+//        navController.navigationBar.isHidden = true
+        
+        window = UIWindow(frame:UIScreen.main.bounds)
+        application.applicationIconBadgeNumber = 0
+        IQKeyboardManager.shared().isEnabled = true
+        
+//        self.setNotification(application)
+        let accesstoken = UserDefaultsCustom.getUserData()
+        if accesstoken?.auth_key?.count ?? 0 > 0 {
+            Singleton.shared.setHomeView()
+        } else {
+            Singleton.shared.gotoLogin(window: self.window)
+        }
       
         return true
     }
 
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let deviceTokenString = deviceToken.map { String(format: "%02x", $0) }.joined()
+        UserDefaults.standard.set(deviceTokenString, forKey: "deviceToken")
+        debugPrint("device token is \(deviceTokenString)")
+        AppDefaults.deviceToken = deviceTokenString
+//        UserDefaults.standard.set(deviceTokenString, forKey: DefaultKeys.deviceToken)
+    }
+    
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

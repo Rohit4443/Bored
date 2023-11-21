@@ -65,11 +65,11 @@ struct UserDefaultsCustom {
         UserDefaults.standard.setValue(value, forKey: forKey)
     }
     
-//    static func saveUserData(userData:UserData) {
-//        print("save user data")
-//        UserDefaults.standard.set(try? PropertyListEncoder().encode(userData), forKey:UserDefaultsCustom.userData)
-//    }
-//
+    static func saveUserData(userData:UserData) {
+        print("save user data")
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(userData), forKey:UserDefaultsCustom.userData)
+    }
+    
     static func getUserData() -> UserData? {
         if let data = UserDefaults.standard.value(forKey:UserDefaultsCustom.userData) as? Data {
             let userData = try? PropertyListDecoder().decode(UserData.self, from: data)
