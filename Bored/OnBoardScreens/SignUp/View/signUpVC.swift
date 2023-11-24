@@ -29,12 +29,14 @@ class signUpVC: UIViewController {
     //MARK: - Variables -
    
     var imagePickerController = UIImagePickerController()
-    var gender: Int?
+    var gender: String?
     var viewModel: SignUpVM?
     var interestItems: String?
     var selectedInterestedItem: [String]?
     var interestID: String?
     var profileSignUpImage: UIImage?
+    var signUpImage: Data?
+    var signUpImageBase64String: String?
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
@@ -122,7 +124,7 @@ class signUpVC: UIViewController {
         if !sender.isSelected {
             // Female button is not selected, set the border and gender accordingly
             sender.setBorder(.black, corner: 37.5, 2)
-            gender = 1
+            gender = "1"
             
             // Additionally, if there's a male button, you might want to clear its border
             genderFemaleButton.setBorder(.clear, corner: 37.5, 2)
@@ -130,7 +132,7 @@ class signUpVC: UIViewController {
         } else {
             // Female button is already selected, clear the border and set the gender to male
             sender.setBorder(.clear, corner: 37.5, 2)
-            gender = 2
+            gender = "2"
         }
         
         // Toggle the selected state of the female button
@@ -153,7 +155,7 @@ class signUpVC: UIViewController {
         if !sender.isSelected {
             // Female button is not selected, set the border and gender accordingly
             sender.setBorder(.black, corner: 37.5, 2)
-            gender = 2
+            gender = "2"
             
             // Additionally, if there's a male button, you might want to clear its border
             genderMaleButton.setBorder(.clear, corner: 37.5, 2)
@@ -161,7 +163,7 @@ class signUpVC: UIViewController {
         } else {
             // Female button is already selected, clear the border and set the gender to male
             sender.setBorder(.clear, corner: 37.5, 2)
-            gender = 1
+            gender = "1"
         }
         
         // Toggle the selected state of the female button
@@ -239,8 +241,11 @@ class signUpVC: UIViewController {
         if self.checkUncheckButton.isSelected == false{
             showMessage(message: "Please agree with terms & conditions.", isError: .error)
         }else{
-            let gender = "\(gender ?? 0)"
-            viewModel?.signUPApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: "", interestName: interestItems ?? "")
+            let gender = "\(gender ?? "")"
+            
+            viewModel?.signUPImageApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: interestItems ?? "")
+            
+//            viewModel?.signUPApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: interestItems ?? "")
         }
         
     }
@@ -275,6 +280,21 @@ extension signUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
         profileImage.image  = tempImage
         print(tempImage)
         self.profileSignUpImage = tempImage
+        let imageData = tempImage.jpegData(compressionQuality: 0.8)
+        print(imageData)
+        self.signUpImage = imageData
+//        if let imageData = tempImage.jpegData(compressionQuality: 0.8) {
+//            // Convert image data to base64-encoded string
+//            let base64String = imageData.base64EncodedString(options: .lineLength64Characters)
+//
+//            // Now 'base64String' contains the base64 representation of the image data
+//            // You can send this string to the backend
+//
+//            // Store the base64 string if needed
+//            self.signUpImageBase64String = base64String
+//            print(signUpImageBase64String)
+//        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -296,7 +316,7 @@ extension signUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
             }
         }
         let action1 = UIAlertAction(title: "Gallery", style: .default){ action in
-            self.imagePickerController.allowsEditing = false
+            self.imagePickerController.allowsEditing = true
             self.imagePickerController.sourceType = .photoLibrary
             self.imagePickerController.delegate = self
             self.present(self.imagePickerController, animated: true, completion: nil)

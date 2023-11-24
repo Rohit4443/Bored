@@ -46,7 +46,7 @@ struct UserDefaultsCustom {
         }
     
     static func getAccessToken() -> String {
-        if let value = UserDefaults.standard.value(forKey: UserDefaultsCustom.getUserData()?.auth_key ?? "") {
+        if let value = UserDefaults.standard.value(forKey: UserDefaultsCustom.getUserData()?.access_token ?? "") {
             print("\(value)")
             return value as! String
         } else {

@@ -72,7 +72,8 @@ class InterestVC: UIViewController {
         if self.viewModel == nil {
             self.viewModel = InterestVM(observer: self)
         }
-        self.viewModel?.getMyInterest()
+//        self.viewModel?.getMyInterest()
+        self.viewModel?.getEventInterest()
     }
     
     

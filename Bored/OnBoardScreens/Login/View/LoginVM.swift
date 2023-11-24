@@ -22,7 +22,7 @@ class LoginVM: NSObject{
     }
     
     func loginParameters(email: String, password: String,  deviceType: String) -> [String:Any]{
-        let deviceToken = UserDefaultsCustom.deviceToken
+        let deviceToken = UserDefaultsCustom.getDeviceToken()
         let params : [String:Any] = [
             "email"       : email,
             "password"    : password,
@@ -49,6 +49,7 @@ class LoginVM: NSObject{
                     if let data = userModel.data{
                         print(data)
                         UserDefaultsCustom.saveUserData(userData: data)
+                        AppDefaults.token = "\("Bearer ")\(userModel.data?.access_token ?? "")"
                     }
                 }
             }
@@ -59,7 +60,7 @@ class LoginVM: NSObject{
                 self.observer?.observerLoginApi()
             } else {
                 let msg = response["message"] as? String
-                Singleton.showMessage(message: msg ?? "", isError: .success)
+                Singleton.showMessage(message: msg ?? "", isError: .error)
             }
         }, failure: { (error) in
             print(error.debugDescription)

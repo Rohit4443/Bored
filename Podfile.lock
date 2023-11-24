@@ -6,9 +6,12 @@ PODS:
   - GrowingTextView (0.7.2)
   - IQKeyboardManager (6.5.10)
   - Kingfisher (7.7.0)
+  - Koloda (5.0.1):
+    - pop (~> 1.0)
   - MultiSlider (2.1.2):
     - AvailableHapticFeedback
     - SweeterSwift
+  - pop (1.0.12)
   - SVProgressHUD (2.2.5)
   - SweeterSwift (1.2.3)
 
@@ -19,6 +22,7 @@ DEPENDENCIES:
   - GrowingTextView
   - IQKeyboardManager
   - Kingfisher (~> 7.0)
+  - Koloda
   - MultiSlider
   - SVProgressHUD
 
@@ -31,7 +35,9 @@ SPEC REPOS:
     - GrowingTextView
     - IQKeyboardManager
     - Kingfisher
+    - Koloda
     - MultiSlider
+    - pop
     - SVProgressHUD
     - SweeterSwift
 
@@ -43,10 +49,12 @@ SPEC CHECKSUMS:
   GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
   Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
+  Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   MultiSlider: 81f5eb60f0a05073e6ee49c0b90426e4d1267b02
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SweeterSwift: 3910bab8ba35b6964d5169a3c52b2c87d930b61c
 
-PODFILE CHECKSUM: 9ac70e6c720123d97df282b908be07eeba5f15bc
+PODFILE CHECKSUM: d368e9027d1d0da0a159ab53e095e37c2ad3b53e
 
 COCOAPODS: 1.11.3

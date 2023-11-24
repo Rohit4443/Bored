@@ -1,19 +1,20 @@
 //
-//  SignUpModel.swift
+//  GetProfileModel.swift
 //  Bored
 //
-//  Created by Dharmani on 20/11/23.
+//  Created by Dharmani on 23/11/23.
 //
 
 import Foundation
 
-class SignUp: Codable{
-    var status: Int
+class GetProfileModel: Codable{
+    var status: Int?
     var message: String?
-    var data: UserData?
+    var data: GetProfileData?
+    var interestedEvents: [InterestedEventsData]?
 }
 
-class UserData: Codable{
+class GetProfileData: Codable{
     var id: String?
     var first_name: String?
     var last_name: String?
@@ -29,9 +30,21 @@ class UserData: Codable{
     var verification_token: String?
     var device_type: String?
     var device_token: String?
+    var latitude: String?
+    var longitude: String?
     var is_private: String?
-    var auth_key: String?
-    var access_token: String?
+    var auth_key:String?
+    var access_token:String?
     var created_at: String?
     var updated_at: String?
+    var interestsData: [InterestsDatum]?
+}
+
+class InterestsDatum:Codable{
+    var interest_id: String?
+    var interest_name: String?
+}
+
+class InterestedEventsData: Codable{
+    
 }

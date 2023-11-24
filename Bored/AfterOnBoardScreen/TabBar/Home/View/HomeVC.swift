@@ -6,20 +6,43 @@
 //
 
 import UIKit
+import Koloda
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController{
     
     //MARK: - IBOutlets -
     @IBOutlet weak var findInterestCollectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
-   
+    @IBOutlet weak var eventSwipeKolodaView: KolodaView!
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var profileImage: UIImageView!
+    
+    
+    
+    var viewModel: HomeVM?
+    
+    
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionViewDelegates()
+//        setSwipe()
+        setSwipeEvent()
+        setViewModel()
+        
+//        self.profileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
+//        self.nameLabel.text = "\("Hi")\(",")\(UserDefaultsCustom.getUserData()?.first_name ?? "")\(" ")\(UserDefaultsCustom.getUserData()?.last_name ?? "")"
         
     }
-   
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setViewModel()
+        self.profileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
+        self.nameLabel.text = "\("Hi")\(", ")\(UserDefaultsCustom.getUserData()?.first_name ?? "")\(" ")\(UserDefaultsCustom.getUserData()?.last_name ?? "")"
+        
+    }
+    
     func setCollectionViewDelegates(){
         findInterestCollectionView.delegate = self
         findInterestCollectionView.dataSource = self
@@ -28,6 +51,12 @@ class HomeVC: UIViewController {
         self.findInterestCollectionView.isPagingEnabled = true
         
         
+    }
+    
+    func setViewModel(){
+        self.viewModel = HomeVM(observer: self)
+        self.viewModel?.eventListingApi(type: "1")
+        self.eventSwipeKolodaView.reloadData()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -45,6 +74,37 @@ class HomeVC: UIViewController {
         pageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
     
+    
+    func setSwipe(){
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleGestureToScroll))
+        swipeUp.direction = .up
+        swipeUp.cancelsTouchesInView = false
+        self.findInterestCollectionView.addGestureRecognizer(swipeUp)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleGestureToScrollDown))
+        swipeDown.direction = .down
+        swipeDown.cancelsTouchesInView = false
+        self.findInterestCollectionView.addGestureRecognizer(swipeDown)
+    }
+    @objc func handleGestureToScroll(sender: UISwipeGestureRecognizer) {
+        if sender.state == .ended {
+            print("Swipe up")
+            
+        }
+    }
+    
+    @objc func handleGestureToScrollDown(sender: UISwipeGestureRecognizer) {
+        if sender.state == .ended {
+            print("Swipe down")
+        }
+    }
+    
+    
+    func setSwipeEvent(){
+        eventSwipeKolodaView.delegate = self
+        eventSwipeKolodaView.dataSource = self
+        eventSwipeKolodaView.reloadData()
+    }
     
     
     //MARK: - IBAction -
@@ -88,3 +148,131 @@ extension HomeVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataSourc
     }
 }
 
+extension HomeVC: KolodaViewDelegate, KolodaViewDataSource{
+    
+    func kolodaNumberOfCards(_ koloda: Koloda.KolodaView) -> Int {
+//        return 4
+        print(viewModel?.eventListing.count)
+        return viewModel?.eventListing.count ?? 0
+        
+    }
+    func koloda(_ koloda: Koloda.KolodaView, viewForCardAt index: Int) -> UIView {
+        let cardView = UINib(nibName: "KolodaCardView", bundle: nil).instantiateView as! KolodaCardView
+
+        if let eventListing = viewModel?.eventListing {
+            if let files = eventListing[index].files {
+                if let fileData = files.first(where: { $0.files != nil }) {
+                    if let file = fileData.files {
+                        cardView.profileImage.setImage(image: file)
+                    }
+                }else{
+                    cardView.profileImage.setImage(image: "", placeholder: UIImage(named: "eventPlaceholder"))
+                }
+            }
+        }
+
+        
+//        for i in 0..<(viewModel?.eventListing.count ?? 0) {
+//            let element = viewModel?.eventListing[i]
+//            print(element)
+//
+//            for j in 0..<(viewModel?.eventListing[i].files?.count ?? 0){
+//                let images = viewModel?.eventListing[i].files?[j]
+//                print(images)
+//                cardView.profileImage.setImage(image: )
+//
+//            }
+//        }
+        
+        
+        print(cardView.profileImage.image ?? UIImage())
+        cardView.userProfileImage.setImage(image: viewModel?.eventListing[index].user_image)
+        cardView.userNameLabel.text = viewModel?.eventListing[index].user_name
+        print(cardView.userNameLabel.text ?? "")
+        cardView.locationLAbel.text = viewModel?.eventListing[index].location
+        cardView.eventNameLabel.text = viewModel?.eventListing[index].title
+        let dateString = viewModel?.eventListing[index].created_at
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        if let date = dateFormatter.date(from: dateString ?? "")  {
+            let outputDateFormatter = DateFormatter()
+            outputDateFormatter.dateFormat = "d MMM, yyyy"
+            
+            let outputString = outputDateFormatter.string(from: date)
+            print(outputString) // Output: 24 Nov, 2023
+            cardView.dateLabel.text = outputString
+        } else {
+            print("Invalid date format")
+        }
+  
+        
+//        if index < iamgeArray.count {
+//                cardView.cardImage.image = UIImage(named: iamgeArray[index])
+//            cardView.cardLabel.text = labelArray[index]
+//            } else {
+//                // Handle the case when the index is out of bounds
+//                // You can set a default image or perform other actions here
+//                cardView.cardImage.image = UIImage(named: "defaultImage")
+//            }
+        return cardView
+    }
+    
+    func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
+        print(index)
+        print("selected")
+        let vc = HomeDetailVC()
+        vc.hidesBottomBarWhenPushed = true
+        self.pushViewController(vc, true)
+    }
+    func koloda(_ koloda: KolodaView, allowedDirectionsForIndex index: Int) -> [SwipeResultDirection]{
+        [.up,.down]
+    }
+
+    
+    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        if direction == .up{
+            print("Interested")
+            let id = viewModel?.eventListing[index].event_id
+            print("EVENTSwiped====\(id)")
+            viewModel?.interestedNotInterestedApi(type: "1", eventId: id ?? "")
+            self.eventSwipeKolodaView.reloadData()
+        }else if direction == .down{
+            print("Not Interested")
+            let id = viewModel?.eventListing[index].event_id
+            print("EVENTSwiped====\(id)")
+            viewModel?.interestedNotInterestedApi(type: "0", eventId: id ?? "")
+            self.eventSwipeKolodaView.reloadData()
+        }
+//        else if direction == .left{
+//            print("Interested left")
+//        }else if direction == .right{
+//            print("Interested right")
+//        }
+        
+    }
+    func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
+        return true
+    }
+    
+    
+}
+extension HomeVC: HomeVMObserver{
+    func observerinterestedNotInterested() {
+        
+        self.eventSwipeKolodaView.reloadData()
+    }
+    
+    func observerEventListing() {
+        print("getListing")
+//        if viewModel?.eventListing.count ?? 0 > 0 {
+//            self.eventSwipeKolodaView.backgroundView = nil
+//        } else {
+//            self.findInterestCollectionView.setBackgroundView(message: "No Data Found")
+//        }
+        self.eventSwipeKolodaView.reloadData()
+    }
+ 
+
+}
