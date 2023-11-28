@@ -93,7 +93,7 @@
                                             <rect key="frame" x="10" y="8" width="12" height="14"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NY, California" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJU-mY-kWa">
-                                            <rect key="frame" x="29.333333333333368" y="8.6666666666666856" width="60.666666666666657" height="12.666666666666664"/>
+                                            <rect key="frame" x="26.999999999999996" y="8.6666666666666856" width="60.666666666666657" height="12.666666666666664"/>
                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="9"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -101,12 +101,12 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="JJU-mY-kWa" secondAttribute="trailing" constant="10" id="0si-fj-LOo"/>
                                         <constraint firstItem="JJU-mY-kWa" firstAttribute="centerY" secondItem="C2A-Ur-RpD" secondAttribute="centerY" id="3fd-sI-rtx"/>
                                         <constraint firstAttribute="height" constant="30" id="SIY-Nr-F64"/>
                                         <constraint firstAttribute="width" constant="100" id="b5x-mj-Utk"/>
                                         <constraint firstItem="C2A-Ur-RpD" firstAttribute="leading" secondItem="GQ8-Op-a2K" secondAttribute="leading" constant="10" id="cK9-Dq-ZU8"/>
                                         <constraint firstItem="C2A-Ur-RpD" firstAttribute="centerY" secondItem="GQ8-Op-a2K" secondAttribute="centerY" id="kaW-ZR-JYP"/>
+                                        <constraint firstItem="JJU-mY-kWa" firstAttribute="leading" secondItem="C2A-Ur-RpD" secondAttribute="trailing" constant="5" id="w5a-Jx-TGH"/>
                                     </constraints>
                                 </view>
                             </subviews>

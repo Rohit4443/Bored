@@ -18,13 +18,18 @@ class InterestEventTags: UIViewController {
     var arraySelectedValue:[String] = []
     var selectedInterest: String?
     var comefrom: String?
+    
+    var comeFromEdit: Bool?
+    var viewModel: InterestVM?
+    var selectedArray: [InterestsDatum]?
    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionViewDelegates()
         showInterestCollectionView.collectionViewLayout = createCenterAlignedLayout()
         collheightConstraint.constant = CGFloat(50*arrayName.count)
-
+        print(selectedArray?.count)
+        setViewModel()
         
     }
     
@@ -48,6 +53,13 @@ class InterestEventTags: UIViewController {
         
     }
    
+    func setViewModel(){
+        if self.viewModel == nil {
+            self.viewModel = InterestVM(observer: self)
+        }
+//        self.viewModel?.getMyInterest()
+        self.viewModel?.getEventInterest()
+    }
     
     private func createCenterAlignedLayout() -> UICollectionViewLayout {
         let item = NSCollectionLayoutItem(
@@ -95,12 +107,20 @@ class InterestEventTags: UIViewController {
 //MARK: - CollectionView Delegate and DataSource -
 extension InterestEventTags : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrayName.count
+        return viewModel?.interestData.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "interestCVCell", for: indexPath) as! interestCVCell
-        cell.interestNameButton.setTitle(arrayName[indexPath.row], for: .normal);        return cell
+        cell.interestNameButton.setTitle(viewModel?.interestData[indexPath.row].interest_name, for: .normal)
+        if let currentInterest = viewModel?.interestData[indexPath.row],
+               let selectedInterests = selectedArray,
+               selectedInterests.contains(where: { $0.interest_name == currentInterest.interest_name }) {
+            cell.backgroundCellView.setBorder(.black, corner: 20, 1)
+            cell.interestNameButton.setTitleColor(.black, for: .normal)
+            }
+
+        return cell
     }
     
     
@@ -129,5 +149,18 @@ extension InterestEventTags : UICollectionViewDelegateFlowLayout, UICollectionVi
             
         }
     }
+    
+}
+extension InterestEventTags: InterestVMObserver{
+    func getListing() {
+        print("getListing")
+        if viewModel?.interestData.count ?? 0 > 0 {
+            self.showInterestCollectionView.backgroundView = nil
+        } else {
+            self.showInterestCollectionView.setBackgroundView(message: "No Data Found")
+        }
+        self.showInterestCollectionView.reloadData()
+    }
+    
     
 }

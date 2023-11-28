@@ -31,8 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        self.setNotification(application)
         let accesstoken = UserDefaultsCustom.getUserData()
-        if accesstoken?.auth_key?.count ?? 0 > 0 {
-            Singleton.shared.setHomeView()
+        if accesstoken?.access_token?.count ?? 0 > 0 {
+            Singleton.shared.setHomeView(window: self.window)
         } else {
             Singleton.shared.gotoLogin(window: self.window)
         }

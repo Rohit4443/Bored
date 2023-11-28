@@ -35,6 +35,9 @@ struct Constant {
     static let getProfile = baseUrl + "user/getprofile"
     static let homeEventListing = baseUrl + "event/all-event-listing"
     static let interestedNotInterested = baseUrl + "event/interested-not-interested-events"
+    static let homeDetail = baseUrl + "event/get-event-details"
+    static let interestedEventListing = baseUrl + "event/get-interested-events"
+    static let changePassword = baseUrl + "user/changepassword"
 }
 
 

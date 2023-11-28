@@ -213,11 +213,11 @@ class Singleton: NSObject {
                 window = UIWindow(frame: UIScreen.main.bounds)
 //            }
         } else {
-//            if let wind = (UIApplication.shared.delegate as! AppDelegate).window {
-//                window = wind
-//            } else {
-//                window = UIWindow(frame: UIScreen.main.bounds)
-//            }
+            if let wind = (UIApplication.shared.delegate as! AppDelegate).window {
+                window = wind
+            } else {
+                window = UIWindow(frame: UIScreen.main.bounds)
+            }
         }
         self.setHomeView(window: window)
     }
@@ -225,7 +225,9 @@ class Singleton: NSObject {
     
     func setHomeView(window: UIWindow? = UIApplication.shared.windows.first(where: {$0.isKeyWindow})) {
         let homeVC = TabBarVC()
-        Singleton.homeTabController = homeVC
+//        Singleton.homeTabController = homeVC
+        let nev = UINavigationController(rootViewController: homeVC)
+        nev.navigationBar.isHidden = true
         
 //        let sideMenu:SWRevealViewController = UIStoryboard.rootController(identifier: "SWRevealViewController") as! SWRevealViewController
 //        let menu:MenuController = MenuController()

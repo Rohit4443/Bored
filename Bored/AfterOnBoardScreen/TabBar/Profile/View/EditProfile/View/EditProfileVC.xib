@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,11 +25,13 @@
                 <outlet property="aboutMeTextView" destination="Id1-eM-H9T" id="UQy-Ci-Vc1"/>
                 <outlet property="birthdayTextField" destination="zCX-ox-ivt" id="JmD-Ee-554"/>
                 <outlet property="cameraButton" destination="JrJ-O2-HFz" id="KVF-2D-PHt"/>
+                <outlet property="femaleGenderBtn" destination="dUC-SD-59M" id="s2E-1v-5WL"/>
                 <outlet property="firstNameTextField" destination="7e5-xX-wHT" id="DUb-QT-v3Q"/>
                 <outlet property="genderFemaleButton" destination="dUC-SD-59M" id="18Q-QY-bPM"/>
                 <outlet property="genderMaleButton" destination="QXV-U5-7Db" id="S3X-tQ-uji"/>
                 <outlet property="interestsCollectionView" destination="TpE-3Y-zg3" id="3t2-l2-0Qi"/>
                 <outlet property="lastNameTextField" destination="hUM-Ua-G7a" id="jvp-y1-E62"/>
+                <outlet property="malegenderBtn" destination="QXV-U5-7Db" id="ULn-ma-qZP"/>
                 <outlet property="profileImage" destination="XQC-4l-eYf" id="DSE-ZC-edX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -40,7 +42,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nej-Gf-ADC">
-                    <rect key="frame" x="0.0" y="20" width="375" height="1580"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rfN-Wt-hkw">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -87,14 +89,14 @@
                             </constraints>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Blb-nL-qDh">
-                            <rect key="frame" x="0.0" y="80" width="375" height="1500"/>
+                            <rect key="frame" x="0.0" y="80" width="375" height="1520"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zga-5y-kXZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1500"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1520"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oh3-19-OIi">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1450"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="1470"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_editProfile" translatesAutoresizingMaskIntoConstraints="NO" id="XQC-4l-eYf">
                                             <rect key="frame" x="107.5" y="20" width="160" height="160"/>
@@ -392,9 +394,12 @@
                                                                     </constraints>
                                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" backgroundImage="ic_male">
+                                                                    <state key="normal" backgroundImage="male">
                                                                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="maleAction:" destination="-1" eventType="touchUpInside" id="8Fu-gb-k8B"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUC-SD-59M">
                                                                     <rect key="frame" x="102" y="4" width="75" height="75"/>
@@ -407,6 +412,9 @@
                                                                     <state key="normal" backgroundImage="ic_female">
                                                                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="femaleAction:" destination="-1" eventType="touchUpInside" id="cWb-mH-OcB"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <constraints>
@@ -566,8 +574,8 @@
         <image name="ic_editProfile" width="183" height="183"/>
         <image name="ic_female" width="74" height="74"/>
         <image name="ic_like" width="23" height="20"/>
-        <image name="ic_male" width="74" height="74"/>
         <image name="ic_user" width="23" height="23.5"/>
+        <image name="male" width="74" height="74"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -129,7 +129,7 @@ class Validator {
     
     static public func validateOldPassword(password:String?, val:String = "") -> (Bool,String) {
         guard let pwd = password, pwd.count > 0 else {
-            return (false,"Please enter your \(val)current password")
+            return (false,"Please enter your \(val)old password")
         }
         guard pwd.count >= 6 else {
             return (false, "\(val)Password should be 6 characters long")
@@ -149,7 +149,7 @@ class Validator {
     
     static public func validateReEnterPassword(password:String?, val:String = "") -> (Bool,String) {
         guard let pwd = password, pwd.count > 0 else {
-            return (false,"Please enter your  confirm new Password")
+            return (false,"Please re-enter new Password")
         }
         guard pwd.count >= 6 else {
             return (false, "\(val)Password should be 6 characters long")

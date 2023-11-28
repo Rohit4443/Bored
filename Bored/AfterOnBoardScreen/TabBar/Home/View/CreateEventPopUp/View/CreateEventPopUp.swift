@@ -7,8 +7,15 @@
 
 import UIKit
 
+protocol CreateEventPopUpDelegate{
+    func createAction()
+}
+
 class CreateEventPopUp: UIViewController {
     @IBOutlet var containerView: UIView!
+    
+    var delegate: CreateEventPopUpDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,4 +31,7 @@ class CreateEventPopUp: UIViewController {
             
         }
 
+    @IBAction func createEventAction(_ sender: UIButton) {
+        self.delegate?.createAction()
+    }
 }

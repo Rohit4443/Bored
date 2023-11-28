@@ -25,6 +25,19 @@ extension Data {
         print("formatted result: \(string)")
         return string
     }
+    func formattedDate(from dateString: String?) -> String {
+        guard let dateString = dateString else { return "" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let outputDateFormatter = DateFormatter()
+            outputDateFormatter.dateFormat = "d MMM, yyyy"
+            return outputDateFormatter.string(from: date)
+        } else {
+            return "Invalid date format"
+        }
+    }
     
 }
 

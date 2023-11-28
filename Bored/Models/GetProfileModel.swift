@@ -11,7 +11,7 @@ class GetProfileModel: Codable{
     var status: Int?
     var message: String?
     var data: GetProfileData?
-    var interestedEvents: [InterestedEventsData]?
+    var interestedEvents: [EventListingData]?
 }
 
 class GetProfileData: Codable{
@@ -37,6 +37,7 @@ class GetProfileData: Codable{
     var access_token:String?
     var created_at: String?
     var updated_at: String?
+//    var about_me: String?
     var interestsData: [InterestsDatum]?
 }
 
@@ -45,6 +46,24 @@ class InterestsDatum:Codable{
     var interest_name: String?
 }
 
-class InterestedEventsData: Codable{
-    
-}
+//class InterestedEventsData: Codable{
+//    var event_id: String?
+//    var userID: String?
+//    var title: String?
+//    var description: String?
+//    var startDate: String?
+//    var endDate: String?
+//    var startTime: String?
+//    var endTime: String?
+//    var location: String?
+//    var latitude: String?
+//    var longitude: String?
+//    var eventTags: String?
+//    var createdAt: String?
+//    var updatedAt: String?
+//    var status: String?
+//    var userName: String?
+//    var userImage: String?
+//    var files: [FileData]?
+//
+//}

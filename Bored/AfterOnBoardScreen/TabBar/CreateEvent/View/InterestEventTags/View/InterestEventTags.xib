@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +12,9 @@
         <array key="Poppins-Medium.ttf">
             <string>Poppins-Medium</string>
         </array>
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
         <array key="Poppins-SemiBold.ttf">
             <string>Poppins-SemiBold</string>
         </array>
@@ -19,7 +22,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InterestEventTags" customModule="Bored" customModuleProvider="target">
             <connections>
-                <outlet property="collheightConstraint" destination="Sel-cd-kxm" id="wKE-6K-XJu"/>
+                <outlet property="collheightConstraint" destination="7Qp-Rq-vgr" id="hSv-x1-vhB"/>
                 <outlet property="otherBgView" destination="Nkt-G8-bor" id="tSc-oq-WHb"/>
                 <outlet property="otherViewHeightConstraint" destination="dxk-pG-UsY" id="LzN-ex-2pL"/>
                 <outlet property="showInterestCollectionView" destination="iiy-Na-sqS" id="hhT-JO-b7E"/>
@@ -32,13 +35,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvR-7Y-0hI">
-                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="iiy-Na-sqS">
-                            <rect key="frame" x="20" y="80" width="335" height="417"/>
+                            <rect key="frame" x="20" y="80" width="335" height="317"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="417" id="Sel-cd-kxm"/>
+                                <constraint firstAttribute="height" constant="317" id="7Qp-Rq-vgr"/>
                             </constraints>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="kob-WL-plf">
                                 <size key="itemSize" width="128" height="128"/>
@@ -48,7 +51,7 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nkt-G8-bor">
-                            <rect key="frame" x="20" y="497" width="335" height="130"/>
+                            <rect key="frame" x="20" y="419" width="335" height="130"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wYN-ZA-fTq">
                                     <rect key="frame" x="2" y="10" width="51" height="25.5"/>
@@ -88,28 +91,46 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="IEp-ec-zWp" secondAttribute="bottom" constant="1.5" id="0Lv-UX-c68"/>
                                 <constraint firstItem="wYN-ZA-fTq" firstAttribute="leading" secondItem="Nkt-G8-bor" secondAttribute="leading" constant="2" id="551-58-a02"/>
                                 <constraint firstItem="IEp-ec-zWp" firstAttribute="leading" secondItem="Nkt-G8-bor" secondAttribute="leading" id="7f6-6D-xPk"/>
                                 <constraint firstItem="IEp-ec-zWp" firstAttribute="top" secondItem="wYN-ZA-fTq" secondAttribute="bottom" constant="12" id="FDd-KI-39y"/>
                                 <constraint firstAttribute="height" constant="130" id="dxk-pG-UsY"/>
                                 <constraint firstItem="wYN-ZA-fTq" firstAttribute="top" secondItem="Nkt-G8-bor" secondAttribute="top" constant="10" id="wV2-Fb-ai7"/>
-                                <constraint firstAttribute="bottom" secondItem="IEp-ec-zWp" secondAttribute="bottom" constant="1.5" id="yZz-Iy-1Ih"/>
                                 <constraint firstAttribute="trailing" secondItem="IEp-ec-zWp" secondAttribute="trailing" id="zUa-n9-6m2"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxA-Ql-ay9">
+                            <rect key="frame" x="20" y="591" width="335" height="50"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="u1b-gg-n8l"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Submit"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="7"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="iiy-Na-sqS" firstAttribute="leading" secondItem="wvR-7Y-0hI" secondAttribute="leading" constant="20" id="E7W-1O-Fpg"/>
+                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fxA-Ql-ay9" secondAttribute="bottom" constant="16" id="QM3-fk-ecC"/>
+                        <constraint firstItem="fxA-Ql-ay9" firstAttribute="trailing" secondItem="IEp-ec-zWp" secondAttribute="trailing" id="ScC-ym-3g5"/>
                         <constraint firstItem="Nkt-G8-bor" firstAttribute="leading" secondItem="wvR-7Y-0hI" secondAttribute="leading" constant="20" id="fCH-rt-sLk"/>
-                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Nkt-G8-bor" secondAttribute="bottom" constant="20" id="mBl-VU-N8T"/>
-                        <constraint firstItem="Nkt-G8-bor" firstAttribute="top" secondItem="iiy-Na-sqS" secondAttribute="bottom" id="nUW-Y7-cnE"/>
+                        <constraint firstItem="fxA-Ql-ay9" firstAttribute="top" secondItem="Nkt-G8-bor" secondAttribute="bottom" constant="42" id="jSW-J3-UVt"/>
+                        <constraint firstItem="Nkt-G8-bor" firstAttribute="top" secondItem="iiy-Na-sqS" secondAttribute="bottom" constant="22" id="lgP-CQ-tQm"/>
                         <constraint firstAttribute="trailing" secondItem="iiy-Na-sqS" secondAttribute="trailing" constant="20" id="q0Z-KO-HDc"/>
+                        <constraint firstItem="fxA-Ql-ay9" firstAttribute="leading" secondItem="IEp-ec-zWp" secondAttribute="leading" id="tCG-Bm-J2P"/>
                         <constraint firstAttribute="trailing" secondItem="Nkt-G8-bor" secondAttribute="trailing" constant="20" id="tku-x9-GRl"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0po-gh-yBw">
-                    <rect key="frame" x="0.0" y="20" width="375" height="80"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nc0-3P-5jv">
                             <rect key="frame" x="15" y="25" width="30" height="30"/>
@@ -171,7 +192,7 @@
     <resources>
         <image name="ic_back" width="24" height="24"/>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

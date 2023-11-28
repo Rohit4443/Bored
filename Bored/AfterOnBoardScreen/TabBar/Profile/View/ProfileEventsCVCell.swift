@@ -19,6 +19,7 @@ class ProfileEventsCVCell: UICollectionViewCell {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var dateImage: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var eventImage: UIImageView!
     
     @IBOutlet weak var didSelectBgButton: UIButton!
     override func awakeFromNib() {

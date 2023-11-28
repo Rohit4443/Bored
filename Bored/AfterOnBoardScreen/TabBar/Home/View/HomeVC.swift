@@ -21,18 +21,18 @@ class HomeVC: UIViewController{
     
     
     var viewModel: HomeVM?
-    
+    var downSwipeCount = 0
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
         super.viewDidLoad()
         setCollectionViewDelegates()
-//        setSwipe()
+        //        setSwipe()
         setSwipeEvent()
         setViewModel()
         
-//        self.profileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
-//        self.nameLabel.text = "\("Hi")\(",")\(UserDefaultsCustom.getUserData()?.first_name ?? "")\(" ")\(UserDefaultsCustom.getUserData()?.last_name ?? "")"
+        //        self.profileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
+        //        self.nameLabel.text = "\("Hi")\(",")\(UserDefaultsCustom.getUserData()?.first_name ?? "")\(" ")\(UserDefaultsCustom.getUserData()?.last_name ?? "")"
         
     }
     
@@ -40,7 +40,7 @@ class HomeVC: UIViewController{
         setViewModel()
         self.profileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
         self.nameLabel.text = "\("Hi")\(", ")\(UserDefaultsCustom.getUserData()?.first_name ?? "")\(" ")\(UserDefaultsCustom.getUserData()?.last_name ?? "")"
-        
+       
     }
     
     func setCollectionViewDelegates(){
@@ -151,14 +151,14 @@ extension HomeVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataSourc
 extension HomeVC: KolodaViewDelegate, KolodaViewDataSource{
     
     func kolodaNumberOfCards(_ koloda: Koloda.KolodaView) -> Int {
-//        return 4
+        //        return 4
         print(viewModel?.eventListing.count)
         return viewModel?.eventListing.count ?? 0
         
     }
     func koloda(_ koloda: Koloda.KolodaView, viewForCardAt index: Int) -> UIView {
         let cardView = UINib(nibName: "KolodaCardView", bundle: nil).instantiateView as! KolodaCardView
-
+        
         if let eventListing = viewModel?.eventListing {
             if let files = eventListing[index].files {
                 if let fileData = files.first(where: { $0.files != nil }) {
@@ -170,19 +170,19 @@ extension HomeVC: KolodaViewDelegate, KolodaViewDataSource{
                 }
             }
         }
-
         
-//        for i in 0..<(viewModel?.eventListing.count ?? 0) {
-//            let element = viewModel?.eventListing[i]
-//            print(element)
-//
-//            for j in 0..<(viewModel?.eventListing[i].files?.count ?? 0){
-//                let images = viewModel?.eventListing[i].files?[j]
-//                print(images)
-//                cardView.profileImage.setImage(image: )
-//
-//            }
-//        }
+        
+        //        for i in 0..<(viewModel?.eventListing.count ?? 0) {
+        //            let element = viewModel?.eventListing[i]
+        //            print(element)
+        //
+        //            for j in 0..<(viewModel?.eventListing[i].files?.count ?? 0){
+        //                let images = viewModel?.eventListing[i].files?[j]
+        //                print(images)
+        //                cardView.profileImage.setImage(image: )
+        //
+        //            }
+        //        }
         
         
         print(cardView.profileImage.image ?? UIImage())
@@ -192,10 +192,10 @@ extension HomeVC: KolodaViewDelegate, KolodaViewDataSource{
         cardView.locationLAbel.text = viewModel?.eventListing[index].location
         cardView.eventNameLabel.text = viewModel?.eventListing[index].title
         let dateString = viewModel?.eventListing[index].created_at
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
+        
         if let date = dateFormatter.date(from: dateString ?? "")  {
             let outputDateFormatter = DateFormatter()
             outputDateFormatter.dateFormat = "d MMM, yyyy"
@@ -206,16 +206,16 @@ extension HomeVC: KolodaViewDelegate, KolodaViewDataSource{
         } else {
             print("Invalid date format")
         }
-  
         
-//        if index < iamgeArray.count {
-//                cardView.cardImage.image = UIImage(named: iamgeArray[index])
-//            cardView.cardLabel.text = labelArray[index]
-//            } else {
-//                // Handle the case when the index is out of bounds
-//                // You can set a default image or perform other actions here
-//                cardView.cardImage.image = UIImage(named: "defaultImage")
-//            }
+        
+        //        if index < iamgeArray.count {
+        //                cardView.cardImage.image = UIImage(named: iamgeArray[index])
+        //            cardView.cardLabel.text = labelArray[index]
+        //            } else {
+        //                // Handle the case when the index is out of bounds
+        //                // You can set a default image or perform other actions here
+        //                cardView.cardImage.image = UIImage(named: "defaultImage")
+        //            }
         return cardView
     }
     
@@ -223,13 +223,14 @@ extension HomeVC: KolodaViewDelegate, KolodaViewDataSource{
         print(index)
         print("selected")
         let vc = HomeDetailVC()
+        vc.eventID = viewModel?.eventListing[index].event_id
         vc.hidesBottomBarWhenPushed = true
         self.pushViewController(vc, true)
     }
     func koloda(_ koloda: KolodaView, allowedDirectionsForIndex index: Int) -> [SwipeResultDirection]{
         [.up,.down]
     }
-
+    
     
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
         if direction == .up{
@@ -244,12 +245,20 @@ extension HomeVC: KolodaViewDelegate, KolodaViewDataSource{
             print("EVENTSwiped====\(id)")
             viewModel?.interestedNotInterestedApi(type: "0", eventId: id ?? "")
             self.eventSwipeKolodaView.reloadData()
+            
+            downSwipeCount += 1
+            if downSwipeCount == 10 {
+                let vc = CreateEventPopUp()
+                vc.modalPresentationStyle = .overFullScreen
+                vc.delegate = self
+                self.present(vc, true)
+            }
         }
-//        else if direction == .left{
-//            print("Interested left")
-//        }else if direction == .right{
-//            print("Interested right")
-//        }
+        //        else if direction == .left{
+        //            print("Interested left")
+        //        }else if direction == .right{
+        //            print("Interested right")
+        //        }
         
     }
     func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
@@ -266,13 +275,37 @@ extension HomeVC: HomeVMObserver{
     
     func observerEventListing() {
         print("getListing")
-//        if viewModel?.eventListing.count ?? 0 > 0 {
-//            self.eventSwipeKolodaView.backgroundView = nil
-//        } else {
-//            self.findInterestCollectionView.setBackgroundView(message: "No Data Found")
-//        }
+        //        if viewModel?.eventListing.count ?? 0 > 0 {
+        //            self.eventSwipeKolodaView.backgroundView = nil
+        //        } else {
+        //            self.findInterestCollectionView.setBackgroundView(message: "No Data Found")
+        //        }
         self.eventSwipeKolodaView.reloadData()
     }
- 
-
+    
+    
+}
+extension HomeVC: CreateEventPopUpDelegate{
+    func createAction(){
+        self.dismiss(animated: true, completion: nil)
+        
+        // Make sure the current view controller is a part of a navigation controller
+        guard let navigationController = self.navigationController else {
+            return
+        }
+        
+        // Pop to the previous view controller in the navigation stack
+        if let previousViewController = navigationController.viewControllers.first(where: { $0 is HomeVC }) {
+            navigationController.popToViewController(previousViewController, animated: true)
+            tabBarController?.selectedIndex = 2
+        }
+        
+        
+        //        let vc = CreateEventVC()
+        //        self.dismiss(animated: true)
+        //        self.pushViewController(vc, true)
+        //
+    }
+    
+    
 }

@@ -15,7 +15,9 @@ protocol ProfileVMObserver{
 class ProfileVM: NSObject{
     
     var observer: ProfileVMObserver?
-    var interestEvent : [InterestsDatum] = []
+    var userData: GetProfileData?
+    var interestEvent : [EventListingData] = []
+    var interestData: [InterestsDatum] = []
     
     init(observer: ProfileVMObserver? = nil) {
         self.observer = observer
@@ -37,8 +39,12 @@ class ProfileVM: NSObject{
                 if let userModel = try? JSONDecoder().decode(GetProfileModel.self, from: parsedData){
                     if let data1 = userModel.data{
                         print(data1)
+                        self.userData = data1
                     }
-                    if let data = userModel.data?.interestsData{
+                    if let data2 = userModel.data?.interestsData{
+                        self.interestData = data2
+                    }
+                    if let data = userModel.interestedEvents{
                         self.interestEvent.append(contentsOf: data)
                     }else{
                         self.interestEvent.removeAll()

@@ -61,6 +61,7 @@ class ProfileVC: UIViewController {
     }
     @IBAction func editProfileAction(_ sender: UIButton) {
         let vc = EditProfileVC()
+        vc.comeFrom = true
         vc.hidesBottomBarWhenPushed = true
         self.pushViewController(vc, true)
     }
@@ -69,11 +70,32 @@ class ProfileVC: UIViewController {
 extension ProfileVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return 2
+        print(viewModel?.interestEvent.count ?? 0)
         return viewModel?.interestEvent.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileEventsTVCell", for: indexPath) as! ProfileEventsTVCell
+        cell.userNameLabel.text = viewModel?.interestEvent[indexPath.row].user_name
+        cell.userProfileImage.setImage(image: viewModel?.interestEvent[indexPath.row].user_image,placeholder: UIImage(named: "placeholder"))
+        cell.titleLabel.text = viewModel?.interestEvent[indexPath.row].title
+        cell.locationLabel.text = viewModel?.interestEvent[indexPath.row].location
+        let date = viewModel?.interestEvent[indexPath.row].created_at
+    
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormatter.date(from: date ?? "")  {
+            let outputDateFormatter = DateFormatter()
+            outputDateFormatter.dateFormat = "d MMM, yyyy"
+            
+            let outputString = outputDateFormatter.string(from: date)
+            print(outputString) // Output: 24 Nov, 2023
+            cell.dateLAbel.text = outputString
+        } else {
+            print("Invalid date format")
+        }
+        
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
