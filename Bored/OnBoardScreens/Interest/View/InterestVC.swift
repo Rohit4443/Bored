@@ -129,10 +129,12 @@ class InterestVC: UIViewController {
     @IBAction func submitAction(_ sender: UIButton) {
         if arraySelectedValue.isEmpty {
             showMessage(message: "Please select interest from the list", isError: .error)
-        } else if self.otherTV.text.isEmpty {
-            showMessage(message: "Please enter other", isError: .error)
-            print("otherTV.text is empty")
-        } else {
+        }
+//        else if self.otherTV.text.isEmpty {
+//            showMessage(message: "Please enter other", isError: .error)
+//            print("otherTV.text is empty")
+//        }
+        else {
             print(arraySelectedValue)
             DispatchQueue.main.async {
                 self.delegate?.didSelectItems(self.arraySelectedValue, other: self.otherTV.text ?? "", id: self.arraySelectedID)

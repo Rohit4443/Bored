@@ -81,6 +81,7 @@ class InterestVM: NSObject{
                         if let data = userModel.data {
     //                        self.interestData = data
                             self.interestData.append(contentsOf: data)
+                            print(self.interestData.count)
                         } else {
                             self.interestData.removeAll()
                         }

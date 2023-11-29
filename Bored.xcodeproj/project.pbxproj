@@ -153,6 +153,8 @@
 		A893E87E2B0B4AEC004A1980 /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E86A2B0B4AEC004A1980 /* UIColor+Custom.swift */; };
 		A893E8802B0B4BBB004A1980 /* String+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E87F2B0B4BBA004A1980 /* String+Custom.swift */; };
 		A893E8822B0B4C27004A1980 /* Date+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8812B0B4C27004A1980 /* Date+Custom.swift */; };
+		A89541E52B171B3C001C5493 /* EditProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89541E42B171B3C001C5493 /* EditProfileModel.swift */; };
+		A89541E72B171BE5001C5493 /* EditProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89541E62B171BE5001C5493 /* EditProfileVM.swift */; };
 		A896828B2B145E0300DF5B6A /* HomeDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A896828A2B145E0300DF5B6A /* HomeDetailVM.swift */; };
 		A896828D2B145E1400DF5B6A /* HomeDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A896828C2B145E1400DF5B6A /* HomeDetailModel.swift */; };
 		A89A9A042B1074790080425F /* HomeListingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89A9A032B1074790080425F /* HomeListingModel.swift */; };
@@ -314,6 +316,8 @@
 		A893E86A2B0B4AEC004A1980 /* UIColor+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Custom.swift"; sourceTree = "<group>"; };
 		A893E87F2B0B4BBA004A1980 /* String+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Custom.swift"; sourceTree = "<group>"; };
 		A893E8812B0B4C27004A1980 /* Date+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Custom.swift"; sourceTree = "<group>"; };
+		A89541E42B171B3C001C5493 /* EditProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileModel.swift; sourceTree = "<group>"; };
+		A89541E62B171BE5001C5493 /* EditProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVM.swift; sourceTree = "<group>"; };
 		A896828A2B145E0300DF5B6A /* HomeDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailVM.swift; sourceTree = "<group>"; };
 		A896828C2B145E1400DF5B6A /* HomeDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailModel.swift; sourceTree = "<group>"; };
 		A89A9A032B1074790080425F /* HomeListingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListingModel.swift; sourceTree = "<group>"; };
@@ -763,6 +767,7 @@
 		5FC34A1C2AE908D600C5D2FF /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				5F34A9A02AF50D3E0042AC42 /* MyEventDetail */,
 				5FC34A492AE90FEC00C5D2FF /* Profile */,
 				5FC34A432AE90FCC00C5D2FF /* ChatList */,
 				5FC34A3D2AE90F9D00C5D2FF /* CreateEvent */,
@@ -776,6 +781,7 @@
 		5FC34A312AE90F4000C5D2FF /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				5FAB32CC2AEA48E100E027A6 /* HomeDetail. */,
 				5FC34A322AE90F4700C5D2FF /* View */,
 			);
 			path = Home;
@@ -793,7 +799,6 @@
 				A89A9A052B1074A30080425F /* HomeVM.swift */,
 				5FE3DAD72AEA2B34008663B7 /* CreateEventPopUp */,
 				5FAB32C12AEA3FED00E027A6 /* Notification */,
-				5FAB32CC2AEA48E100E027A6 /* HomeDetail. */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -825,6 +830,7 @@
 		5FC34A3D2AE90F9D00C5D2FF /* CreateEvent */ = {
 			isa = PBXGroup;
 			children = (
+				5F99E5D72AF26D75003F2065 /* InterestEventTags */,
 				5FC34A3E2AE90FAA00C5D2FF /* View */,
 			);
 			path = CreateEvent;
@@ -837,7 +843,6 @@
 				5FC34A402AE90FBA00C5D2FF /* CreateEventVC.xib */,
 				5FE800B82AF23D4000C1FEB9 /* UploadImagesCVCell.swift */,
 				5FE800B92AF23D4000C1FEB9 /* UploadImagesCVCell.xib */,
-				5F99E5D72AF26D75003F2065 /* InterestEventTags */,
 				5F99E5DD2AF27A76003F2065 /* SelectLocation */,
 			);
 			path = View;
@@ -882,7 +887,6 @@
 				183869002AF3D6B700AFA991 /* ProfileEventsCVCell.swift */,
 				183869012AF3D6B700AFA991 /* ProfileEventsCVCell.xib */,
 				A881E6252B0F7D2400AE40B0 /* ProfileVM.swift */,
-				5F34A9A02AF50D3E0042AC42 /* MyEventDetail */,
 				5F34A99A2AF50A590042AC42 /* MyEvent */,
 				5F34A9902AF4FE7F0042AC42 /* InterestedUsers */,
 				5F34A98A2AF4FCD20042AC42 /* EditDeleteEventPopUp */,
@@ -966,6 +970,7 @@
 			children = (
 				5FD526D62AF4DBEF00BC2C5B /* EditProfileVC.swift */,
 				5FD526D72AF4DBEF00BC2C5B /* EditProfileVC.xib */,
+				A89541E62B171BE5001C5493 /* EditProfileVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1087,6 +1092,7 @@
 				A811847E2B0F6304005DC8C0 /* GetProfileModel.swift */,
 				A89A9A032B1074790080425F /* HomeListingModel.swift */,
 				A896828C2B145E1400DF5B6A /* HomeDetailModel.swift */,
+				A89541E42B171B3C001C5493 /* EditProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1289,6 +1295,7 @@
 				5FD624A02AF0D04A0096A347 /* LeftTVCell.swift in Sources */,
 				5FC34A472AE90FE800C5D2FF /* ChatListVC.swift in Sources */,
 				5F9597202AE68D9A00618196 /* InterestVC.swift in Sources */,
+				A89541E72B171BE5001C5493 /* EditProfileVM.swift in Sources */,
 				5F34A99E2AF50A7B0042AC42 /* MyEventVC.swift in Sources */,
 				5F00AABC2AEBEE82006EA5F3 /* SearchUserVC.swift in Sources */,
 				5FD526D82AF4DBEF00BC2C5B /* EditProfileVC.swift in Sources */,
@@ -1359,6 +1366,7 @@
 				5FD526BC2AF4C49900BC2C5B /* ViewAllInterestedEvents.swift in Sources */,
 				5FAE8FC62AE29ADC00B222D5 /* Navigation+Custom.swift in Sources */,
 				5FAE8FC42AE29AD400B222D5 /* ExtensionDelegates.swift in Sources */,
+				A89541E52B171B3C001C5493 /* EditProfileModel.swift in Sources */,
 				5FAE8FA02AE2932000B222D5 /* SceneDelegate.swift in Sources */,
 				5F99E5E12AF27A9F003F2065 /* SelectLocationVC.swift in Sources */,
 				A896828B2B145E0300DF5B6A /* HomeDetailVM.swift in Sources */,

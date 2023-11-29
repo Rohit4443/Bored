@@ -13,11 +13,18 @@ class SettingsVC: UIViewController {
     
     var arraySettingsName = ["Map Visibility","Change Password","My Events","Blocked User","About Us","Terms & Conditions","Privacy Policy","Delete Account","Logout"]
     var arraySettingsImages = ["ic_mapVisibility","ic_changePassword","ic_myEvent","ic_blockUser","ic_aboutUs","ic_termAndCondition","ic_privacyPolicy","ic_deleteAccount","ic_logout"]
+    
+    var viewModel : ProfileVM?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         setTableViewDelegates()
+        setViewModel()
         
+    }
+    
+    func setViewModel(){
+        self.viewModel = ProfileVM(observer: self)
     }
     
     func setTableViewDelegates(){
@@ -105,8 +112,9 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             let alertController = UIAlertController(title: "Logout", message: "Are you sure, you want to logout?", preferredStyle: .alert)
             let actionNo = UIAlertAction(title: "No", style: .cancel, handler: nil)
             let actionYes = UIAlertAction(title: "Yes", style: .default) {_ in
-                let vc = SelectLoginSignUpVC()
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.viewModel?.logoutApi()
+//                let vc = SelectLoginSignUpVC()
+//                self.navigationController?.pushViewController(vc, animated: true)
             }
             alertController.addAction(actionNo)
             alertController.addAction(actionYes)
@@ -123,4 +131,14 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
     
 
 }
-
+extension SettingsVC: ProfileVMObserver{
+    func observerGetProfile() {
+       
+    }
+    
+    func observerLogOut() {
+        Singleton.shared.logoutFromDevice()
+    }
+    
+    
+}

@@ -37,6 +37,7 @@ class signUpVC: UIViewController {
     var profileSignUpImage: UIImage?
     var signUpImage: Data?
     var signUpImageBase64String: String?
+    var otherInterest: String?
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
@@ -243,7 +244,7 @@ class signUpVC: UIViewController {
         }else{
             let gender = "\(gender ?? "")"
             
-            viewModel?.signUPImageApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: interestItems ?? "")
+            viewModel?.signUPImageApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: otherInterest ?? "")
             
 //            viewModel?.signUPApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: interestItems ?? "")
         }
@@ -339,7 +340,7 @@ extension signUpVC: InterestVCDelegate{
         print(itemsString)
         interestItems = itemsString
         print(interestItems)
-        
+        self.otherInterest = other
         let itemId = id.joined(separator: ",")
         print(itemId)
         self.interestID = itemId

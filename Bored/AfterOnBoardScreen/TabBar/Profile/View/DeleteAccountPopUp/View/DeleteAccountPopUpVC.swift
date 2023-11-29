@@ -12,11 +12,12 @@ class DeleteAccountPopUpVC: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var deleteAccountButton: UIButton!
     
+    var viewModel: ProfileVM?
     var comefrom:String?
     var controller:UIViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setViewModel()
     }
     override func viewWillAppear(_ animated: Bool) {
         if comefrom == "deleteAccount"{
@@ -27,13 +28,17 @@ class DeleteAccountPopUpVC: UIViewController {
             deleteAccountButton.setTitle("Confirm", for: .normal)
         }
     }
+    
+    func setViewModel(){
+        self.viewModel = ProfileVM(observer: self)
+    }
+    
     @IBAction func deleteAccountAction(_ sender: UIButton) {
         self.dismiss(animated: true)
         if comefrom == "deleteAccount"{
-            
-
-            let vc = SelectLoginSignUpVC()
-            self.controller?.pushViewController(vc, true)
+            viewModel?.deleteAccountApi()
+//            let vc = SelectLoginSignUpVC()
+//            self.controller?.pushViewController(vc, true)
         }else{
             self.dismiss(animated: true)
         }
@@ -47,4 +52,17 @@ class DeleteAccountPopUpVC: UIViewController {
             self.dismiss(animated: true)
         }
     }
+}
+                                   
+extension DeleteAccountPopUpVC : ProfileVMObserver{
+    func observerGetProfile() {
+        
+    }
+    
+    func observerLogOut() {
+        Singleton.shared.logoutFromDevice()
+    }
+    
+            
+            
 }

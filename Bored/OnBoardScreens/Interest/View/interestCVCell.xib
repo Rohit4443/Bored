@@ -27,7 +27,7 @@
                         <rect key="frame" x="5" y="7" width="308" height="38"/>
                         <subviews>
                             <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtg-Qb-U2k">
-                                <rect key="frame" x="15" y="0.0" width="278" height="38"/>
+                                <rect key="frame" x="12" y="0.0" width="284" height="38"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Rock Climbing">
@@ -37,10 +37,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="wtg-Qb-U2k" firstAttribute="leading" secondItem="1eK-tc-98q" secondAttribute="leading" constant="15" id="92g-LJ-bQU"/>
+                            <constraint firstItem="wtg-Qb-U2k" firstAttribute="leading" secondItem="1eK-tc-98q" secondAttribute="leading" constant="12" id="92g-LJ-bQU"/>
                             <constraint firstItem="wtg-Qb-U2k" firstAttribute="top" secondItem="1eK-tc-98q" secondAttribute="top" id="HSP-rM-udV"/>
                             <constraint firstAttribute="bottom" secondItem="wtg-Qb-U2k" secondAttribute="bottom" id="jAu-C5-vJe"/>
-                            <constraint firstAttribute="trailing" secondItem="wtg-Qb-U2k" secondAttribute="trailing" constant="15" id="qyt-Zy-YUZ"/>
+                            <constraint firstAttribute="trailing" secondItem="wtg-Qb-U2k" secondAttribute="trailing" constant="12" id="qyt-Zy-YUZ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

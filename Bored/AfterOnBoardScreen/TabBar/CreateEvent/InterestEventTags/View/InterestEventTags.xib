@@ -24,6 +24,7 @@
             <connections>
                 <outlet property="collheightConstraint" destination="7Qp-Rq-vgr" id="hSv-x1-vhB"/>
                 <outlet property="otherBgView" destination="Nkt-G8-bor" id="tSc-oq-WHb"/>
+                <outlet property="otherTV" destination="jks-39-0Ns" id="SeC-E9-BDQ"/>
                 <outlet property="otherViewHeightConstraint" destination="dxk-pG-UsY" id="LzN-ex-2pL"/>
                 <outlet property="showInterestCollectionView" destination="iiy-Na-sqS" id="hhT-JO-b7E"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -62,7 +63,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEp-ec-zWp">
                                     <rect key="frame" x="0.0" y="47.5" width="335" height="81"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="lorem Ipsum" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jks-39-0Ns">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jks-39-0Ns">
                                             <rect key="frame" x="10" y="8" width="315" height="65"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <color key="textColor" systemColor="labelColor"/>
@@ -114,6 +115,9 @@
                                     <real key="value" value="7"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="submitAction:" destination="-1" eventType="touchUpInside" id="eDk-4S-kBE"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>

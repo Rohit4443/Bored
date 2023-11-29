@@ -20,13 +20,14 @@ class ProfileVC: UIViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         setTableView()
-        setProfileData()
+//        setProfileData()
         setViewModel()
         print(UserDefaultsCustom.getUserData()?.image)
         
     }
     override func viewWillAppear(_ animated: Bool) {
         setViewModel()
+        
     }
     func setTableView(){
         self.interestedEventsTableView.delegate = self
@@ -61,7 +62,7 @@ class ProfileVC: UIViewController {
     }
     @IBAction func editProfileAction(_ sender: UIButton) {
         let vc = EditProfileVC()
-        vc.comeFrom = true
+        vc.comeToEdit = true
         vc.hidesBottomBarWhenPushed = true
         self.pushViewController(vc, true)
     }
@@ -104,7 +105,16 @@ extension ProfileVC: UITableViewDelegate,UITableViewDataSource{
     
 }
 extension ProfileVC: ProfileVMObserver{
+    func observerLogOut() {
+       
+    }
+    
     func observerGetProfile() {
+        self.nameLabel.text = "\(viewModel?.userData?.first_name ?? "")\(" ")\(viewModel?.userData?.last_name ?? "")"
+        self.emailLabel.text = viewModel?.userData?.email
+        self.profileImage.setImage(image: viewModel?.userData?.image,placeholder: UIImage(named: "placeholder"))
+        
+        
         if viewModel?.interestEvent.count ?? 0 > 0 {
             self.interestedEventsTableView.backgroundView = nil
         } else {

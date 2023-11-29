@@ -14,7 +14,7 @@ class TabBarVC: UITabBarController {
         super.viewDidLoad()
         setTabController()
         tabBar.backgroundColor = .white
-        
+        self.tabBar.items?.last?.setImageFromUrl()
     }
     
     
@@ -78,7 +78,7 @@ class TabBarVC: UITabBarController {
 
 extension UITabBarItem {
 func setImageFromUrl() {
- let imgUrl = UserDefaultsCustom.getUserData()?.image // UIImage(named: "profilesel")
+    let imgUrl = UserDefaultsCustom.getProfileData()?.image// UIImage(named: "profilesel")
  let defImg = "tabPlaceholder"
     let fghj = UIImage(named: defImg)?.withRenderingMode(.alwaysOriginal)
  self.image = fghj?.withRenderingMode(.alwaysOriginal)

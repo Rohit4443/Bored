@@ -40,6 +40,7 @@ class InterestedScreenVM: NSObject{
                         self.observer?.observerInterestListing()
                     }else{
                         self.interestedData.removeAll()
+                        self.observer?.observerInterestListing()
                     }
                    
                 }

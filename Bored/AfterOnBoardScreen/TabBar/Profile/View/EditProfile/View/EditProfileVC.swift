@@ -27,11 +27,17 @@ class EditProfileVC: UIViewController {
     var imagePickerController = UIImagePickerController()
     var viewModel: ProfileVM?
     var gender: String?
-    var comeFrom: Bool?
+    var comeToEdit: Bool?
     var interestArray: [String] = []
     var interestItems: String?
     var selectedInterestedItem: [String]?
     var interestID: String?
+    var profileSignUpImage: UIImage?
+    var signUpImage: Data?
+    var otherInterest: String?
+    
+    
+    var viewModel1: EditProfileVM?
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
@@ -40,8 +46,13 @@ class EditProfileVC: UIViewController {
         createDatePicker()
         setCollectionViewDelegates()
         setViewModel()
-        print(comeFrom)
+        setViewModel1()
+        print(comeToEdit)
         
+    }
+    
+    func setViewModel1(){
+        self.viewModel1 = EditProfileVM(observer: self)
     }
     
     func setViewModel(){
@@ -80,7 +91,7 @@ class EditProfileVC: UIViewController {
         birthdayTextField.text = formattedDate
         birthdayTextField.resignFirstResponder()
     }
-        
+
         
     //MARK: - IBAction -
     @IBAction func cameraPickPhotoAction(_ sender: UIButton) {
@@ -92,6 +103,7 @@ class EditProfileVC: UIViewController {
     
     @IBAction func saveAction(_ sender: UIButton) {
 
+        viewModel1?.editProfileApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: UserDefaultsCustom.getUserData()?.email ?? "", password: UserDefaultsCustom.getUserData()?.password ?? "", interest: self.interestID ?? "", gender: self.gender ?? "", dob: self.birthdayTextField.text ?? "", deviceType: "1", image: self.signUpImage ?? Data(), intersetName: self.otherInterest ?? "")
         
     }
     
@@ -103,7 +115,7 @@ class EditProfileVC: UIViewController {
     
     @IBAction func interestCollectionButton(_ sender: UIButton) {
         let vc = InterestEventTags()
-        vc.comeFromEdit = true
+        vc.delegate = self
         vc.selectedArray = viewModel?.interestData
         self.pushViewController(vc, true)
 //        let vc = InterestVC()
@@ -156,36 +168,51 @@ class EditProfileVC: UIViewController {
 }
 extension EditProfileVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if comeFrom == true{
+        if comeToEdit == true{
             return viewModel?.interestData.count ?? 0
+        }else{
+            return selectedInterestedItem?.count ?? 0
         }
-        return 0
+//        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "interestCVCell", for: indexPath) as! interestCVCell
-        if comeFrom == true{
+        if comeToEdit == true{
             cell.interestNameButton.setTitle(viewModel?.interestData[indexPath.row].interest_name, for: .normal)
+        }else{
+            cell.interestNameButton.setTitle(selectedInterestedItem?[indexPath.row], for: .normal)
         }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if comeFrom == true{
+        if comeToEdit == true{
             let text = viewModel?.interestData[indexPath.row].interest_name ?? ""
             let width = UILabel.textWidth(font: UIFont.setCustom(.Poppins_Regular, 10), text: text)
-            return CGSize(width: (width + 72) , height: collectionView.frame.size.height)
+            return CGSize(width: (width + 71) , height: collectionView.frame.size.height)
+        }else{
+            let text = selectedInterestedItem?[indexPath.row] ?? ""
+            let width = UILabel.textWidth(font: UIFont.setCustom(.Poppins_Regular, 10), text: text)
+            return CGSize(width: (width + 71) , height: collectionView.frame.size.height)
         }
-        return CGSize()
+//        return CGSize()
     }
     
 }
 
 extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let tempImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        let tempImage = info[UIImagePickerController.InfoKey.editedImage] as! UIImage
         profileImage.image  = tempImage
+        print(tempImage)
+        
+        
+        self.profileSignUpImage = tempImage
+        let imageData = tempImage.jpegData(compressionQuality: 0.8)
+        print(imageData)
+        self.signUpImage = imageData
         self.dismiss(animated: true, completion: nil)
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -207,7 +234,7 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
             }
         }
         let action1 = UIAlertAction(title: "Gallery", style: .default){ action in
-            self.imagePickerController.allowsEditing = false
+            self.imagePickerController.allowsEditing = true
             self.imagePickerController.sourceType = .photoLibrary
             self.imagePickerController.delegate = self
             self.present(self.imagePickerController, animated: true, completion: nil)
@@ -220,12 +247,33 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
     }
 }
 extension EditProfileVC: ProfileVMObserver{
+    func observerLogOut() {
+       
+    }
+    
     func observerGetProfile() {
-        self.profileImage.setImage(image: viewModel?.userData?.image)
+        let image = viewModel?.userData?.image ?? ""
+        print(image)
+        let url = URL(string:image)
+        if let data = try? Data(contentsOf: url!)
+        {
+            let image: UIImage = UIImage(data: data) ?? UIImage()
+            print(image)
+            let profile = image.jpegData(compressionQuality: 0.8)
+            print(profile)
+            self.signUpImage = profile
+            print(self.signUpImage)
+        }
+
+        
+        self.profileImage.setImage(image: viewModel?.userData?.image, placeholder: UIImage(named: "placeholder"))
         self.firstNameTextField.text = viewModel?.userData?.first_name
         self.lastNameTextField.text = viewModel?.userData?.last_name
         self.birthdayTextField.text = viewModel?.userData?.dob
         self.interestsCollectionView.reloadData()
+        self.gender = viewModel?.userData?.gender
+        self.interestID = viewModel?.userData?.interests
+        
         if viewModel?.userData?.gender == "1"{
             malegenderBtn.setBorder(.black, corner: 37.5, 2)
         }else{
@@ -237,8 +285,16 @@ extension EditProfileVC: ProfileVMObserver{
     
     
 }
-extension EditProfileVC: InterestVCDelegate{
-    func didSelectItems(_ items: [String], other: String, id: [String]) {
+extension EditProfileVC: EditProfileVMObserver{
+    func observerEditProfile() {
+        self.popVC()
+    }
+    
+    
+}
+extension EditProfileVC: InterestEventTagsDelegate{
+   
+    func didSelectItems(_ items: [String], other: String, id: [String],comeToEdit: Bool) {
         print("Selected items: \(items) \(other)\(id)")
         selectedInterestedItem = items
         print(selectedInterestedItem)
@@ -246,10 +302,12 @@ extension EditProfileVC: InterestVCDelegate{
         print(itemsString)
         interestItems = itemsString
         print(interestItems)
-        
+        self.otherInterest = other
         let itemId = id.joined(separator: ",")
         print(itemId)
         self.interestID = itemId
+        self.comeToEdit = comeToEdit
+        print(self.comeToEdit)
         interestsCollectionView.reloadData()
     }
  

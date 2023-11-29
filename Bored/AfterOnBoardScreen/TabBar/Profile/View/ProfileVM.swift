@@ -10,6 +10,7 @@ import SVProgressHUD
 
 protocol ProfileVMObserver{
     func observerGetProfile()
+    func observerLogOut()
 }
 
 class ProfileVM: NSObject{
@@ -56,6 +57,50 @@ class ProfileVM: NSObject{
             (error) in
             print(error.debugDescription)
         })
+    }
+    
+    func logoutApi(){
+        SVProgressHUD.show()
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.logout, params:[:], success: {
+            (response) in
+            print("response = \(response)")
+            SVProgressHUD.dismiss()
+            if let status = response["status"] as? Int,
+               status == 200 {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .success)
+                self.observer?.observerLogOut()
+            } else {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .error)
+            }
+        }, failure: {
+            (error) in
+            print(error.debugDescription)
+        })
+        
+    }
+    
+    func deleteAccountApi(){
+        SVProgressHUD.show()
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.deleteAccount, params:[:], success: {
+            (response) in
+            print("response = \(response)")
+            SVProgressHUD.dismiss()
+            if let status = response["status"] as? Int,
+               status == 200 {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .success)
+                self.observer?.observerLogOut()
+            } else {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .error)
+            }
+        }, failure: {
+            (error) in
+            print(error.debugDescription)
+        })
+        
     }
 }
 

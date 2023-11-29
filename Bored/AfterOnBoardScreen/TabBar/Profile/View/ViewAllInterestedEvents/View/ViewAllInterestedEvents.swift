@@ -80,7 +80,12 @@ extension ViewAllInterestedEvents: UITableViewDelegate,UITableViewDataSource{
 }
 extension ViewAllInterestedEvents: InterestedScreenVMObserver{
     func observerInterestListing() {
-        ViewAllinterestedEventsTableView.reloadData()
+        if viewModel?.interestedData.count ?? 0 > 0 {
+            self.ViewAllinterestedEventsTableView.backgroundView = nil
+        } else {
+            self.ViewAllinterestedEventsTableView.setBackgroundView(message: "No data found.")
+        }
+        self.ViewAllinterestedEventsTableView.reloadData()
     }
 
     
