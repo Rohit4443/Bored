@@ -186,6 +186,12 @@ class signUpVC: UIViewController {
         passwordTextField.isSecureTextEntry = !sender.isSelected
     }
     
+    @IBAction func termsConditionAction(_ sender: UIButton) {
+        let vc = TermAndConditionVC()
+        vc.comeFrom = "Terms & Conditions"
+        vc.link = "http://161.97.132.85/j3/bored/frontend/web/links/termsandconditions"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     //MARK: SignUp api
     
     func signUPApi() {
@@ -244,7 +250,7 @@ class signUpVC: UIViewController {
         }else{
             let gender = "\(gender ?? "")"
             
-            viewModel?.signUPImageApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: otherInterest ?? "")
+            viewModel?.signUPImageApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: otherInterest ?? "", aboutMe: aboutMeTextView.text ?? "")
             
 //            viewModel?.signUPApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: interestItems ?? "")
         }

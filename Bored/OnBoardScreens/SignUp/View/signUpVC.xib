@@ -585,11 +585,18 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I agree with terms &amp; Conditions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6xo-n3-KdT">
-                                            <rect key="frame" x="52" y="1159" width="303" height="24"/>
+                                            <rect key="frame" x="52" y="1154" width="303" height="34"/>
                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                             <color key="textColor" red="0.43529411759999997" green="0.43137254899999999" blue="0.43137254899999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOc-Fw-t6i">
+                                            <rect key="frame" x="52" y="1154" width="303" height="34"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="termsConditionAction:" destination="-1" eventType="touchUpInside" id="7dq-W6-fV4"/>
+                                            </connections>
+                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UD6-rM-41g">
                                             <rect key="frame" x="20" y="1212" width="335" height="50"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -640,15 +647,19 @@
                                     <constraints>
                                         <constraint firstItem="Oc9-Ow-fNA" firstAttribute="top" secondItem="mau-zG-RqZ" secondAttribute="bottom" constant="35" id="28B-WE-eVl"/>
                                         <constraint firstAttribute="trailing" secondItem="Oc9-Ow-fNA" secondAttribute="trailing" constant="20" id="2Qs-c0-EHr"/>
+                                        <constraint firstItem="yOc-Fw-t6i" firstAttribute="trailing" secondItem="6xo-n3-KdT" secondAttribute="trailing" id="2RB-JY-I3u"/>
                                         <constraint firstItem="HjB-jf-acJ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UD6-rM-41g" secondAttribute="bottom" constant="120" id="2WN-Xv-5bL"/>
                                         <constraint firstItem="6xo-n3-KdT" firstAttribute="centerY" secondItem="Yxx-UZ-Wtt" secondAttribute="centerY" id="8h5-ay-5e7"/>
                                         <constraint firstItem="Yxx-UZ-Wtt" firstAttribute="top" secondItem="Oc9-Ow-fNA" secondAttribute="bottom" constant="15" id="D11-NZ-KqA"/>
                                         <constraint firstItem="HjB-jf-acJ" firstAttribute="centerX" secondItem="gaX-o8-K3T" secondAttribute="centerX" id="DZD-Mn-UGG"/>
+                                        <constraint firstItem="yOc-Fw-t6i" firstAttribute="leading" secondItem="6xo-n3-KdT" secondAttribute="leading" id="GEL-oJ-us7"/>
                                         <constraint firstItem="mau-zG-RqZ" firstAttribute="top" secondItem="gaX-o8-K3T" secondAttribute="top" constant="20" id="H2X-0o-DuF"/>
                                         <constraint firstAttribute="bottom" secondItem="HjB-jf-acJ" secondAttribute="bottom" constant="5" id="HUz-xB-s4A"/>
                                         <constraint firstItem="mau-zG-RqZ" firstAttribute="centerX" secondItem="gaX-o8-K3T" secondAttribute="centerX" id="MzM-9A-jOs"/>
+                                        <constraint firstItem="yOc-Fw-t6i" firstAttribute="top" secondItem="6xo-n3-KdT" secondAttribute="top" id="Ozl-1Q-hD4"/>
                                         <constraint firstItem="TV1-Dy-T0R" firstAttribute="bottom" secondItem="mau-zG-RqZ" secondAttribute="bottom" constant="-5" id="PHU-6F-w4h"/>
                                         <constraint firstAttribute="trailing" secondItem="UD6-rM-41g" secondAttribute="trailing" constant="20" id="RpJ-kp-L11"/>
+                                        <constraint firstItem="yOc-Fw-t6i" firstAttribute="bottom" secondItem="6xo-n3-KdT" secondAttribute="bottom" id="UFn-70-LK5"/>
                                         <constraint firstItem="UD6-rM-41g" firstAttribute="leading" secondItem="gaX-o8-K3T" secondAttribute="leading" constant="20" id="V6F-rs-MAR"/>
                                         <constraint firstItem="6xo-n3-KdT" firstAttribute="leading" secondItem="Yxx-UZ-Wtt" secondAttribute="trailing" constant="10" id="XJw-AQ-ycQ"/>
                                         <constraint firstItem="Oc9-Ow-fNA" firstAttribute="leading" secondItem="gaX-o8-K3T" secondAttribute="leading" constant="20" id="e6M-C9-1gc"/>

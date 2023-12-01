@@ -56,6 +56,9 @@ extension ViewAllInterestedEvents: UITableViewDelegate,UITableViewDataSource{
         cell.userProfileImage.setImage(image: viewModel?.interestedData[indexPath.row].user_image,placeholder: UIImage(named: "placeholder"))
         cell.titleLabel.text = viewModel?.interestedData[indexPath.row].title
         cell.locationLabel.text = viewModel?.interestedData[indexPath.row].location
+        cell.file = viewModel?.interestedData[indexPath.row].files
+        
+        
         let date = viewModel?.interestedData[indexPath.row].created_at
     
         let dateFormatter = DateFormatter()

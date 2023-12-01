@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -53,7 +53,7 @@
                                 <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="XiV-TU-dyu">
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="XiV-TU-dyu">
                                 <rect key="frame" x="105" y="73" width="224" height="26"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xbv-mW-DPi">
@@ -143,6 +143,19 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="wnv-gO-fAj">
+                                <rect key="frame" x="105" y="73" width="224" height="35"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="Wm0-h3-wZ4"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="spN-oG-xZX">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -150,12 +163,16 @@
                             <constraint firstItem="Usd-rw-aXn" firstAttribute="leading" secondItem="jlb-Lp-NRm" secondAttribute="trailing" constant="10" id="9CU-jB-miu"/>
                             <constraint firstItem="XiV-TU-dyu" firstAttribute="top" secondItem="b5h-88-CZg" secondAttribute="bottom" constant="7" id="BZn-FN-z8T"/>
                             <constraint firstItem="Usd-rw-aXn" firstAttribute="top" secondItem="jlb-Lp-NRm" secondAttribute="top" id="ElP-uq-6wO"/>
+                            <constraint firstItem="wnv-gO-fAj" firstAttribute="top" secondItem="XiV-TU-dyu" secondAttribute="top" id="Fem-Ad-0XO"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XiV-TU-dyu" secondAttribute="trailing" constant="10" id="LDm-8i-bd7"/>
                             <constraint firstItem="jlb-Lp-NRm" firstAttribute="centerY" secondItem="GR3-Ho-GFG" secondAttribute="centerY" id="LlH-fn-zuw"/>
+                            <constraint firstItem="wnv-gO-fAj" firstAttribute="trailing" secondItem="XiV-TU-dyu" secondAttribute="trailing" id="SaA-zI-joO"/>
                             <constraint firstItem="b5h-88-CZg" firstAttribute="top" secondItem="Usd-rw-aXn" secondAttribute="bottom" constant="5" id="Yhz-eV-cMT"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="wnv-gO-fAj" secondAttribute="bottom" constant="16" id="Zg4-10-k0C"/>
                             <constraint firstItem="b5h-88-CZg" firstAttribute="leading" secondItem="Usd-rw-aXn" secondAttribute="leading" id="az4-fo-Ess"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="jlb-Lp-NRm" secondAttribute="bottom" constant="10" id="eKv-cz-31E"/>
                             <constraint firstItem="XiV-TU-dyu" firstAttribute="leading" secondItem="b5h-88-CZg" secondAttribute="leading" id="qJh-KK-EFt"/>
+                            <constraint firstItem="wnv-gO-fAj" firstAttribute="leading" secondItem="XiV-TU-dyu" secondAttribute="leading" id="x7O-sp-e7l"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -174,6 +191,7 @@
             </constraints>
             <size key="customSize" width="353" height="137"/>
             <connections>
+                <outlet property="interestCollectionView" destination="wnv-gO-fAj" id="CW9-nM-ipD"/>
                 <outlet property="userAge" destination="b5h-88-CZg" id="koM-cu-qld"/>
                 <outlet property="userImage" destination="jlb-Lp-NRm" id="U7A-DF-Hci"/>
                 <outlet property="userName" destination="Usd-rw-aXn" id="Hnf-py-JJi"/>

@@ -41,6 +41,7 @@ class ProfileVM: NSObject{
                     if let data1 = userModel.data{
                         print(data1)
                         self.userData = data1
+                        UserDefaultsCustom.saveProfileData(userData: data1)
                     }
                     if let data2 = userModel.data?.interestsData{
                         self.interestData = data2

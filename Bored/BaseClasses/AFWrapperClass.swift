@@ -94,6 +94,50 @@ class AFWrapperClass{
     }
 
     
+    //MARK: For Upload multiple images
+    func requestMultipleImagesPOST(_ strURL: String, params: Parameters?, imageKeys: [String], imageDatas: [Data], success: @escaping (NSDictionary) -> Void, failure: @escaping (NSError) -> Void) {
+        guard let url = URL(string: strURL) else {
+            print("Invalid URL")
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue(AppDefaults.token ?? "", forHTTPHeaderField: "Authorization")
+        
+        AF.upload(multipartFormData: { multiPart in
+            // Add other parameters to the multipart form data
+            if let params = params {
+                for (key, value) in params {
+                    if let temp = value as? String {
+                        multiPart.append(temp.data(using: .utf8)!, withName: key)
+                    }
+                }
+            }
+            
+            // Append the image data to the multipart form data
+            for (index, imageData) in imageDatas.enumerated() {
+                let imageKey = imageKeys[index]
+                multiPart.append(imageData, withName: imageKey, fileName: "\(UUID()).jpg", mimeType: "image/jpeg")
+            }
+        }, with: urlRequest)
+        .uploadProgress(queue: .main, closure: { progress in
+            print("Upload Progress: \(progress.fractionCompleted)")
+        })
+        .responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                if let JSON = value as? NSDictionary {
+                    success(JSON)
+                }
+            case .failure(let error):
+                failure(error as NSError)
+            }
+        }
+    }
+
+    
     
     
 func requestPOSTSURL(_ strURL : String, params : Parameters?, success:@escaping (NSDictionary) -> Void, failure:@escaping (NSError) -> Void){

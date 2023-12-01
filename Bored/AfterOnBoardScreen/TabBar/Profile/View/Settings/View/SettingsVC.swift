@@ -15,6 +15,7 @@ class SettingsVC: UIViewController {
     var arraySettingsImages = ["ic_mapVisibility","ic_changePassword","ic_myEvent","ic_blockUser","ic_aboutUs","ic_termAndCondition","ic_privacyPolicy","ic_deleteAccount","ic_logout"]
     
     var viewModel : ProfileVM?
+    var viewModel1: MapVM?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
@@ -25,6 +26,7 @@ class SettingsVC: UIViewController {
     
     func setViewModel(){
         self.viewModel = ProfileVM(observer: self)
+        self.viewModel1 = MapVM(observer: self)
     }
     
     func setTableViewDelegates(){
@@ -54,9 +56,17 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             cell.switchToggleButton.isHidden = true
             cell.nextForwardButton.setImage(UIImage(named: "ic_nextForwardRed"), for: .normal)
         }else if indexPath.row == 0{
+            cell.delegate = self
             cell.nextForwardButton.isHidden = true
+            print(UserDefaultsCustom.getProfileData()?.is_private)
+            if UserDefaultsCustom.getUserData()?.is_private == "1"{
+                cell.switchToggleButton.isOn = false
+            }else{
+                cell.switchToggleButton.isOn = true
+            }
         }else{
             cell.switchToggleButton.isHidden = true
+            
         }
         return cell
     }
@@ -89,16 +99,23 @@ extension SettingsVC : UITableViewDelegate, UITableViewDataSource {
             break;
             
         case 4:
-            
-            break;
+            let vc = TermAndConditionVC()
+            vc.comeFrom = "About Us"
+            vc.link = "http://161.97.132.85/j3/bored/frontend/web/links/aboutus"
+            self.navigationController?.pushViewController(vc, animated: true)
             
         case 5:
-            
-            break;
-            
+            let vc = TermAndConditionVC()
+            vc.comeFrom = "Terms & Conditions"
+            vc.link = "http://161.97.132.85/j3/bored/frontend/web/links/termsandconditions"
+            self.navigationController?.pushViewController(vc, animated: true)
+
         case 6:
            
-            break;
+            let vc = TermAndConditionVC()
+            vc.comeFrom = "Privacy Policy"
+            vc.link = "http://161.97.132.85/j3/bored/frontend/web/links/privacypolicy"
+            self.navigationController?.pushViewController(vc, animated: true)
             
         case 7:
             let vc = DeleteAccountPopUpVC()
@@ -138,6 +155,33 @@ extension SettingsVC: ProfileVMObserver{
     
     func observerLogOut() {
         Singleton.shared.logoutFromDevice()
+    }
+    
+    
+}
+extension SettingsVC: SettingsTVCellDelegate{
+    func toggleSwitch(switch: UISwitch) {
+        print(UISwitch())
+        print(UserDefaultsCustom.getProfileData()?.is_private)
+        if UserDefaultsCustom.getUserData()?.is_private == "1"{
+            viewModel1?.mapVisibilityApi(isPrivate: "0")
+            UISwitch().isOn = true
+        }else{
+            viewModel1?.mapVisibilityApi(isPrivate: "1")
+            UISwitch().isOn = false
+        }
+ 
+    }
+  
+}
+                                
+extension SettingsVC: MapVMObserver{
+    func observerMapListing() {
+        
+    }
+    
+    func mapVisisbility(isPrivate: String) {
+        print(isPrivate)
     }
     
     

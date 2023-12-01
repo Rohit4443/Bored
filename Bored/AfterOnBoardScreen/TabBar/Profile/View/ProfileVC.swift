@@ -81,6 +81,8 @@ extension ProfileVC: UITableViewDelegate,UITableViewDataSource{
         cell.userProfileImage.setImage(image: viewModel?.interestEvent[indexPath.row].user_image,placeholder: UIImage(named: "placeholder"))
         cell.titleLabel.text = viewModel?.interestEvent[indexPath.row].title
         cell.locationLabel.text = viewModel?.interestEvent[indexPath.row].location
+        cell.file = viewModel?.interestEvent[indexPath.row].files
+
         let date = viewModel?.interestEvent[indexPath.row].created_at
     
         let dateFormatter = DateFormatter()

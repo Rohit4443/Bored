@@ -130,7 +130,15 @@
 		A81184832B0F7535005DC8C0 /* Data+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81184822B0F7535005DC8C0 /* Data+Custom.swift */; };
 		A81184852B0F7793005DC8C0 /* KolodaCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81184842B0F7793005DC8C0 /* KolodaCardView.swift */; };
 		A81184872B0F77A9005DC8C0 /* KolodaCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A81184862B0F77A9005DC8C0 /* KolodaCardView.xib */; };
+		A81E3FAF2B18688500F9D4E8 /* TermAndConditionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81E3FAD2B18688500F9D4E8 /* TermAndConditionVC.swift */; };
+		A81E3FB02B18688500F9D4E8 /* TermAndConditionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A81E3FAE2B18688500F9D4E8 /* TermAndConditionVC.xib */; };
+		A81E3FB22B187A6600F9D4E8 /* CreateEventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81E3FB12B187A6600F9D4E8 /* CreateEventVM.swift */; };
+		A81E3FB62B18AE5500F9D4E8 /* MyEventDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81E3FB52B18AE5500F9D4E8 /* MyEventDetailVM.swift */; };
 		A86C68C02B0CBBF1004CEB1C /* ForgotPasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86C68BF2B0CBBF1004CEB1C /* ForgotPasswordVM.swift */; };
+		A86DFD792B19A193003C6127 /* MapVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86DFD782B19A192003C6127 /* MapVM.swift */; };
+		A86DFD7B2B19A961003C6127 /* MapListingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86DFD7A2B19A961003C6127 /* MapListingModel.swift */; };
+		A86DFD7D2B19C0A8003C6127 /* MapVisibilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86DFD7C2B19C0A8003C6127 /* MapVisibilityModel.swift */; };
+		A86DFD7F2B19E22F003C6127 /* MyEventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86DFD7E2B19E22F003C6127 /* MyEventVM.swift */; };
 		A86F16852B0C7C36003F342C /* InterestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16842B0C7C36003F342C /* InterestModel.swift */; };
 		A86F16872B0C7DF4003F342C /* InterestVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16862B0C7DF4003F342C /* InterestVM.swift */; };
 		A86F16892B0C8526003F342C /* UICollectionView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */; };
@@ -293,7 +301,15 @@
 		A81184822B0F7535005DC8C0 /* Data+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Custom.swift"; sourceTree = "<group>"; };
 		A81184842B0F7793005DC8C0 /* KolodaCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KolodaCardView.swift; sourceTree = "<group>"; };
 		A81184862B0F77A9005DC8C0 /* KolodaCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KolodaCardView.xib; sourceTree = "<group>"; };
+		A81E3FAD2B18688500F9D4E8 /* TermAndConditionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermAndConditionVC.swift; sourceTree = "<group>"; };
+		A81E3FAE2B18688500F9D4E8 /* TermAndConditionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TermAndConditionVC.xib; sourceTree = "<group>"; };
+		A81E3FB12B187A6600F9D4E8 /* CreateEventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventVM.swift; sourceTree = "<group>"; };
+		A81E3FB52B18AE5500F9D4E8 /* MyEventDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventDetailVM.swift; sourceTree = "<group>"; };
 		A86C68BF2B0CBBF1004CEB1C /* ForgotPasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVM.swift; sourceTree = "<group>"; };
+		A86DFD782B19A192003C6127 /* MapVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVM.swift; sourceTree = "<group>"; };
+		A86DFD7A2B19A961003C6127 /* MapListingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapListingModel.swift; sourceTree = "<group>"; };
+		A86DFD7C2B19C0A8003C6127 /* MapVisibilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVisibilityModel.swift; sourceTree = "<group>"; };
+		A86DFD7E2B19E22F003C6127 /* MyEventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventVM.swift; sourceTree = "<group>"; };
 		A86F16842B0C7C36003F342C /* InterestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestModel.swift; sourceTree = "<group>"; };
 		A86F16862B0C7DF4003F342C /* InterestVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestVM.swift; sourceTree = "<group>"; };
 		A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Custom.swift"; sourceTree = "<group>"; };
@@ -450,6 +466,7 @@
 				5F34A99D2AF50A7B0042AC42 /* MyEventVC.xib */,
 				5FC9B6E52AF63DC10086D394 /* MyEventTVCell.swift */,
 				5FC9B6E62AF63DC10086D394 /* MyEventTVCell.xib */,
+				A86DFD7E2B19E22F003C6127 /* MyEventVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -467,6 +484,7 @@
 			children = (
 				5F34A9A22AF50D600042AC42 /* MyEventDetailVC.swift */,
 				5F34A9A32AF50D600042AC42 /* MyEventDetailVC.xib */,
+				A81E3FB52B18AE5500F9D4E8 /* MyEventDetailVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -759,6 +777,7 @@
 		5FC34A1B2AE9040400C5D2FF /* AfterOnBoardScreen */ = {
 			isa = PBXGroup;
 			children = (
+				A81E3FAC2B18687400F9D4E8 /* Terms&Condition */,
 				5FC34A1C2AE908D600C5D2FF /* TabBar */,
 			);
 			path = AfterOnBoardScreen;
@@ -823,6 +842,7 @@
 				5FC34A3A2AE90F8600C5D2FF /* MapVC.xib */,
 				5F569F362AEBA149008CA03F /* MapCVCell.swift */,
 				5F569F372AEBA149008CA03F /* MapCVCell.xib */,
+				A86DFD782B19A192003C6127 /* MapVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -844,6 +864,7 @@
 				5FE800B82AF23D4000C1FEB9 /* UploadImagesCVCell.swift */,
 				5FE800B92AF23D4000C1FEB9 /* UploadImagesCVCell.xib */,
 				5F99E5DD2AF27A76003F2065 /* SelectLocation */,
+				A81E3FB12B187A6600F9D4E8 /* CreateEventVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1049,6 +1070,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		A81E3FAC2B18687400F9D4E8 /* Terms&Condition */ = {
+			isa = PBXGroup;
+			children = (
+				A81E3FAD2B18688500F9D4E8 /* TermAndConditionVC.swift */,
+				A81E3FAE2B18688500F9D4E8 /* TermAndConditionVC.xib */,
+			);
+			path = "Terms&Condition";
+			sourceTree = "<group>";
+		};
 		A893E8332B0B2F8C004A1980 /* BaseClasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -1093,6 +1123,8 @@
 				A89A9A032B1074790080425F /* HomeListingModel.swift */,
 				A896828C2B145E1400DF5B6A /* HomeDetailModel.swift */,
 				A89541E42B171B3C001C5493 /* EditProfileModel.swift */,
+				A86DFD7A2B19A961003C6127 /* MapListingModel.swift */,
+				A86DFD7C2B19C0A8003C6127 /* MapVisibilityModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1215,6 +1247,7 @@
 				5FB2E37A2AF101C800CFF385 /* SettingsTVCell.xib in Resources */,
 				5FF978872AEFB84F0081EC13 /* HomeFindInterestCVCell.xib in Resources */,
 				5FC9B6E82AF63DC10086D394 /* MyEventTVCell.xib in Resources */,
+				A81E3FB02B18688500F9D4E8 /* TermAndConditionVC.xib in Resources */,
 				183869032AF3D6B700AFA991 /* ProfileEventsCVCell.xib in Resources */,
 				5FD624A52AF0D05B0096A347 /* RightTVCell.xib in Resources */,
 				5FE3DADC2AEA2B5D008663B7 /* CreateEventPopUp.xib in Resources */,
@@ -1287,6 +1320,7 @@
 				5FC34A4D2AE9100600C5D2FF /* ProfileVC.swift in Sources */,
 				A89EEF132B0B96210066382F /* UILabel+Custom.swift in Sources */,
 				5FD526CE2AF4D4A100BC2C5B /* BlockedUserVC.swift in Sources */,
+				A86DFD7D2B19C0A8003C6127 /* MapVisibilityModel.swift in Sources */,
 				A89EEF112B0B836A0066382F /* SignUpVM.swift in Sources */,
 				5F9BE3622AE2A1ED004AD2F4 /* LoginVC.swift in Sources */,
 				A86F16892B0C8526003F342C /* UICollectionView+Custom.swift in Sources */,
@@ -1294,6 +1328,7 @@
 				5FAE8FCA2AE29AF700B222D5 /* Constants.swift in Sources */,
 				5FD624A02AF0D04A0096A347 /* LeftTVCell.swift in Sources */,
 				5FC34A472AE90FE800C5D2FF /* ChatListVC.swift in Sources */,
+				A81E3FB62B18AE5500F9D4E8 /* MyEventDetailVM.swift in Sources */,
 				5F9597202AE68D9A00618196 /* InterestVC.swift in Sources */,
 				A89541E72B171BE5001C5493 /* EditProfileVM.swift in Sources */,
 				5F34A99E2AF50A7B0042AC42 /* MyEventVC.swift in Sources */,
@@ -1316,6 +1351,8 @@
 				A893E8392B0B3380004A1980 /* AppDefaults.swift in Sources */,
 				5FD624A42AF0D05B0096A347 /* RightTVCell.swift in Sources */,
 				5FB2E3792AF101C800CFF385 /* SettingsTVCell.swift in Sources */,
+				A86DFD7B2B19A961003C6127 /* MapListingModel.swift in Sources */,
+				A81E3FAF2B18688500F9D4E8 /* TermAndConditionVC.swift in Sources */,
 				A893E8822B0B4C27004A1980 /* Date+Custom.swift in Sources */,
 				5FE3DADB2AEA2B5D008663B7 /* CreateEventPopUp.swift in Sources */,
 				A893E83B2B0B4107004A1980 /* ShowBanner.swift in Sources */,
@@ -1325,6 +1362,7 @@
 				A86F3D452B15EBCB00761035 /* ChangePasswordVM.swift in Sources */,
 				A893E83D2B0B416B004A1980 /* Singleton.swift in Sources */,
 				5FC34A1E2AE9091200C5D2FF /* TabBarVC.swift in Sources */,
+				A86DFD7F2B19E22F003C6127 /* MyEventVM.swift in Sources */,
 				5F00AAC02AEBF1DE006EA5F3 /* SearchUserTVCell.swift in Sources */,
 				5FC3AC512AF0F44100BA5C06 /* SettingsVC.swift in Sources */,
 				A86F16872B0C7DF4003F342C /* InterestVM.swift in Sources */,
@@ -1353,12 +1391,14 @@
 				5FC34A132AE8FCF600C5D2FF /* ForgotPasswordVC.swift in Sources */,
 				A893E8352B0B3169004A1980 /* AFWrapperClass.swift in Sources */,
 				5FAE8F9E2AE2932000B222D5 /* AppDelegate.swift in Sources */,
+				A81E3FB22B187A6600F9D4E8 /* CreateEventVM.swift in Sources */,
 				5FF9788C2AEFD01D0081EC13 /* OneToOneChatVC.swift in Sources */,
 				A893E8552B0B4A13004A1980 /* ErrorView.swift in Sources */,
 				5FAE8FC82AE29AE200B222D5 /* UIButton+Custom.swift in Sources */,
 				5F99E5EB2AF2851B003F2065 /* ChangePassword.swift in Sources */,
 				5F34A98E2AF4FD010042AC42 /* EditDeleteEventPopUpVC.swift in Sources */,
 				A811847F2B0F6304005DC8C0 /* GetProfileModel.swift in Sources */,
+				A86DFD792B19A193003C6127 /* MapVM.swift in Sources */,
 				A89A9A042B1074790080425F /* HomeListingModel.swift in Sources */,
 				5FAB32D02AEA49A400E027A6 /* HomeDetailVC.swift in Sources */,
 				5FAB32C92AEA402100E027A6 /* NotificationTVCell.swift in Sources */,

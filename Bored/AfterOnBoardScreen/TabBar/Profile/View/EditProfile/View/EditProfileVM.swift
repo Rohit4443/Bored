@@ -20,7 +20,7 @@ class EditProfileVM: NSObject{
         self.observer = observer
     }
     
-    func editParams(firstName: String, lastName: String, email: String,password: String, interest: String,gender: String,dob: String, deviceType: String,image: Data, intersetName: String) -> [String:Any]{
+    func editParams(firstName: String, lastName: String, email: String,password: String, interest: String,gender: String,dob: String, deviceType: String,image: Data, intersetName: String,aboutMe:String) -> [String:Any]{
         let deviceToken = UserDefaultsCustom.getDeviceToken()
         let params: [String: Any] = [
             "first_name": firstName,
@@ -33,15 +33,16 @@ class EditProfileVM: NSObject{
             "device_type": deviceType,
             "device_token": deviceToken,
             "image": image,
-            "interest_name": intersetName
+            "interest_name": intersetName,
+            "about_me": aboutMe
         ]
         print("parameters:-  \(params)")
         return params
     }
     
-    func editProfileApi(firstName: String, lastName: String, email: String,password: String, interest: String,gender: String,dob: String, deviceType: String,image: Data, intersetName: String){
+    func editProfileApi(firstName: String, lastName: String, email: String,password: String, interest: String,gender: String,dob: String, deviceType: String,image: Data, intersetName: String,aboutMe:String){
         SVProgressHUD.show()
-        AFWrapperClass.sharedInstance.requestImagePOSTSURL(Constant.editProfile, params: editParams(firstName: firstName, lastName: lastName, email: email, password: password, interest: interest, gender: gender, dob: dob, deviceType: deviceType, image: image, intersetName: intersetName), imageKey: "image", imageData: image, success: {
+        AFWrapperClass.sharedInstance.requestImagePOSTSURL(Constant.editProfile, params: editParams(firstName: firstName, lastName: lastName, email: email, password: password, interest: interest, gender: gender, dob: dob, deviceType: deviceType, image: image, intersetName: intersetName, aboutMe: aboutMe), imageKey: "image", imageData: image, success: {
             response in
             print("response = \(response)")
             SVProgressHUD.dismiss()

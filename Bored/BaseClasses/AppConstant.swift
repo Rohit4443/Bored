@@ -41,6 +41,9 @@ struct Constant {
     static let logout = baseUrl + "user/logout"
     static let deleteAccount = baseUrl + "user/del-account"
     static let editProfile = baseUrl + "user/editprofile"
+    static let mapListing = baseUrl + "user/users-listing"
+    static let mapVisibility = baseUrl + "user/on-off-map-visibility"
+    static let deleteEvent = baseUrl + "event/delete-event"
 }
 
 

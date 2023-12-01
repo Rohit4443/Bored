@@ -103,7 +103,7 @@ class EditProfileVC: UIViewController {
     
     @IBAction func saveAction(_ sender: UIButton) {
 
-        viewModel1?.editProfileApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: UserDefaultsCustom.getUserData()?.email ?? "", password: UserDefaultsCustom.getUserData()?.password ?? "", interest: self.interestID ?? "", gender: self.gender ?? "", dob: self.birthdayTextField.text ?? "", deviceType: "1", image: self.signUpImage ?? Data(), intersetName: self.otherInterest ?? "")
+        viewModel1?.editProfileApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: UserDefaultsCustom.getUserData()?.email ?? "", password: UserDefaultsCustom.getUserData()?.password ?? "", interest: self.interestID ?? "", gender: self.gender ?? "", dob: self.birthdayTextField.text ?? "", deviceType: "1", image: self.signUpImage ?? Data(), intersetName: self.otherInterest ?? "", aboutMe: aboutMeTextView.text ?? "")
         
     }
     
@@ -273,7 +273,7 @@ extension EditProfileVC: ProfileVMObserver{
         self.interestsCollectionView.reloadData()
         self.gender = viewModel?.userData?.gender
         self.interestID = viewModel?.userData?.interests
-        
+        self.aboutMeTextView.text = viewModel?.userData?.about_me
         if viewModel?.userData?.gender == "1"{
             malegenderBtn.setBorder(.black, corner: 37.5, 2)
         }else{

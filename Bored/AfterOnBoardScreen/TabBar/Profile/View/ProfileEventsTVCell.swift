@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProfileEventsTVCell: UITableViewCell {
     
@@ -19,11 +20,12 @@ class ProfileEventsTVCell: UITableViewCell {
     
     var viewModel: InterestedScreenVM?
     var date: String?
+    var file: [FileData]?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setCollectionView()
-        setViewModel()
+//        setViewModel()
         
     }
     
@@ -36,9 +38,11 @@ class ProfileEventsTVCell: UITableViewCell {
         self.profileCollectionView.delegate = self
         self.profileCollectionView.dataSource = self
         self.profileCollectionView.register(UINib(nibName: "ProfileEventsCVCell", bundle: nil), forCellWithReuseIdentifier: "ProfileEventsCVCell")
-        
+        self.profileCollectionView.reloadData()
         pageControl.hidesForSinglePage = true
         self.profileCollectionView.isPagingEnabled = true
+        
+        print(file?.count)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -64,28 +68,19 @@ class ProfileEventsTVCell: UITableViewCell {
 extension ProfileEventsTVCell: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return 4
-        if let events = viewModel?.interestedData, events.indices.contains(section) {
-            let k = events[section].files?.count ?? 0
-            pageControl.numberOfPages = k
-            print(events[section].files?.count)
-            return events[section].files?.count ?? 0
-        }
-  
-        return 0
+
+        let k = file?.count ?? 0
+        pageControl.numberOfPages = k
+        print("\(k)")
+        return file?.count ?? 0
         
     }
     
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileEventsCVCell", for: indexPath) as! ProfileEventsCVCell
-                if let events = viewModel?.interestedData, events.indices.contains(indexPath.section),
-                   let files = events[indexPath.section].files, files.indices.contains(indexPath.item) {
-                    cell.eventImage.setImage(image: files[indexPath.item].files ?? "",placeholder: UIImage(named: "eventPlaceholder"))
-                    
-                    //                if let fileURL = URL(string: files[indexPath.item].files ?? "") {
-                    //
-                    //                }
-                }
-            
+            print(file?[indexPath.row].files)
+            cell.eventImage.setImage(image: file?[indexPath.row].files,placeholder: UIImage(named: "eventPlaceholder"))
+          
             cell.menuButton.isHidden = true
             
             return cell

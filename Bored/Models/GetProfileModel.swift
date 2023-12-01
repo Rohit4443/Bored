@@ -37,7 +37,7 @@ class GetProfileData: Codable{
     var access_token:String?
     var created_at: String?
     var updated_at: String?
-//    var about_me: String?
+    var about_me: String?
     var interestsData: [InterestsDatum]?
 }
 

@@ -6,6 +6,10 @@
 //
 
 import UIKit
+protocol DeleteAccountPopUpVCDelegate{
+    func deleteEvent(eventID:String)
+}
+
 
 class DeleteAccountPopUpVC: UIViewController {
     
@@ -13,11 +17,17 @@ class DeleteAccountPopUpVC: UIViewController {
     @IBOutlet weak var deleteAccountButton: UIButton!
     
     var viewModel: ProfileVM?
+    var viewModel1: MyEventVM?
     var comefrom:String?
     var controller:UIViewController?
+    var eventID: String?
+    
+    var delegate: DeleteAccountPopUpVCDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewModel()
+        print(eventID)
     }
     override func viewWillAppear(_ animated: Bool) {
         if comefrom == "deleteAccount"{
@@ -31,6 +41,7 @@ class DeleteAccountPopUpVC: UIViewController {
     
     func setViewModel(){
         self.viewModel = ProfileVM(observer: self)
+        self.viewModel1 = MyEventVM(observer: self)
     }
     
     @IBAction func deleteAccountAction(_ sender: UIButton) {
@@ -40,7 +51,9 @@ class DeleteAccountPopUpVC: UIViewController {
 //            let vc = SelectLoginSignUpVC()
 //            self.controller?.pushViewController(vc, true)
         }else{
-            self.dismiss(animated: true)
+//            viewModel1?.deleteEventApi(eventID: eventID ?? "")
+            self.delegate?.deleteEvent(eventID: eventID ?? "")
+//            self.dismiss(animated: true)
         }
     }
     
@@ -62,7 +75,14 @@ extension DeleteAccountPopUpVC : ProfileVMObserver{
     func observerLogOut() {
         Singleton.shared.logoutFromDevice()
     }
+          
+            
+}
+extension DeleteAccountPopUpVC: MyEventVMObserver{
+    func observerDeleteEvent() {
+//        self.dismiss(animated: true)
+        self.delegate?.deleteEvent(eventID: eventID ?? "")
+    }
     
-            
-            
+    
 }

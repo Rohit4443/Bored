@@ -20,7 +20,7 @@ class SignUpVM: NSObject{
         self.observer = observer
     }
     
-    func signUpParameters(firstName: String, lastName: String, email: String, password: String, interests: String, gender: String,dob: String, deviceType: String, image: Data, interestName: String) -> [String:Any]{
+    func signUpParameters(firstName: String, lastName: String, email: String, password: String, interests: String, gender: String,dob: String, deviceType: String, image: Data, interestName: String, aboutMe: String) -> [String:Any]{
         let deviceToken = UserDefaultsCustom.getDeviceToken()
         let params : [String:Any] = [
             "last_name"   : lastName,
@@ -33,7 +33,8 @@ class SignUpVM: NSObject{
             "device_type" : deviceType,
             "device_token" : deviceToken,
             "image": image,
-            "interest_name": interestName
+            "interest_name": interestName,
+            "about_me": aboutMe
         ]
         print("parameters:-  \(params)")
         return params
@@ -41,9 +42,9 @@ class SignUpVM: NSObject{
     }
 
     
-    func signUPApi(firstName: String, lastName: String, email: String, password: String, interests: String, gender: String,dob: String, deviceType: String, image: Data, interestName: String){
+    func signUPApi(firstName: String, lastName: String, email: String, password: String, interests: String, gender: String,dob: String, deviceType: String, image: Data, interestName: String,aboutMe:String){
         SVProgressHUD.show()
-        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.signUp, params: signUpParameters(firstName: firstName, lastName: lastName, email: email, password: password, interests: interests, gender: gender, dob: dob, deviceType: deviceType, image: image, interestName: interestName), success: {
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.signUp, params: signUpParameters(firstName: firstName, lastName: lastName, email: email, password: password, interests: interests, gender: gender, dob: dob, deviceType: deviceType, image: image, interestName: interestName, aboutMe: aboutMe), success: {
             (response) in
             print("response = \(response)")
             SVProgressHUD.dismiss()
@@ -78,7 +79,7 @@ class SignUpVM: NSObject{
     
     
     
-    func signUPImageApi(firstName: String, lastName: String, email: String, password: String, interests: String, gender: String, dob: String, deviceType: String, image: Data, interestName: String) {
+    func signUPImageApi(firstName: String, lastName: String, email: String, password: String, interests: String, gender: String, dob: String, deviceType: String, image: Data, interestName: String, aboutMe:String) {
         SVProgressHUD.show()
         
         // Convert image to data
@@ -88,7 +89,7 @@ class SignUpVM: NSObject{
 //        }
         
         // Prepare parameters for the API call
-        let parameters: [String: Any] = signUpParameters(firstName: firstName, lastName: lastName, email: email, password: password, interests: interests, gender: gender, dob: dob, deviceType: deviceType, image: image, interestName: interestName)
+        let parameters: [String: Any] = signUpParameters(firstName: firstName, lastName: lastName, email: email, password: password, interests: interests, gender: gender, dob: dob, deviceType: deviceType, image: image, interestName: interestName, aboutMe: aboutMe)
         
         // Make the API call with the image data and other parameters
         AFWrapperClass.sharedInstance.requestImagePOSTSURL(Constant.signUp, params: parameters, imageKey: "image", imageData: image, success: { response in
