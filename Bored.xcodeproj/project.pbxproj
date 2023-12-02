@@ -146,6 +146,10 @@
 		A86F168D2B0C8BD9003F342C /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F168C2B0C8BD9003F342C /* LoginVM.swift */; };
 		A86F3D452B15EBCB00761035 /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F3D442B15EBCB00761035 /* ChangePasswordVM.swift */; };
 		A881E6262B0F7D2400AE40B0 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881E6252B0F7D2400AE40B0 /* ProfileVM.swift */; };
+		A892F1862B1AF735002A4AF7 /* ChatListingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F1852B1AF735002A4AF7 /* ChatListingModel.swift */; };
+		A892F1882B1AF99E002A4AF7 /* ChatListingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F1872B1AF99E002A4AF7 /* ChatListingVM.swift */; };
+		A892F18A2B1B1896002A4AF7 /* CreateRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F1892B1B1896002A4AF7 /* CreateRoomModel.swift */; };
+		A892F18C2B1B2A98002A4AF7 /* Socketton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F18B2B1B2A98002A4AF7 /* Socketton.swift */; };
 		A893E8352B0B3169004A1980 /* AFWrapperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8342B0B3169004A1980 /* AFWrapperClass.swift */; };
 		A893E8372B0B31D0004A1980 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8362B0B31D0004A1980 /* AppConstant.swift */; };
 		A893E8392B0B3380004A1980 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8382B0B3380004A1980 /* AppDefaults.swift */; };
@@ -317,6 +321,10 @@
 		A86F168C2B0C8BD9003F342C /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		A86F3D442B15EBCB00761035 /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
 		A881E6252B0F7D2400AE40B0 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
+		A892F1852B1AF735002A4AF7 /* ChatListingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListingModel.swift; sourceTree = "<group>"; };
+		A892F1872B1AF99E002A4AF7 /* ChatListingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListingVM.swift; sourceTree = "<group>"; };
+		A892F1892B1B1896002A4AF7 /* CreateRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomModel.swift; sourceTree = "<group>"; };
+		A892F18B2B1B2A98002A4AF7 /* Socketton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socketton.swift; sourceTree = "<group>"; };
 		A893E8342B0B3169004A1980 /* AFWrapperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFWrapperClass.swift; sourceTree = "<group>"; };
 		A893E8362B0B31D0004A1980 /* AppConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		A893E8382B0B3380004A1980 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -884,6 +892,7 @@
 				5FC34A462AE90FE800C5D2FF /* ChatListVC.xib */,
 				5FB0DAA22AEAA56A00EAB464 /* ChatListTVCell.swift */,
 				5FB0DAA32AEAA56A00EAB464 /* ChatListTVCell.xib */,
+				A892F1872B1AF99E002A4AF7 /* ChatListingVM.swift */,
 				5F00AAB82AEBEE57006EA5F3 /* SearchUser */,
 				5FF978882AEFCFE10081EC13 /* OneToOneChat */,
 			);
@@ -1082,6 +1091,7 @@
 		A893E8332B0B2F8C004A1980 /* BaseClasses */ = {
 			isa = PBXGroup;
 			children = (
+				A892F18B2B1B2A98002A4AF7 /* Socketton.swift */,
 				A893E83E2B0B42F5004A1980 /* ErrorView */,
 				A893E8342B0B3169004A1980 /* AFWrapperClass.swift */,
 				A893E8382B0B3380004A1980 /* AppDefaults.swift */,
@@ -1125,6 +1135,8 @@
 				A89541E42B171B3C001C5493 /* EditProfileModel.swift */,
 				A86DFD7A2B19A961003C6127 /* MapListingModel.swift */,
 				A86DFD7C2B19C0A8003C6127 /* MapVisibilityModel.swift */,
+				A892F1852B1AF735002A4AF7 /* ChatListingModel.swift */,
+				A892F1892B1B1896002A4AF7 /* CreateRoomModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1319,12 +1331,14 @@
 				A804496E2B14BB47002001B1 /* InterestedScreenVM.swift in Sources */,
 				5FC34A4D2AE9100600C5D2FF /* ProfileVC.swift in Sources */,
 				A89EEF132B0B96210066382F /* UILabel+Custom.swift in Sources */,
+				A892F1862B1AF735002A4AF7 /* ChatListingModel.swift in Sources */,
 				5FD526CE2AF4D4A100BC2C5B /* BlockedUserVC.swift in Sources */,
 				A86DFD7D2B19C0A8003C6127 /* MapVisibilityModel.swift in Sources */,
 				A89EEF112B0B836A0066382F /* SignUpVM.swift in Sources */,
 				5F9BE3622AE2A1ED004AD2F4 /* LoginVC.swift in Sources */,
 				A86F16892B0C8526003F342C /* UICollectionView+Custom.swift in Sources */,
 				183869022AF3D6B700AFA991 /* ProfileEventsCVCell.swift in Sources */,
+				A892F18A2B1B1896002A4AF7 /* CreateRoomModel.swift in Sources */,
 				5FAE8FCA2AE29AF700B222D5 /* Constants.swift in Sources */,
 				5FD624A02AF0D04A0096A347 /* LeftTVCell.swift in Sources */,
 				5FC34A472AE90FE800C5D2FF /* ChatListVC.swift in Sources */,
@@ -1339,6 +1353,7 @@
 				5FAE8FB72AE297C300B222D5 /* SelectLoginSignUpVC.swift in Sources */,
 				5F00AAAF2AEBD744006EA5F3 /* BlockReportPopUpVC.swift in Sources */,
 				A893E84B2B0B435D004A1980 /* SignupImagesModel.swift in Sources */,
+				A892F18C2B1B2A98002A4AF7 /* Socketton.swift in Sources */,
 				A86F16852B0C7C36003F342C /* InterestModel.swift in Sources */,
 				5FB96A4B2AEBC0150054112B /* FilterVC.swift in Sources */,
 				A893E8532B0B4977004A1980 /* SignUpModel.swift in Sources */,
@@ -1347,6 +1362,7 @@
 				A896828D2B145E1400DF5B6A /* HomeDetailModel.swift in Sources */,
 				5FAE8FBE2AE29AB300B222D5 /* UIView+Custom.swift in Sources */,
 				5FB2E37D2AF12EFB00CFF385 /* MediaLeftTVCell.swift in Sources */,
+				A892F1882B1AF99E002A4AF7 /* ChatListingVM.swift in Sources */,
 				5FE800BA2AF23D4000C1FEB9 /* UploadImagesCVCell.swift in Sources */,
 				A893E8392B0B3380004A1980 /* AppDefaults.swift in Sources */,
 				5FD624A42AF0D05B0096A347 /* RightTVCell.swift in Sources */,

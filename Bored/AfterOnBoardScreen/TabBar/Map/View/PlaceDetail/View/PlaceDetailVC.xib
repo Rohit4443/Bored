@@ -78,6 +78,9 @@
                                             <real key="value" value="11"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="ChatAction:" destination="-1" eventType="touchUpInside" id="9E6-bY-opN"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

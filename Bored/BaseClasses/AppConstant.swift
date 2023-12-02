@@ -44,6 +44,8 @@ struct Constant {
     static let mapListing = baseUrl + "user/users-listing"
     static let mapVisibility = baseUrl + "user/on-off-map-visibility"
     static let deleteEvent = baseUrl + "event/delete-event"
+    static let chatListing = baseUrl + "support-chat/get-all-chat-user"
+    static let createRoom = baseUrl + "support-chat/create-room"
 }
 
 

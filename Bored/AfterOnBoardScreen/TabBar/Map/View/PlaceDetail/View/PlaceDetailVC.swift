@@ -19,6 +19,7 @@ class PlaceDetailVC: UIViewController {
     
     var arrayName = ["Baking","Cooking","Dance","Swing Dancing","Picnics"]
     var detail: MapListingData?
+    var viewModel: ChatListingVM?
     var age : String?
     
     override func viewDidLoad() {
@@ -26,6 +27,11 @@ class PlaceDetailVC: UIViewController {
         setCollectionViewDelegates()
         placeDetailCollectionView.collectionViewLayout = createLeftAlignedLayout()
         setData()
+        setViewModel()
+    }
+    
+    func setViewModel(){
+        self.viewModel = ChatListingVM(observer: self)
     }
     
     func calculateAge(birthdate: Date) -> Int {
@@ -108,6 +114,13 @@ class PlaceDetailVC: UIViewController {
         popVC()
     }
     
+    @IBAction func ChatAction(_ sender: UIButton) {
+        let id = detail?.id ?? ""
+        viewModel?.createChatRoomApi(receiverId: id )
+//        let vc = OneToOneChatVC()
+//        self.pushViewController(vc, true)
+        
+    }
 }
 
 //MARK: - CollectionView Delegate and DataSource -
@@ -145,4 +158,16 @@ extension PlaceDetailVC : UICollectionViewDelegateFlowLayout, UICollectionViewDa
     }
 
 
+}
+extension PlaceDetailVC: ChatListingVMObserver{
+    func observerChatListing() {
+      
+    }
+    
+    func createRoom() {
+        let vc = OneToOneChatVC()
+        self.pushViewController(vc, true)
+    }
+    
+    
 }

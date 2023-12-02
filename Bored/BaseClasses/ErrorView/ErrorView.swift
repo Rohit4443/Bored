@@ -18,6 +18,7 @@ enum ERROR_TYPE {
 protocol ErrorDelegate {
     func removeErrorView()
 }
+typealias JSON = [String:Any]
 
 class ErrorView: UIView {
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,8 +32,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yqy-uU-fxA">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="580"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Today ,30 Jan " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgi-O7-c3K">
-                                <rect key="frame" x="147" y="20" width="83" height="15.666666666666664"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Today ,30 Jan " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgi-O7-c3K">
+                                <rect key="frame" x="95" y="20" width="110" height="15.666666666666664"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="11"/>
                                 <nil key="textColor"/>
@@ -117,7 +117,6 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Lgi-O7-c3K" secondAttribute="trailing" constant="70" id="35v-gS-rx3"/>
                             <constraint firstItem="mUQ-Gd-Abf" firstAttribute="centerY" secondItem="NJM-1g-XvB" secondAttribute="centerY" id="6Ud-kS-iSf"/>
                             <constraint firstAttribute="trailing" secondItem="Sgw-2U-Owm" secondAttribute="trailing" id="FJK-oZ-Hb5"/>
                             <constraint firstItem="mUQ-Gd-Abf" firstAttribute="leading" secondItem="NJM-1g-XvB" secondAttribute="trailing" constant="10" id="Pu7-67-Uk0"/>
@@ -125,10 +124,12 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="L47-H1-qnC" secondAttribute="trailing" id="QyZ-nk-Rd5"/>
                             <constraint firstItem="L47-H1-qnC" firstAttribute="centerY" secondItem="mUQ-Gd-Abf" secondAttribute="centerY" id="RHM-aj-WK8"/>
                             <constraint firstItem="Sgw-2U-Owm" firstAttribute="top" secondItem="mUQ-Gd-Abf" secondAttribute="bottom" constant="20" id="VBp-gF-cFS"/>
+                            <constraint firstItem="Lgi-O7-c3K" firstAttribute="leading" secondItem="Yqy-uU-fxA" secondAttribute="leading" constant="95" id="Z3Q-jW-r6u"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Sgw-2U-Owm" secondAttribute="bottom" constant="20" id="cJg-8O-n2c"/>
                             <constraint firstItem="Lgi-O7-c3K" firstAttribute="top" secondItem="Yqy-uU-fxA" secondAttribute="top" constant="20" id="jQN-5O-k4D"/>
                             <constraint firstItem="L47-H1-qnC" firstAttribute="leading" secondItem="mUQ-Gd-Abf" secondAttribute="trailing" constant="10" id="jju-NK-0Sr"/>
                             <constraint firstItem="NJM-1g-XvB" firstAttribute="leading" secondItem="Yqy-uU-fxA" secondAttribute="leading" constant="20" id="srM-7A-YUn"/>
+                            <constraint firstAttribute="trailing" secondItem="Lgi-O7-c3K" secondAttribute="trailing" constant="95" id="xPt-Ik-dIM"/>
                             <constraint firstItem="Sgw-2U-Owm" firstAttribute="leading" secondItem="mUQ-Gd-Abf" secondAttribute="leading" id="yNE-0U-m0G"/>
                         </constraints>
                     </view>

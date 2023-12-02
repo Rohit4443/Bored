@@ -12,8 +12,12 @@ PODS:
     - AvailableHapticFeedback
     - SweeterSwift
   - pop (1.0.12)
+  - Socket.IO-Client-Swift (15.1.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.1)
   - SVProgressHUD (2.2.5)
   - SweeterSwift (1.2.3)
+  - Swifter (2.5.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -24,7 +28,9 @@ DEPENDENCIES:
   - Kingfisher (~> 7.0)
   - Koloda
   - MultiSlider
+  - Socket.IO-Client-Swift (~> 15.1.0)
   - SVProgressHUD
+  - Swifter (from `https://github.com/mattdonnelly/Swifter.git`)
 
 SPEC REPOS:
   trunk:
@@ -38,8 +44,19 @@ SPEC REPOS:
     - Koloda
     - MultiSlider
     - pop
+    - Socket.IO-Client-Swift
+    - Starscream
     - SVProgressHUD
     - SweeterSwift
+
+EXTERNAL SOURCES:
+  Swifter:
+    :git: https://github.com/mattdonnelly/Swifter.git
+
+CHECKOUT OPTIONS:
+  Swifter:
+    :commit: f6888d61500f46ca6d1814fe2624056339eda986
+    :git: https://github.com/mattdonnelly/Swifter.git
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
@@ -52,9 +69,12 @@ SPEC CHECKSUMS:
   Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   MultiSlider: 81f5eb60f0a05073e6ee49c0b90426e4d1267b02
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  Socket.IO-Client-Swift: 7cb44c0ffb86e158cee32d0642d30ec5fdcf8f61
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SweeterSwift: 3910bab8ba35b6964d5169a3c52b2c87d930b61c
+  Swifter: 4c2f8cf320c2f751c10128f841d8e9bd8609d988
 
-PODFILE CHECKSUM: d368e9027d1d0da0a159ab53e095e37c2ad3b53e
+PODFILE CHECKSUM: 0f1dc7ac904970465be556b3ea5dfd93803175cb
 
 COCOAPODS: 1.11.3
