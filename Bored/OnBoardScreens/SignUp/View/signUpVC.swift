@@ -250,7 +250,7 @@ class signUpVC: UIViewController {
         }else{
             let gender = "\(gender ?? "")"
             
-            viewModel?.signUPImageApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: otherInterest ?? "", aboutMe: aboutMeTextView.text ?? "")
+            viewModel?.signUPImageApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "2", image: signUpImage ?? Data(), interestName: otherInterest ?? "", aboutMe: aboutMeTextView.text ?? "")
             
 //            viewModel?.signUPApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", interests: interestID ?? "", gender: gender, dob: birthdayTextField.text ?? "", deviceType: "1", image: signUpImage ?? Data(), interestName: interestItems ?? "")
         }

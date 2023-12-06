@@ -1,19 +1,19 @@
 //
-//  MapListingModel.swift
+//  SearchModel.swift
 //  Bored
 //
-//  Created by Dharmani on 01/12/23.
+//  Created by Dharmani on 06/12/23.
 //
 
 import Foundation
 
-class MapListingModel: Codable{
+class SearchModel: Codable{
     var status: Int?
     var message: String?
-    var data: [MapListingData]?
+    var recentSearch: [RecentSearchData]?
+    var data: [NotificationData]?
 }
-
-class MapListingData: Codable{
+class RecentSearchData: Codable{
     var id: String?
     var first_name: String?
     var last_name: String?
@@ -33,12 +33,11 @@ class MapListingData: Codable{
     var latitude: String?
     var longitude: String?
     var is_private: String?
-    var auth_key: String?
+    var is_recent_search: String?
+    var is_recent_location:String?
+    var auth_key : String?
     var access_token: String?
     var created_at: String?
     var updated_at: String?
-    var distance: String?
-    var is_recent_search: String?
-    var is_recent_location: String?
-    var interestsData: [InterestsDatum]?
+    var users: String?
 }

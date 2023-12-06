@@ -58,7 +58,14 @@ extension ChatListVC : UITableViewDelegate, UITableViewDataSource {
         cell.nameLabel.text = "\(viewModel?.chatListData[indexPath.row].userFirstName ?? "")\(" ")\(viewModel?.chatListData[indexPath.row].userLastName ?? "")"
         cell.profileImage.setImage(image: viewModel?.chatListData[indexPath.row].userImage,placeholder: UIImage(named: "placeholder"))
         cell.messageLabel.text = viewModel?.chatListData[indexPath.row].LastMessage
-        cell.badgeLabel.text = viewModel?.chatListData[indexPath.row].badgeCount
+        
+        if viewModel?.chatListData[indexPath.row].badgeCount == "0"{
+            cell.badgeLabel.isHidden = true
+        }else{
+            cell.badgeLabel.isHidden = false
+            cell.badgeLabel.text = viewModel?.chatListData[indexPath.row].badgeCount
+        }
+        
         let timestampString = viewModel?.chatListData[indexPath.row].LastMessageTime ?? ""
 
         let dateFormatter = DateFormatter()

@@ -7,6 +7,8 @@
 
 import UIKit
 import IQKeyboardManager
+import GoogleMaps
+import GooglePlaces
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.applicationIconBadgeNumber = 0
         IQKeyboardManager.shared().isEnabled = true
         
+        GMSPlacesClient.provideAPIKey("")
 //        self.setNotification(application)
         let accesstoken = UserDefaultsCustom.getUserData()
         if accesstoken?.access_token?.count ?? 0 > 0 {

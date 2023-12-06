@@ -68,7 +68,7 @@ class LoginVC: UIViewController {
             return
         }
         
-        viewModel?.loginApi(email: emailTextField.text ?? "", password: passwordTextField.text ?? "", deviceType: "1")
+        viewModel?.loginApi(email: emailTextField.text ?? "", password: passwordTextField.text ?? "", deviceType: "2")
         
 //        let window: UIWindow? = HEIGHT.window
 //                 let vc = TabBarVC()

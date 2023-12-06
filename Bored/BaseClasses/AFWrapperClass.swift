@@ -15,6 +15,50 @@ class AFWrapperClass{
     
     static let sharedInstance = AFWrapperClass()
     
+    //MARK: for upload image on chat
+    
+    func requestChatImagePOSTSURL(_ strURL: String, params: Parameters?, imageKey: String, imageData: Data, success: @escaping (NSDictionary) -> Void, failure: @escaping (NSError) -> Void) {
+        guard let url = URL(string: strURL) else {
+            print("Invalid URL")
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue(AppDefaults.token ?? "", forHTTPHeaderField: "Authorization")
+        
+        AF.upload(multipartFormData: { multiPart in
+            // Add other parameters to the multipart form data
+            if let params = params {
+                for (key, value) in params {
+                    if let temp = value as? String {
+                        multiPart.append(temp.data(using: .utf8)!, withName: key)
+                    }
+                }
+            }
+            
+            // Append the image data to the multipart form data
+            multiPart.append(imageData, withName: imageKey, fileName: "\(UUID()).jpg", mimeType: "files/jpeg")
+            print(multiPart)
+        }, with: urlRequest)
+        .uploadProgress(queue: .main, closure: { progress in
+            print("Upload Progress: \(progress.fractionCompleted)")
+        })
+        .responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                if let JSON = value as? NSDictionary {
+                    success(JSON)
+                }
+            case .failure(let error):
+                failure(error as NSError)
+            }
+        }
+    }
+
+    
+    
     //MARK: For upload image
     
     func requestImagePOSTSURL(_ strURL: String, params: Parameters?, imageKey: String, imageData: Data, success: @escaping (NSDictionary) -> Void, failure: @escaping (NSError) -> Void) {

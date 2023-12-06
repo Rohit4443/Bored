@@ -154,6 +154,7 @@ extension MapVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = PlaceDetailVC()
+        vc.comFromSearch = false
         vc.detail = viewModel?.mapListingData[indexPath.row]
         vc.hidesBottomBarWhenPushed = true
         self.pushViewController(vc, true)

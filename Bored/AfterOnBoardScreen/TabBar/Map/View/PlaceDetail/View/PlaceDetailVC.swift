@@ -20,7 +20,10 @@ class PlaceDetailVC: UIViewController {
     var arrayName = ["Baking","Cooking","Dance","Swing Dancing","Picnics"]
     var detail: MapListingData?
     var viewModel: ChatListingVM?
+    var viewModel1: PlaceDetailVM?
     var age : String?
+    var otherID:String?
+    var comFromSearch: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +31,17 @@ class PlaceDetailVC: UIViewController {
         placeDetailCollectionView.collectionViewLayout = createLeftAlignedLayout()
         setData()
         setViewModel()
+        print(comFromSearch)
+        print(otherID)
     }
     
     func setViewModel(){
-        self.viewModel = ChatListingVM(observer: self)
+        if comFromSearch == true{
+            self.viewModel1 = PlaceDetailVM(observer: self)
+            viewModel1?.mapDetailApi(otherUserID: otherID ?? "")
+        }else{
+            self.viewModel = ChatListingVM(observer: self)
+        }
     }
     
     func calculateAge(birthdate: Date) -> Int {
@@ -127,26 +137,52 @@ class PlaceDetailVC: UIViewController {
 extension PlaceDetailVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return arrayName.count
-        return detail?.interestsData?.count ?? 0
+        if comFromSearch == true{
+            return viewModel1?.mapDetail?.interestsData?.count ?? 0
+        }else{
+            return detail?.interestsData?.count ?? 0
+        }
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "interestCVCell", for: indexPath) as! interestCVCell
-        cell.interestNameButton.setTitle(arrayName[indexPath.row], for: .normal);
-        cell.backgroundCellView.borderColor = .clear
-        cell.backgroundCellView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
-        cell.backgroundCellView.cornerRadius = 12
-       
-        cell.interestNameButton.setTitle(detail?.interestsData?[indexPath.row].interest_name, for: .normal)
-        cell.interestNameButton.setTitleColor(UIColor.black, for: .normal)
-        
-        let fontSize: CGFloat = 12
-        let font = UIFont.setCustom(.Poppins_Regular, 12)
-               cell.interestNameButton.setAttributedTitle(NSAttributedString(string: cell.interestNameButton.currentTitle!, attributes: [.font: font]), for: .normal)
-        let size = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        if comFromSearch == true{
+            cell.interestNameButton.setTitle(viewModel1?.mapDetail?.interestsData?[indexPath.row].interest_name, for: .normal);
+            cell.backgroundCellView.borderColor = .clear
+            cell.backgroundCellView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+            cell.backgroundCellView.cornerRadius = 12
+           
+            cell.interestNameButton.setTitle(viewModel1?.mapDetail?.interestsData?[indexPath.row].interest_name, for: .normal)
+            cell.interestNameButton.setTitleColor(UIColor.black, for: .normal)
+            
+            let fontSize: CGFloat = 12
+            let font = UIFont.setCustom(.Poppins_Regular, 12)
+                   cell.interestNameButton.setAttributedTitle(NSAttributedString(string: cell.interestNameButton.currentTitle!, attributes: [.font: font]), for: .normal)
+            let size = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
 
-          
-        cell.backgroundCellView.frame.size = CGSize(width: cell.backgroundCellView.frame.width, height: 19)
+              
+            cell.backgroundCellView.frame.size = CGSize(width: cell.backgroundCellView.frame.width, height: 19)
+        }else{
+            cell.interestNameButton.setTitle(detail?.interestsData?[indexPath.row].interest_name, for: .normal);
+            cell.backgroundCellView.borderColor = .clear
+            cell.backgroundCellView.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.9647058824, blue: 0.9647058824, alpha: 1)
+            cell.backgroundCellView.cornerRadius = 12
+           
+            cell.interestNameButton.setTitle(detail?.interestsData?[indexPath.row].interest_name, for: .normal)
+            cell.interestNameButton.setTitleColor(UIColor.black, for: .normal)
+            
+            let fontSize: CGFloat = 12
+            let font = UIFont.setCustom(.Poppins_Regular, 12)
+                   cell.interestNameButton.setAttributedTitle(NSAttributedString(string: cell.interestNameButton.currentTitle!, attributes: [.font: font]), for: .normal)
+            let size = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+              
+            cell.backgroundCellView.frame.size = CGSize(width: cell.backgroundCellView.frame.width, height: 19)
+        }
+        
+        
+        
         return cell
     }
     
@@ -166,7 +202,38 @@ extension PlaceDetailVC: ChatListingVMObserver{
     
     func createRoom() {
         let vc = OneToOneChatVC()
+        vc.roomID = viewModel?.chatRoomData?.room_id
+        vc.recieverID = Int(viewModel?.chatRoomData?.receiver_id ?? "")
         self.pushViewController(vc, true)
+    }
+    
+    
+}
+extension PlaceDetailVC: PlaceDetailVMObserver{
+    func observerDetail() {
+        self.titleLabel.text = viewModel1?.mapDetail?.name
+        self.profileImage.setImage(image: viewModel1?.mapDetail?.image,placeholder: UIImage(named: "placeholder"))
+        self.nameLabel.text = viewModel1?.mapDetail?.name
+        self.descLAbel.text = viewModel1?.mapDetail?.about_me
+        let date = viewModel1?.mapDetail?.dob
+        print(date)
+        // Example birthdate
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy" // Date format matching your DOB string
+        let dobString = date // Replace this with your DOB string
+        let dobDate = dateFormatter.date(from: dobString ?? "")
+        print(dobDate)
+        // Calculate age
+        let age = calculateAge(birthdate: dobDate ?? Date())
+        print("Age: \(age)")
+        if viewModel1?.mapDetail?.gender == "1"{
+            self.genderLabel.text = "Male"
+        }else{
+            self.genderLabel.text = "Female"
+        }
+        
+        self.ageLabel.text = "\(age)\(" Years")"
+        placeDetailCollectionView.reloadData()
     }
     
     

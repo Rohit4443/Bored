@@ -1,18 +1,17 @@
 //
-//  MediaLeftTVCell.swift
+//  MediaRightTVCell.swift
 //  Bored
 //
-//  Created by Dr.mac on 31/10/23.
+//  Created by Dharmani on 05/12/23.
 //
 
 import UIKit
 
-class MediaLeftTVCell: UITableViewCell {
-
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var userProfileImage: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
+class MediaRightTVCell: UITableViewCell {
+    @IBOutlet weak var dateLAbel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var userNAmeLabel: UILabel!
     @IBOutlet weak var imageMessage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +23,7 @@ class MediaLeftTVCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
     func setDate(currentDate:Date?, previousDate:Date?){
         if let currentDate = currentDate ,
             let previousDate = previousDate
@@ -34,18 +34,18 @@ class MediaLeftTVCell: UITableViewCell {
             let previousDateString = getDateString(date: previousDate )
             print(previousDateString)
             if previousDateString == currentDateString {
-                dateLabel.isHidden = true
+                dateLAbel.isHidden = true
 //                stackViewBottomCons.constant = 0
             } else {
-                dateLabel.isHidden = false
+                dateLAbel.isHidden = false
 //                stackViewBottomCons.constant = 14.5
                 if Calendar.current.isDateInToday(currentDate) == true {
-                    dateLabel.text = "Today"
+                    dateLAbel.text = "Today"
                 }else if Calendar.current.isDateInYesterday(previousDate) == true{
-                    dateLabel.text = "Yesterday"
+                    dateLAbel.text = "Yesterday"
                 }
                 else{
-                    dateLabel.text = getDateString(date: currentDate)
+                    dateLAbel.text = getDateString(date: currentDate)
                 }
                 
             }
@@ -53,16 +53,16 @@ class MediaLeftTVCell: UITableViewCell {
         }else{
             if let currentDate = currentDate{
                
-                dateLabel.isHidden = false
+                dateLAbel.isHidden = false
 //                stackViewBottomCons.constant = 14.5
                 
                 if Calendar.current.isDateInToday(currentDate) == true {
-                    dateLabel.text = "Today"
+                    dateLAbel.text = "Today"
                 }else if Calendar.current.isDateInYesterday(currentDate) == true{
-                    dateLabel.text = "Yesterday"
+                    dateLAbel.text = "Yesterday"
                 }
                 else{
-                    dateLabel.text = getDateString(date: currentDate)
+                    dateLAbel.text = getDateString(date: currentDate)
                 }
 //                dateLbl.text = getDateString(date: current)
             }

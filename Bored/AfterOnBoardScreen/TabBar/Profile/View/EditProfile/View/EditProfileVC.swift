@@ -103,7 +103,7 @@ class EditProfileVC: UIViewController {
     
     @IBAction func saveAction(_ sender: UIButton) {
 
-        viewModel1?.editProfileApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: UserDefaultsCustom.getUserData()?.email ?? "", password: UserDefaultsCustom.getUserData()?.password ?? "", interest: self.interestID ?? "", gender: self.gender ?? "", dob: self.birthdayTextField.text ?? "", deviceType: "1", image: self.signUpImage ?? Data(), intersetName: self.otherInterest ?? "", aboutMe: aboutMeTextView.text ?? "")
+        viewModel1?.editProfileApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: UserDefaultsCustom.getUserData()?.email ?? "", password: UserDefaultsCustom.getUserData()?.password ?? "", interest: self.interestID ?? "", gender: self.gender ?? "", dob: self.birthdayTextField.text ?? "", deviceType: "2", image: self.signUpImage ?? Data(), intersetName: self.otherInterest ?? "", aboutMe: aboutMeTextView.text ?? "")
         
     }
     
@@ -207,7 +207,6 @@ extension EditProfileVC: UIImagePickerControllerDelegate, UINavigationController
         let tempImage = info[UIImagePickerController.InfoKey.editedImage] as! UIImage
         profileImage.image  = tempImage
         print(tempImage)
-        
         
         self.profileSignUpImage = tempImage
         let imageData = tempImage.jpegData(compressionQuality: 0.8)

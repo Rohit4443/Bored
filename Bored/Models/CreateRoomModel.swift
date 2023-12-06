@@ -14,13 +14,13 @@ class CreateRoomModel: Codable{
     var data: CreateRoomData?
 }
 class CreateRoomData: Codable{
-    var id: Int?
-    var sender_id: Int?
-    var receiver_id: Int?
+    var id: String?
+    var sender_id: String?
+    var receiver_id: String?
     var room_id: String?
-    var delete_sender_id: Int?
-    var delete_receiver_id: Int?
-    var status: Int?
+    var delete_sender_id: String?
+    var delete_receiver_id: String?
+    var status: String?
     var created_at: String?
     var updatedAt: String?
 }

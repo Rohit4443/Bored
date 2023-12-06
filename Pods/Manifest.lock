@@ -3,6 +3,12 @@ PODS:
   - AvailableHapticFeedback (1.0.4)
   - Branch (1.45.2)
   - BRYXBanner (0.8.4)
+  - GoogleMaps (8.0.0):
+    - GoogleMaps/Maps (= 8.0.0)
+  - GoogleMaps/Base (8.0.0)
+  - GoogleMaps/Maps (8.0.0):
+    - GoogleMaps/Base
+  - GooglePlaces (8.0.0)
   - GrowingTextView (0.7.2)
   - IQKeyboardManager (6.5.10)
   - Kingfisher (7.7.0)
@@ -23,6 +29,8 @@ DEPENDENCIES:
   - Alamofire
   - Branch
   - BRYXBanner
+  - GoogleMaps
+  - GooglePlaces
   - GrowingTextView
   - IQKeyboardManager
   - Kingfisher (~> 7.0)
@@ -38,6 +46,8 @@ SPEC REPOS:
     - AvailableHapticFeedback
     - Branch
     - BRYXBanner
+    - GoogleMaps
+    - GooglePlaces
     - GrowingTextView
     - IQKeyboardManager
     - Kingfisher
@@ -63,6 +73,8 @@ SPEC CHECKSUMS:
   AvailableHapticFeedback: cd3cb476743764b3efe8645d25e6b359d375ddb0
   Branch: c1a7fa1811ef9203c01bc6c2588a229eb3ee1a84
   BRYXBanner: 4fbd266f96ce000e4c6cc9a0558c446bd88d9801
+  GoogleMaps: 0dce473ab18742d0f327887853630927cbee9127
+  GooglePlaces: 46231f49e2dc52aa9a604f99e2e6b29996f30cc7
   GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
   Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
@@ -75,6 +87,6 @@ SPEC CHECKSUMS:
   SweeterSwift: 3910bab8ba35b6964d5169a3c52b2c87d930b61c
   Swifter: 4c2f8cf320c2f751c10128f841d8e9bd8609d988
 
-PODFILE CHECKSUM: 0f1dc7ac904970465be556b3ea5dfd93803175cb
+PODFILE CHECKSUM: 27616c1f82d3d82c7db38cce3aca92d03ea96761
 
 COCOAPODS: 1.11.3

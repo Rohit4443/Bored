@@ -46,6 +46,12 @@ struct Constant {
     static let deleteEvent = baseUrl + "event/delete-event"
     static let chatListing = baseUrl + "support-chat/get-all-chat-user"
     static let createRoom = baseUrl + "support-chat/create-room"
+    static let sendMessage = baseUrl + "support-chat/send-message"
+    static let allMessage = baseUrl + "support-chat/get-all-message"
+    static let updateMessage = baseUrl + "support-chat/update-message"
+    static let NotificationList = baseUrl + "notification/notification-listing"
+    static let searchListing = baseUrl + "user/search-and-recent-search-listing"
+    static let mapListDetail = baseUrl + "user/get-other-profile"
 }
 
 

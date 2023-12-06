@@ -16,6 +16,8 @@ pod 'BRYXBanner'
 pod 'Kingfisher', '~> 7.0'
 pod 'Koloda'
 pod 'Socket.IO-Client-Swift', '~> 15.1.0'
+pod 'GooglePlaces'
+  pod 'GoogleMaps'
 pod 'Swifter', :git => "https://github.com/mattdonnelly/Swifter.git"
 post_install do |installer|
      installer.pods_project.targets.each do |target|
