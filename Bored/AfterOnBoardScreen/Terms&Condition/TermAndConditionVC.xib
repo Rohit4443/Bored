@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -15,7 +15,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TermAndConditionVC" customModule="Budtender" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TermAndConditionVC" customModule="Bored" customModuleProvider="target">
             <connections>
                 <outlet property="termAndconditionLabel" destination="Xcc-UH-X7i" id="7YI-RN-FKf"/>
                 <outlet property="termAndconditionWebView" destination="FON-Vp-9ba" id="YII-eb-wKe"/>
@@ -43,7 +43,7 @@
                                                 <constraint firstAttribute="height" constant="30" id="T0p-Kc-hk1"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="Ic_Back"/>
+                                            <state key="normal" image="ic_back"/>
                                             <connections>
                                                 <action selector="backAction:" destination="-1" eventType="touchUpInside" id="G3D-u7-6q9"/>
                                             </connections>
@@ -122,7 +122,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Ic_Back" width="10.333333015441895" height="15.333333015441895"/>
+        <image name="ic_back" width="24" height="24"/>
         <namedColor name="AppWhite">
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

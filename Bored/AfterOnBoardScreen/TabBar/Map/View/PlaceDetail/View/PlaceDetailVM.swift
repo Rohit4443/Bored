@@ -9,7 +9,7 @@ import Foundation
 import SVProgressHUD
 protocol PlaceDetailVMObserver{
     func observerDetail()
-    
+    func blockUser()
 }
 
 
@@ -56,6 +56,36 @@ class PlaceDetailVM: NSObject{
         }, failure: {
             (error) in
             print(error.debugDescription)
+        })
+    }
+    
+    func blockUserParams(otherUserID: String, type: String) -> [String:Any]{
+        let params: [String:Any] = [
+            "other_user_id": otherUserID,
+            "type": type
+        ]
+        print("parameters:-  \(params)")
+        return params
+    }
+    
+    func blockUserApi(otherUserID: String, type: String){
+        SVProgressHUD.show()
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.blockUser, params: blockUserParams(otherUserID: otherUserID, type: type), success: {
+            (response) in
+                print(response)
+                SVProgressHUD.dismiss()
+            if let status = response["status"] as? Int,
+               status == 200 {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .success)
+                self.observer?.blockUser()
+            } else {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .error)
+            }
+        }, failure: {
+            (error) in
+                print(error.debugDescription)
         })
     }
 }

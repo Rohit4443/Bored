@@ -13,6 +13,7 @@ class SearchUserVC: UIViewController {
     @IBOutlet weak var searchTF: UITextField!
     var viewModel: SearchVM?
     var timer: Timer?
+    var searchValue: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableViewDelegates()
@@ -21,7 +22,7 @@ class SearchUserVC: UIViewController {
     
     func setViewModel(){
         self.viewModel = SearchVM(observer: self)
-        self.viewModel?.getSearchListing(search: "")
+        self.viewModel?.getSearchListing(search: "", isRecentSearch: "1")
     }
     
     func setTableViewDelegates(){
@@ -66,9 +67,9 @@ extension SearchUserVC : UITableViewDelegate, UITableViewDataSource {
         }else{
             cell.nameLabel.text = viewModel?.recentSearchListing[indexPath.row].name
             cell.profileImage.setImage(image: viewModel?.recentSearchListing[indexPath.row].image,placeholder: UIImage(named: "placeholder"))
-            //            cell.delegate = self
+            cell.delegate = self
             cell.deleteButton.isHidden = false
-            //            cell.passData(data: (viewModel?.recentData[indexPath.row])!)
+            cell.passData(data: (viewModel?.recentSearchListing[indexPath.row])!)
         }
         
         return cell
@@ -98,18 +99,58 @@ extension SearchUserVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let id = viewModel?.searchListing[indexPath.row].id
+        print(id)
+        let recentSearch = viewModel?.searchListing[indexPath.row].is_recent_search
+        print(recentSearch)
+        
+        
         if indexPath.section == 1{
             let vc = PlaceDetailVC()
             vc.otherID = viewModel?.recentSearchListing[indexPath.row].id
             vc.comFromSearch = true
             vc.hidesBottomBarWhenPushed = true
             self.pushViewController(vc, true)
+        }else{
+            viewModel?.recentSearchApi(otherUserId: id ?? "", isRecentSearch: "1", search: self.searchValue ?? "")
         }
     }
     
 }
+extension SearchUserVC: SearchUserTVCellDelegate{
+    func deleteAction(cell: SearchUserTVCell) {
+        print("Press button fav")
+        let id = "\(cell.searchData?.id ?? "")"
+        print(id)
+        self.viewModel?.deleteRecentSearch(otherUserId: id, isRecentSearch: "1", search: self.searchValue ?? "")
+        self.viewModel?.recentSearchListing.removeAll()
+        self.searchUserTableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.viewModel?.recentSearchListing.removeAll()
+            self.viewModel?.searchListing.removeAll()
+            self.viewModel?.getSearchListing(search: self.searchValue ?? "", isRecentSearch: "1")
+            self.searchUserTableView.reloadData()
+        }
+    }
+    
+    
+}
+
 
 extension SearchUserVC: SearchVMObserver{
+    func deleteRecentSearch() {
+        self.searchUserTableView.reloadData()
+    }
+    
+    func recentSearch() {
+        self.viewModel?.recentSearchListing.removeAll()
+        self.viewModel?.searchListing.removeAll()
+        self.viewModel?.getSearchListing(search: self.searchValue ?? "", isRecentSearch: "1")
+        self.searchUserTableView.reloadData()
+    }
+    
     func searchListing() {
         if viewModel?.searchListing.count == 0{
             searchUserTableView.setBackgroundView(message: "No Searches found")
@@ -138,6 +179,7 @@ extension SearchUserVC : UITextFieldDelegate {
                 
                 if self.viewModel?.searchListing.count ?? 0 > 0 {
                     self.viewModel?.searchListing.removeAll()
+                    self.viewModel?.recentSearchListing.removeAll()
                     self.searchUserTableView.reloadData()
                 }
             }
@@ -150,13 +192,14 @@ extension SearchUserVC : UITextFieldDelegate {
     
     @objc func searchText(_ timer: Timer) {
         guard let searchKey = timer.userInfo as? String else { return }
+        self.searchValue = searchKey
         if searchKey.isEmpty{
             self.searchTF.text = ""
             self.viewModel?.searchListing.removeAll()
             self.searchUserTableView.reloadData()
 //            self.searchUserTableView.isHidden = true
         } else {
-            self.viewModel?.getSearchListing(search: searchKey)
+            self.viewModel?.getSearchListing(search: searchKey, isRecentSearch: "1")
             self.searchUserTableView.reloadData()
 //            self.searchTable.isHidden = false
         }

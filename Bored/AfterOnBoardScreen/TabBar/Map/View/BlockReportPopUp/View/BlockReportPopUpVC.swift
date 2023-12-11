@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol BlockReportPopUpVCDelegate{
+    func blockUserAction()
+}
 
 class BlockReportPopUpVC: UIViewController {
     @IBOutlet weak var blockUserButton: UIButton!
@@ -13,6 +16,7 @@ class BlockReportPopUpVC: UIViewController {
     
     @IBOutlet var mainBgView: UIView!
     //MARK: - Variables -
+    var delegate: BlockReportPopUpVCDelegate?
     var controller: UIViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +34,10 @@ class BlockReportPopUpVC: UIViewController {
     }
     //MARK: - IBAction -
     @IBAction func blockUserAction(_ sender: UIButton) {
-        dismiss(animated: true)
-        let vc = BlockedUserVC()
-        self.controller?.pushViewController(vc, true)
+//        dismiss(animated: true)
+        self.delegate?.blockUserAction()
+//        let vc = BlockedUserVC()
+//        self.controller?.pushViewController(vc, true)
     }
     
     @IBAction func reportAction(_ sender: UIButton) {

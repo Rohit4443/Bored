@@ -10,6 +10,8 @@ import SVProgressHUD
 
 protocol SearchVMObserver: NSObjectProtocol{
     func searchListing()
+    func recentSearch()
+    func deleteRecentSearch()
 }
 
 
@@ -25,19 +27,20 @@ class SearchVM: NSObject{
         self.observer = observer
     }
     
-    func SearchParams(search: String) -> [String:Any]{
+    func SearchParams(search: String, isRecentSearch: String) -> [String:Any]{
         let params: [String:Any] = [
             "per_page": perPage,
             "page_no": pageNo,
-            "search": search
+            "search": search,
+            "is_recent_search": isRecentSearch
         ]
         print("parameters:-  \(params)")
         return params
     }
     
-    func getSearchListing(search: String){
+    func getSearchListing(search: String, isRecentSearch: String){
         SVProgressHUD.show()
-        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.searchListing, params: SearchParams(search: search), success: {
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.searchListing, params: SearchParams(search: search, isRecentSearch: isRecentSearch), success: {
             (response) in
                 print(response)
                 SVProgressHUD.dismiss()
@@ -72,4 +75,68 @@ class SearchVM: NSObject{
         })
     }
     
+    func recentSearchParams(otherUserId: String, isRecentSearch: String,search: String) -> [String:Any]{
+        
+        let params: [String:Any] = [
+            "other_user_id": otherUserId,
+            "is_recent_search": isRecentSearch,
+            "search": search
+        ]
+        print("parameters:-  \(params)")
+        return params
+        
+    }
+    
+    func recentSearchApi(otherUserId: String, isRecentSearch: String,search: String){
+        SVProgressHUD.show()
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.recentSearch, params: recentSearchParams(otherUserId: otherUserId, isRecentSearch: isRecentSearch, search: search), success: {
+            (response) in
+                print(response)
+                SVProgressHUD.dismiss()
+            if let status = response["status"] as? Int,
+               status == 200 {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .success)
+                self.observer?.recentSearch()
+            } else {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .error)
+            }
+        }, failure: {
+            (error) in
+                print(error.debugDescription)
+        })
+    }
+    
+    func deleteParams(otherUserId: String, isRecentSearch: String,search: String) -> [String:Any]{
+        let params: [String:Any] = [
+            "other_user_id": otherUserId,
+            "is_recent_search": isRecentSearch,
+            "search": search
+        ]
+        print("parameters:-  \(params)")
+        return params
+    }
+    
+    
+    func deleteRecentSearch(otherUserId: String, isRecentSearch: String,search: String){
+        SVProgressHUD.show()
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.deleteRecent, params: recentSearchParams(otherUserId: otherUserId, isRecentSearch: isRecentSearch, search: search), success: {
+            (response) in
+                print(response)
+                SVProgressHUD.dismiss()
+            if let status = response["status"] as? Int,
+               status == 200 {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .success)
+                self.observer?.deleteRecentSearch()
+            } else {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .error)
+            }
+        }, failure: {
+            (error) in
+                print(error.debugDescription)
+        })
+    }
 }

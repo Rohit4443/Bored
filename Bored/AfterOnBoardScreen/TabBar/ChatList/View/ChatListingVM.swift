@@ -11,6 +11,7 @@ import SVProgressHUD
 protocol ChatListingVMObserver{
     func observerChatListing()
     func createRoom()
+    func chatDelete()
 }
 
 class ChatListingVM: NSObject{
@@ -96,6 +97,34 @@ class ChatListingVM: NSObject{
                 print(error.debugDescription)
         })
     
+    }
+    
+    func chatDeleteParams(roomID: String) -> [String: Any]{
+        let params: [String:Any] = [
+            "room_id" : roomID
+        ]
+        print("parameters:-  \(params)")
+        return params
+    }
+    func chatDeleteApi(roomID: String){
+        SVProgressHUD.show()
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.chatDelete, params: chatDeleteParams(roomID: roomID), success: {
+            (response) in
+                print(response)
+                SVProgressHUD.dismiss()
+            if let status = response["status"] as? Int,
+               status == 200 {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .success)
+                self.observer?.chatDelete()
+            } else {
+                let msg = response["message"] as? String
+                Singleton.showMessage(message: msg ?? "", isError: .error)
+            }
+        }, failure: {
+            (error) in
+                print(error.debugDescription)
+        })
     }
     
 }

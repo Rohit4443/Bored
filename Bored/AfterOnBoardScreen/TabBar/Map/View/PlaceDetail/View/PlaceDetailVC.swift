@@ -39,8 +39,10 @@ class PlaceDetailVC: UIViewController {
         if comFromSearch == true{
             self.viewModel1 = PlaceDetailVM(observer: self)
             viewModel1?.mapDetailApi(otherUserID: otherID ?? "")
+            self.viewModel = ChatListingVM(observer: self)
         }else{
             self.viewModel = ChatListingVM(observer: self)
+            self.viewModel1 = PlaceDetailVM(observer: self)
         }
     }
     
@@ -112,12 +114,20 @@ class PlaceDetailVC: UIViewController {
 
 
     @IBAction func menuAction(_ sender: UIButton) {
-        let vc = BlockReportPopUpVC()
-        vc.controller = self
-        vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, true)
-      
-     
+        if comFromSearch == true{
+            let vc = BlockReportPopUpVC()
+            vc.controller = self
+            vc.delegate = self
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, true)
+        }else{
+            let vc = BlockReportPopUpVC()
+            vc.controller = self
+            vc.delegate = self
+            vc.modalPresentationStyle = .overFullScreen
+            self.present(vc, true)
+        }
+        
     }
     
     @IBAction func backAction(_ sender: Any) {
@@ -125,8 +135,15 @@ class PlaceDetailVC: UIViewController {
     }
     
     @IBAction func ChatAction(_ sender: UIButton) {
-        let id = detail?.id ?? ""
-        viewModel?.createChatRoomApi(receiverId: id )
+        if comFromSearch == true{
+            let id = viewModel1?.mapDetail?.id ?? ""
+            viewModel?.createChatRoomApi(receiverId: id )
+        }else{
+            let id = detail?.id ?? ""
+            viewModel?.createChatRoomApi(receiverId: id )
+        }
+        
+        
 //        let vc = OneToOneChatVC()
 //        self.pushViewController(vc, true)
         
@@ -196,20 +213,37 @@ extension PlaceDetailVC : UICollectionViewDelegateFlowLayout, UICollectionViewDa
 
 }
 extension PlaceDetailVC: ChatListingVMObserver{
+    func chatDelete() {
+       
+    }
+    
     func observerChatListing() {
       
     }
     
     func createRoom() {
-        let vc = OneToOneChatVC()
-        vc.roomID = viewModel?.chatRoomData?.room_id
-        vc.recieverID = Int(viewModel?.chatRoomData?.receiver_id ?? "")
-        self.pushViewController(vc, true)
+        if comFromSearch == true{
+            let vc = OneToOneChatVC()
+            vc.roomID = viewModel?.chatRoomData?.room_id
+            vc.recieverID = Int(viewModel?.chatRoomData?.receiver_id ?? "")
+            self.pushViewController(vc, true)
+        }else{
+            let vc = OneToOneChatVC()
+            vc.roomID = viewModel?.chatRoomData?.room_id
+            vc.recieverID = Int(viewModel?.chatRoomData?.receiver_id ?? "")
+            self.pushViewController(vc, true)
+        }
+        
+        
     }
     
     
 }
 extension PlaceDetailVC: PlaceDetailVMObserver{
+    func blockUser(){
+        print("user Blocked")
+    }
+  
     func observerDetail() {
         self.titleLabel.text = viewModel1?.mapDetail?.name
         self.profileImage.setImage(image: viewModel1?.mapDetail?.image,placeholder: UIImage(named: "placeholder"))
@@ -236,5 +270,21 @@ extension PlaceDetailVC: PlaceDetailVMObserver{
         placeDetailCollectionView.reloadData()
     }
     
+    
+}
+extension PlaceDetailVC: BlockReportPopUpVCDelegate{
+    func blockUserAction() {
+        print("Blockeddddd")
+        dismiss(animated: true)
+        if comFromSearch == true{
+            let id = viewModel1?.mapDetail?.id
+            print(id)
+            self.viewModel1?.blockUserApi(otherUserID: id ?? "", type: "1")
+        }else{
+            let id = detail?.id
+            print(id)
+            self.viewModel1?.blockUserApi(otherUserID: id ?? "", type: "1")
+        }
+    }
     
 }

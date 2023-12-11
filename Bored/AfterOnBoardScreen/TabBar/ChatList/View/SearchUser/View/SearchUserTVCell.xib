@@ -50,6 +50,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="ic_delete"/>
+                                <connections>
+                                    <action selector="DeleteAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aqx-IU-6RS"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

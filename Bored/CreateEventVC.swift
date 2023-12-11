@@ -13,7 +13,6 @@ class CreateEventVC: UIViewController {
     //MARK: - IBOutlets -
     @IBOutlet weak var eventNameTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var eventsTagCollectionView: UICollectionView!
     @IBOutlet weak var startTimeTextField: UITextField!
     @IBOutlet weak var endTimeTextField: UITextField!
@@ -26,6 +25,8 @@ class CreateEventVC: UIViewController {
     @IBOutlet weak var backButtonHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var backButtonWidthContraints: NSLayoutConstraint!
     
+    @IBOutlet weak var startDateTF: UITextField!
+    @IBOutlet weak var endDateTF: UITextField!
     
     //MARK: - Variables -
     var imageArray = [UIImage]()
@@ -60,29 +61,30 @@ class CreateEventVC: UIViewController {
     }
     
     //MARK: - CustomFunction -
+
     func createDatePicker(){
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .wheels
-        dateTextField.inputView = datePicker
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(datePickerDoneButtonTapped))
-        toolbar.setItems([doneButton], animated: false)
-        dateTextField.inputAccessoryView = toolbar
-        
+        createDatePicker(for: startDateTF)
+        createDatePicker(for: endDateTF)
     }
     
-    @objc func datePickerDoneButtonTapped() {
-        
-        let datePicker = dateTextField.inputView as! UIDatePicker
-        let selectedDate = datePicker.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MMM/yyyy"
-        let formattedDate = dateFormatter.string(from: selectedDate)
-        dateTextField.text = formattedDate
-        dateTextField.resignFirstResponder()
+    func createDatePicker(for textField: UITextField) {
+        let timePicker = UIDatePicker()
+        timePicker.datePickerMode = .date
+        timePicker.preferredDatePickerStyle = .wheels
+        timePicker.addTarget(self, action: #selector(DatePickerValueChanged), for: .valueChanged)
+        textField.inputView = timePicker
     }
+    
+    @objc func DatePickerValueChanged(sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        if startDateTF.isFirstResponder {
+            startDateTF.text = dateFormatter.string(from: sender.date)
+        } else if endDateTF.isFirstResponder {
+            endDateTF.text = dateFormatter.string(from: sender.date)
+        }
+    }
+    
     
     func createTimePickers() {
         createTimePicker(for: startTimeTextField)

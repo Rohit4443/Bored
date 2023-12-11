@@ -52,6 +52,10 @@ struct Constant {
     static let NotificationList = baseUrl + "notification/notification-listing"
     static let searchListing = baseUrl + "user/search-and-recent-search-listing"
     static let mapListDetail = baseUrl + "user/get-other-profile"
+    static let recentSearch = baseUrl + "user/recent-search"
+    static let deleteRecent = baseUrl + "user/delete-recent-search"
+    static let chatDelete = baseUrl + "support-chat/delete-chat"
+    static let blockUser = baseUrl + "user/block-unblock-user"
 }
 
 

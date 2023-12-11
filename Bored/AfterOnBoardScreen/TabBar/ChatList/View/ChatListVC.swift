@@ -16,7 +16,7 @@ class ChatListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableViewDelegates()
-//        setViewModel()
+        //        setViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,7 +36,25 @@ class ChatListVC: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         
     }
-
+    
+    func hitDeleteChatAlert(index: Int) {
+        let alert = UIAlertController(title: "", message: "Are you sure you want to delete this chat?", preferredStyle: .alert)
+        if #available(iOS 13.0, *) {
+            alert.overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
+        alert.addAction(UIAlertAction(title: "Yes", style: .default , handler:{ (UIAlertAction)in
+            let roomId = self.viewModel?.chatListData[index].room_id ?? ""
+            print(roomId)
+            self.viewModel?.chatDeleteApi(roomID: roomId)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel , handler:{ (UIAlertAction)in
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
     
     @IBAction func searchUserAction(_ sender: UIButton) {
         let vc = SearchUserVC()
@@ -44,7 +62,7 @@ class ChatListVC: UIViewController {
         self.pushViewController(vc, true)
         
     }
-  
+    
 }
 
 
@@ -67,10 +85,10 @@ extension ChatListVC : UITableViewDelegate, UITableViewDataSource {
         }
         
         let timestampString = viewModel?.chatListData[indexPath.row].LastMessageTime ?? ""
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
+        
         if let date = dateFormatter.date(from: timestampString) {
             dateFormatter.dateFormat = "HH:mm a"
             let formattedTime = dateFormatter.string(from: date)
@@ -98,9 +116,55 @@ extension ChatListVC : UITableViewDelegate, UITableViewDataSource {
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let cell = tableView.cellForRow(at: indexPath) as! ChatListTVCell
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+            //YOUR_CODE_HERE
+            print("delete called")
+            self.hitDeleteChatAlert(index: indexPath.row)
+        }
+        deleteAction.backgroundColor = .black
+        
+        // Create a custom view for the delete action
+        let deleteView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 70))
+        
+        let imageView = UIImageView(image: UIImage(named: "del")) // Set your dustbin image here
+        imageView.frame = CGRect(x: 8, y: 20, width: 20, height: 20)
+        deleteView.addSubview(imageView)
+        
+        let titleLabel = UILabel(frame: CGRect(x: -5, y: 40, width: 50, height: 20))
+        titleLabel.text = "Delete"
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .white
+        titleLabel.font = UIFont.systemFont(ofSize: 12)
+        deleteView.addSubview(titleLabel)
+        
+        deleteAction.image = imageFromView(view: deleteView)
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false // This line disables the full swipe behavior
+        
+        return configuration
+    }
+    // Helper method to convert a view into an image
+    func imageFromView(view: UIView) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, UIScreen.main.scale)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
 
 extension ChatListVC: ChatListingVMObserver{
+    func chatDelete() {
+        self.viewModel?.chatListData.removeAll()
+        self.viewModel?.getChatListing(search: "")
+        self.chatListTableView.reloadData()
+    }
+    
     func createRoom() {
         
     }
