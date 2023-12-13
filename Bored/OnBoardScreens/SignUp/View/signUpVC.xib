@@ -48,7 +48,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gaX-o8-K3T">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="1407"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_editProfile" translatesAutoresizingMaskIntoConstraints="NO" id="mau-zG-RqZ">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="mau-zG-RqZ">
                                             <rect key="frame" x="107.5" y="20" width="160" height="160"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="160" id="ImG-cB-gYW"/>
@@ -88,7 +88,7 @@
                                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tmO-XB-PCJ">
                                                                     <rect key="frame" x="40" y="0.0" width="295" height="51"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                                    <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -145,7 +145,7 @@
                                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T3n-Y7-cF9">
                                                                     <rect key="frame" x="40" y="0.0" width="295" height="51"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                                    <textInputTraits key="textInputTraits"/>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
@@ -705,7 +705,6 @@
         <image name="ic_camera" width="39" height="38"/>
         <image name="ic_check" width="11" height="9"/>
         <image name="ic_date" width="19" height="19.5"/>
-        <image name="ic_editProfile" width="183" height="183"/>
         <image name="ic_email" width="24" height="24"/>
         <image name="ic_female" width="74" height="74"/>
         <image name="ic_hidePassword" width="20" height="17.5"/>
@@ -715,6 +714,7 @@
         <image name="ic_user" width="23" height="23.5"/>
         <image name="male" width="74" height="74"/>
         <image name="open_eye" width="21" height="14"/>
+        <image name="placeholder" width="166.5" height="166.5"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

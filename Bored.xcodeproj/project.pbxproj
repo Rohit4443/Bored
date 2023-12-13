@@ -144,6 +144,16 @@
 		A86F16892B0C8526003F342C /* UICollectionView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */; };
 		A86F168B2B0C85F8003F342C /* UITableView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F168A2B0C85F8003F342C /* UITableView+Custom.swift */; };
 		A86F168D2B0C8BD9003F342C /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F168C2B0C8BD9003F342C /* LoginVM.swift */; };
+		A86F2E0D2B297A4A00D53FA0 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F2E0C2B297A4A00D53FA0 /* AppExtensions.swift */; };
+		A86F2E0F2B297C5700D53FA0 /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F2E0E2B297C5700D53FA0 /* BlockModel.swift */; };
+		A86F2E112B29868600D53FA0 /* ReportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F2E102B29868600D53FA0 /* ReportModel.swift */; };
+		A86F2E202B298F8E00D53FA0 /* ReportVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F2E1F2B298F8E00D53FA0 /* ReportVM.swift */; };
+		A86F2E232B299F9B00D53FA0 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F2E212B299F9B00D53FA0 /* ReportViewController.swift */; };
+		A86F2E242B299F9B00D53FA0 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86F2E222B299F9B00D53FA0 /* ReportViewController.xib */; };
+		A86F2E272B29A24100D53FA0 /* ReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F2E252B29A24100D53FA0 /* ReportTableViewCell.swift */; };
+		A86F2E282B29A24100D53FA0 /* ReportTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86F2E262B29A24100D53FA0 /* ReportTableViewCell.xib */; };
+		A86F2E2A2B29A33300D53FA0 /* ReportFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F2E292B29A33300D53FA0 /* ReportFooterView.swift */; };
+		A86F2E2C2B29A35100D53FA0 /* ReportFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A86F2E2B2B29A35100D53FA0 /* ReportFooterView.xib */; };
 		A86F3D452B15EBCB00761035 /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F3D442B15EBCB00761035 /* ChangePasswordVM.swift */; };
 		A881E6262B0F7D2400AE40B0 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A881E6252B0F7D2400AE40B0 /* ProfileVM.swift */; };
 		A892C78E2B1D94AD00B3BA73 /* OneToOneChatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892C78D2B1D94AD00B3BA73 /* OneToOneChatVM.swift */; };
@@ -152,6 +162,7 @@
 		A892F1882B1AF99E002A4AF7 /* ChatListingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F1872B1AF99E002A4AF7 /* ChatListingVM.swift */; };
 		A892F18A2B1B1896002A4AF7 /* CreateRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F1892B1B1896002A4AF7 /* CreateRoomModel.swift */; };
 		A892F18C2B1B2A98002A4AF7 /* Socketton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F18B2B1B2A98002A4AF7 /* Socketton.swift */; };
+		A893A1C22B2824CA00C7CD97 /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893A1C12B2824CA00C7CD97 /* BlockedUserVM.swift */; };
 		A893E8352B0B3169004A1980 /* AFWrapperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8342B0B3169004A1980 /* AFWrapperClass.swift */; };
 		A893E8372B0B31D0004A1980 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8362B0B31D0004A1980 /* AppConstant.swift */; };
 		A893E8392B0B3380004A1980 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8382B0B3380004A1980 /* AppDefaults.swift */; };
@@ -329,6 +340,16 @@
 		A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Custom.swift"; sourceTree = "<group>"; };
 		A86F168A2B0C85F8003F342C /* UITableView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Custom.swift"; sourceTree = "<group>"; };
 		A86F168C2B0C8BD9003F342C /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
+		A86F2E0C2B297A4A00D53FA0 /* AppExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
+		A86F2E0E2B297C5700D53FA0 /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
+		A86F2E102B29868600D53FA0 /* ReportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModel.swift; sourceTree = "<group>"; };
+		A86F2E1F2B298F8E00D53FA0 /* ReportVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportVM.swift; sourceTree = "<group>"; };
+		A86F2E212B299F9B00D53FA0 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		A86F2E222B299F9B00D53FA0 /* ReportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
+		A86F2E252B29A24100D53FA0 /* ReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTableViewCell.swift; sourceTree = "<group>"; };
+		A86F2E262B29A24100D53FA0 /* ReportTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportTableViewCell.xib; sourceTree = "<group>"; };
+		A86F2E292B29A33300D53FA0 /* ReportFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportFooterView.swift; sourceTree = "<group>"; };
+		A86F2E2B2B29A35100D53FA0 /* ReportFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReportFooterView.xib; sourceTree = "<group>"; };
 		A86F3D442B15EBCB00761035 /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
 		A881E6252B0F7D2400AE40B0 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		A892C78D2B1D94AD00B3BA73 /* OneToOneChatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneToOneChatVM.swift; sourceTree = "<group>"; };
@@ -337,6 +358,7 @@
 		A892F1872B1AF99E002A4AF7 /* ChatListingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListingVM.swift; sourceTree = "<group>"; };
 		A892F1892B1B1896002A4AF7 /* CreateRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomModel.swift; sourceTree = "<group>"; };
 		A892F18B2B1B2A98002A4AF7 /* Socketton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socketton.swift; sourceTree = "<group>"; };
+		A893A1C12B2824CA00C7CD97 /* BlockedUserVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVM.swift; sourceTree = "<group>"; };
 		A893E8342B0B3169004A1980 /* AFWrapperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFWrapperClass.swift; sourceTree = "<group>"; };
 		A893E8362B0B31D0004A1980 /* AppConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		A893E8382B0B3380004A1980 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
@@ -422,6 +444,13 @@
 			children = (
 				183868FC2AF3B39300AFA991 /* ReportUserPopupVC.swift */,
 				183868FD2AF3B39300AFA991 /* ReportUserPopupVC.xib */,
+				A86F2E1F2B298F8E00D53FA0 /* ReportVM.swift */,
+				A86F2E212B299F9B00D53FA0 /* ReportViewController.swift */,
+				A86F2E222B299F9B00D53FA0 /* ReportViewController.xib */,
+				A86F2E252B29A24100D53FA0 /* ReportTableViewCell.swift */,
+				A86F2E262B29A24100D53FA0 /* ReportTableViewCell.xib */,
+				A86F2E292B29A33300D53FA0 /* ReportFooterView.swift */,
+				A86F2E2B2B29A35100D53FA0 /* ReportFooterView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1005,6 +1034,7 @@
 				5FD526CD2AF4D4A100BC2C5B /* BlockedUserVC.xib */,
 				5FD526D02AF4D4B400BC2C5B /* BlockedUserTVCell.swift */,
 				5FD526D12AF4D4B400BC2C5B /* BlockedUserTVCell.xib */,
+				A893A1C12B2824CA00C7CD97 /* BlockedUserVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1120,6 +1150,7 @@
 				A892F18B2B1B2A98002A4AF7 /* Socketton.swift */,
 				A893E83E2B0B42F5004A1980 /* ErrorView */,
 				A893E8342B0B3169004A1980 /* AFWrapperClass.swift */,
+				A86F2E0C2B297A4A00D53FA0 /* AppExtensions.swift */,
 				A893E8382B0B3380004A1980 /* AppDefaults.swift */,
 				A893E83A2B0B4107004A1980 /* ShowBanner.swift */,
 				A893E8362B0B31D0004A1980 /* AppConstant.swift */,
@@ -1167,6 +1198,8 @@
 				A8B9F0142B205D8C00B32A79 /* NotificationModel.swift */,
 				A8B9F0182B207B2E00B32A79 /* SearchModel.swift */,
 				A8B9F01E2B20891D00B32A79 /* MapDetailModel.swift */,
+				A86F2E0E2B297C5700D53FA0 /* BlockModel.swift */,
+				A86F2E102B29868600D53FA0 /* ReportModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1266,6 +1299,7 @@
 				5FC34A4E2AE9100600C5D2FF /* ProfileVC.xib in Resources */,
 				5FAE8FB82AE297C300B222D5 /* SelectLoginSignUpVC.xib in Resources */,
 				5FC34A182AE9018C00C5D2FF /* Poppins-Medium.ttf in Resources */,
+				A86F2E242B299F9B00D53FA0 /* ReportViewController.xib in Resources */,
 				5FC34A422AE90FBA00C5D2FF /* CreateEventVC.xib in Resources */,
 				5F9597252AE6987B00618196 /* interestCVCell.xib in Resources */,
 				5FC34A152AE9018100C5D2FF /* Poppins-Black.ttf in Resources */,
@@ -1277,6 +1311,7 @@
 				5FD624A12AF0D04A0096A347 /* LeftTVCell.xib in Resources */,
 				5F34A9952AF4FEA70042AC42 /* InterestedUsersVC.xib in Resources */,
 				5F99E5E62AF27C3A003F2065 /* SelectLocationTVCell.xib in Resources */,
+				A86F2E2C2B29A35100D53FA0 /* ReportFooterView.xib in Resources */,
 				5FB96A4C2AEBC0150054112B /* FilterVC.xib in Resources */,
 				5FAE8FA72AE2932100B222D5 /* Assets.xcassets in Resources */,
 				5FC34A172AE9018700C5D2FF /* Poppins-Light.ttf in Resources */,
@@ -1287,6 +1322,7 @@
 				5F34A98F2AF4FD010042AC42 /* EditDeleteEventPopUpVC.xib in Resources */,
 				5FC34A162AE9018500C5D2FF /* Poppins-Bold.ttf in Resources */,
 				A893E8462B0B4310004A1980 /* cancel_notes@3x.png in Resources */,
+				A86F2E282B29A24100D53FA0 /* ReportTableViewCell.xib in Resources */,
 				5F9BE3692AE2AE88004AD2F4 /* signUpVC.xib in Resources */,
 				5FB2E37A2AF101C800CFF385 /* SettingsTVCell.xib in Resources */,
 				5FF978872AEFB84F0081EC13 /* HomeFindInterestCVCell.xib in Resources */,
@@ -1377,6 +1413,7 @@
 				5FAB32D42AEA4C1900E027A6 /* HomeDetailCVCell.swift in Sources */,
 				A893E84F2B0B447A004A1980 /* UserDefaultsCustom.swift in Sources */,
 				A81184852B0F7793005DC8C0 /* KolodaCardView.swift in Sources */,
+				A86F2E272B29A24100D53FA0 /* ReportTableViewCell.swift in Sources */,
 				A804496E2B14BB47002001B1 /* InterestedScreenVM.swift in Sources */,
 				5FC34A4D2AE9100600C5D2FF /* ProfileVC.swift in Sources */,
 				A89EEF132B0B96210066382F /* UILabel+Custom.swift in Sources */,
@@ -1397,6 +1434,7 @@
 				A89541E72B171BE5001C5493 /* EditProfileVM.swift in Sources */,
 				5F34A99E2AF50A7B0042AC42 /* MyEventVC.swift in Sources */,
 				5F00AABC2AEBEE82006EA5F3 /* SearchUserVC.swift in Sources */,
+				A86F2E2A2B29A33300D53FA0 /* ReportFooterView.swift in Sources */,
 				5FD526D82AF4DBEF00BC2C5B /* EditProfileVC.swift in Sources */,
 				5F34A9A42AF50D600042AC42 /* MyEventDetailVC.swift in Sources */,
 				5FC34A412AE90FBA00C5D2FF /* CreateEventVC.swift in Sources */,
@@ -1415,6 +1453,7 @@
 				5F629ADE2AF36C0F002AD6B4 /* DeleteAccountPopUpVC.swift in Sources */,
 				A896828D2B145E1400DF5B6A /* HomeDetailModel.swift in Sources */,
 				5FAE8FBE2AE29AB300B222D5 /* UIView+Custom.swift in Sources */,
+				A86F2E232B299F9B00D53FA0 /* ReportViewController.swift in Sources */,
 				5FB2E37D2AF12EFB00CFF385 /* MediaLeftTVCell.swift in Sources */,
 				A892F1882B1AF99E002A4AF7 /* ChatListingVM.swift in Sources */,
 				5FE800BA2AF23D4000C1FEB9 /* UploadImagesCVCell.swift in Sources */,
@@ -1430,6 +1469,7 @@
 				5FAE8FA22AE2932000B222D5 /* ViewController.swift in Sources */,
 				5F9597242AE6987B00618196 /* interestCVCell.swift in Sources */,
 				A86F3D452B15EBCB00761035 /* ChangePasswordVM.swift in Sources */,
+				A86F2E202B298F8E00D53FA0 /* ReportVM.swift in Sources */,
 				A893E83D2B0B416B004A1980 /* Singleton.swift in Sources */,
 				5FC34A1E2AE9091200C5D2FF /* TabBarVC.swift in Sources */,
 				A86DFD7F2B19E22F003C6127 /* MyEventVM.swift in Sources */,
@@ -1456,10 +1496,12 @@
 				5FD890A82AEF7E83005AAC86 /* PlaceDetailVC.swift in Sources */,
 				5F2894E32AFB69D700196416 /* UIFont+Custom 2.swift in Sources */,
 				A81184812B0F7504005DC8C0 /* UIImageView+Custom.swift in Sources */,
+				A893A1C22B2824CA00C7CD97 /* BlockedUserVM.swift in Sources */,
 				A893E8802B0B4BBB004A1980 /* String+Custom.swift in Sources */,
 				A86F168D2B0C8BD9003F342C /* LoginVM.swift in Sources */,
 				5F99E5E52AF27C3A003F2065 /* SelectLocationTVCell.swift in Sources */,
 				A8B9F0192B207B2E00B32A79 /* SearchModel.swift in Sources */,
+				A86F2E0F2B297C5700D53FA0 /* BlockModel.swift in Sources */,
 				5FC34A132AE8FCF600C5D2FF /* ForgotPasswordVC.swift in Sources */,
 				A893E8352B0B3169004A1980 /* AFWrapperClass.swift in Sources */,
 				5FAE8F9E2AE2932000B222D5 /* AppDelegate.swift in Sources */,
@@ -1468,6 +1510,7 @@
 				A893E8552B0B4A13004A1980 /* ErrorView.swift in Sources */,
 				A8B9F01F2B20891D00B32A79 /* MapDetailModel.swift in Sources */,
 				A892C78E2B1D94AD00B3BA73 /* OneToOneChatVM.swift in Sources */,
+				A86F2E112B29868600D53FA0 /* ReportModel.swift in Sources */,
 				5FAE8FC82AE29AE200B222D5 /* UIButton+Custom.swift in Sources */,
 				5F99E5EB2AF2851B003F2065 /* ChangePassword.swift in Sources */,
 				5F34A98E2AF4FD010042AC42 /* EditDeleteEventPopUpVC.swift in Sources */,
@@ -1483,6 +1526,7 @@
 				A89541E52B171B3C001C5493 /* EditProfileModel.swift in Sources */,
 				5FAE8FA02AE2932000B222D5 /* SceneDelegate.swift in Sources */,
 				5F99E5E12AF27A9F003F2065 /* SelectLocationVC.swift in Sources */,
+				A86F2E0D2B297A4A00D53FA0 /* AppExtensions.swift in Sources */,
 				A896828B2B145E0300DF5B6A /* HomeDetailVM.swift in Sources */,
 				A89A9A062B1074A30080425F /* HomeVM.swift in Sources */,
 				5F34A9942AF4FEA70042AC42 /* InterestedUsersVC.swift in Sources */,

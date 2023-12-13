@@ -88,7 +88,7 @@ func setImageFromUrl() {
      let targetSize = CGSize(width: 24.0, height: 24.0)
      let resize = ResizingImageProcessor(referenceSize: targetSize, mode: .aspectFill)
      let crop = CroppingImageProcessor(size: targetSize)
-     let round = RoundCornerImageProcessor(cornerRadius: targetSize.height / 2,backgroundColor: .white)
+     let round = RoundCornerImageProcessor(cornerRadius: targetSize.height / 2,backgroundColor: .black)
    
      let processor = ((resize |> crop) |> round)
      KingfisherManager.shared.retrieveImage(with: url,options: [ .processor(processor), .scaleFactor(UIScreen.main.scale)],completionHandler: { result in
@@ -96,7 +96,7 @@ func setImageFromUrl() {
          case .success(let value):
              let img = value.image
              self.image = img.roundedImageWithBorder(width: 0,color: .clear)//.withRenderingMode(.automatic).roundedImageWithBorder(width: 0)
-             self.selectedImage = img.roundedImageWithBorder(width: 2,color: .white)//withRenderingMode(.automatic).roundedImageWithBorder(width: 1)
+             self.selectedImage = img.roundedImageWithBorder(width: 1,color: .black)//withRenderingMode(.automatic).roundedImageWithBorder(width: 1)
              
 //                    self.selectedImage?.sd_roundedCornerImage(withRadius: (self.selectedImage?.size.height ?? 0) / 2, corners: SDRectCorner.allCorners, borderWidth: 5, borderColor: .red)
          case .failure(let error):

@@ -56,6 +56,9 @@ struct Constant {
     static let deleteRecent = baseUrl + "user/delete-recent-search"
     static let chatDelete = baseUrl + "support-chat/delete-chat"
     static let blockUser = baseUrl + "user/block-unblock-user"
+    static let blockList = baseUrl + "user/block-listing"
+    static let reportList = baseUrl + "report/all-report-reasons-listing"
+    static let addReport = baseUrl + "report/report-user"
 }
 
 

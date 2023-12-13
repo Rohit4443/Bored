@@ -118,11 +118,13 @@ class PlaceDetailVC: UIViewController {
             let vc = BlockReportPopUpVC()
             vc.controller = self
             vc.delegate = self
+            vc.userID = detail?.id
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, true)
         }else{
             let vc = BlockReportPopUpVC()
             vc.controller = self
+            vc.userID = detail?.id
             vc.delegate = self
             vc.modalPresentationStyle = .overFullScreen
             self.present(vc, true)

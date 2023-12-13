@@ -30,6 +30,7 @@ class EventListingData: Codable{
     var created_at: String?
     var updated_at: String?
     var status: String?
+    var distance: String?
     var user_name: String?
     var user_image: String?
     var files: [FileData]?

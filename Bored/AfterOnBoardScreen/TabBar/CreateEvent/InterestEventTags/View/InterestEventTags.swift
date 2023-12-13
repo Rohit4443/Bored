@@ -38,7 +38,7 @@ class InterestEventTags: UIViewController {
         super.viewDidLoad()
         setCollectionViewDelegates()
         showInterestCollectionView.collectionViewLayout = createCenterAlignedLayout()
-        collheightConstraint.constant = CGFloat(50*arrayName.count)
+//        collheightConstraint.constant = CGFloat(50*arrayName.count)
         print(selectedArray?.count)
         setViewModel()
         

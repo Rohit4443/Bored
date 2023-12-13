@@ -20,12 +20,14 @@ class MapVC: UIViewController {
     
     var viewModel: MapVM?
     var gender: String?
+    let locationManager = CLLocationManager()
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
         super.viewDidLoad()
         setMapAnnotation()
         setCollectionViewDelegate()
+        setupLocationManager()
 //        setViewModel()
         
 //        print(UserDefaultsCustom.getUserData()?.is_private)
@@ -58,6 +60,40 @@ class MapVC: UIViewController {
     }
     
     //MARK: - CustomFunction -
+    
+
+    func getPlaceNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error {
+                print("Reverse geocoding failed with error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placemark = placemarks?.first {
+                print("Place Details:")
+                print("Name: \(placemark.name ?? "N/A")")
+                print("Thoroughfare: \(placemark.thoroughfare ?? "N/A")")
+                print("Locality: \(placemark.locality ?? "N/A")")
+                print("Country: \(placemark.country ?? "N/A")")
+                // Access other properties as needed
+            } else {
+                print("No placemark available for the provided coordinates")
+            }
+        }
+    }
+
+
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest // Set desired accuracy
+        locationManager.requestWhenInUseAuthorization() // Request location authorization
+        locationManager.startUpdatingLocation() // Start receiving location updates
+    }
+
+    
     func setMapAnnotation(){
         
         mapView.mapType = MKMapType.standard
@@ -112,6 +148,19 @@ class MapVC: UIViewController {
 }
 
 extension MapVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+        print("Latitude: \(latitude), Longitude: \(longitude)")
+        // Call the function with your coordinates
+        getPlaceNameFromCoordinates(latitude: latitude, longitude: longitude)
+        // Use the latitude and longitude values as needed
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location manager failed with error: \(error.localizedDescription)")
+    }
     
 }
 

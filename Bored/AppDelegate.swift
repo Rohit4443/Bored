@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import IQKeyboardManager
+import IQKeyboardManagerSwift
 import GoogleMaps
 import GooglePlaces
 
@@ -29,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame:UIScreen.main.bounds)
         application.applicationIconBadgeNumber = 0
-        IQKeyboardManager.shared().isEnabled = true
-        
-//        GMSPlacesClient.provideAPIKey("AIzaSyBmOVPieq71MEmclfVaKiI-oTNXIdgoPwU")
+//        IQKeyboardManager.shared().isEnabled = true
+        configureKeboard()
+        GMSPlacesClient.provideAPIKey("AIzaSyAiNW0f-BGzXhmOaNhU2st9VXvfRDg-zSA")
 //        self.setNotification(application)
         let accesstoken = UserDefaultsCustom.getUserData()
         if accesstoken?.access_token?.count ?? 0 > 0 {
@@ -42,7 +42,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
         return true
     }
+    
+    private func configureKeboard() {
+        
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        //        IQKeyboardManager.shared.toolbarTintColor = SSColor.appBlack
+        IQKeyboardManager.shared.enableAutoToolbar = true
+        //        IQKeyboardManager.shared.disabledDistanceHandlingClasses = [ChatDetailsVC.self, ChatViewController.self]
+        IQKeyboardManager.shared.resignFirstResponder()
+        IQKeyboardManager.shared.toolbarPreviousNextAllowedClasses = [UIScrollView.self,UIView.self,UITextField.self,UITextView.self,UIStackView.self]
+        
+    }
 
+    
+    
+    
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceTokenString = deviceToken.map { String(format: "%02x", $0) }.joined()

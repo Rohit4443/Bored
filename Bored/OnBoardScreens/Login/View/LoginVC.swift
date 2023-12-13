@@ -80,7 +80,7 @@ class LoginVC: UIViewController {
     
     @IBAction func signUpAction(_ sender: UIButton) {
         let vc = signUpVC()
-        self.pushViewController(vc, true)
+        self.pushViewController(vc, false)
         self.navigationController?.navigationBar.isHidden = true
     }
     

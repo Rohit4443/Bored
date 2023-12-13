@@ -181,7 +181,7 @@
                             </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" image="ic_uncheck"/>
-                            <state key="selected" image="ic_check"/>
+                            <state key="selected" image="remember_me"/>
                             <connections>
                                 <action selector="checkUnchekAction:" destination="-1" eventType="touchUpInside" id="fx1-bb-MlO"/>
                             </connections>
@@ -288,12 +288,12 @@
     </objects>
     <resources>
         <image name="ic_BoredImage" width="293" height="73.5"/>
-        <image name="ic_check" width="11" height="9"/>
         <image name="ic_email" width="24" height="24"/>
         <image name="ic_hidePassword" width="20" height="17.5"/>
         <image name="ic_password" width="16" height="20.5"/>
         <image name="ic_uncheck" width="22" height="22"/>
         <image name="open_eye" width="21" height="14"/>
+        <image name="remember_me" width="21" height="21"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

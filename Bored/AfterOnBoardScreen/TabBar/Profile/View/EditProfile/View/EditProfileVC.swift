@@ -102,7 +102,20 @@ class EditProfileVC: UIViewController {
    
     
     @IBAction func saveAction(_ sender: UIButton) {
-
+        
+        let isValidFirstName = Validator.validateName(name: firstNameTextField.text ?? "", message: "Please enter First Name")
+        
+        let isValidLastName = Validator.validateName(name: lastNameTextField.text ?? "", message: "Please enter Last Name")
+        
+        guard isValidFirstName.0 == true else {
+            Singleton.showMessage(message: isValidFirstName.1, isError: .error)
+            return
+        }
+        guard isValidLastName.0 == true else {
+            Singleton.showMessage(message: isValidLastName.1, isError: .error)
+            return
+        }
+        
         viewModel1?.editProfileApi(firstName: firstNameTextField.text ?? "", lastName: lastNameTextField.text ?? "", email: UserDefaultsCustom.getUserData()?.email ?? "", password: UserDefaultsCustom.getUserData()?.password ?? "", interest: self.interestID ?? "", gender: self.gender ?? "", dob: self.birthdayTextField.text ?? "", deviceType: "2", image: self.signUpImage ?? Data(), intersetName: self.otherInterest ?? "", aboutMe: aboutMeTextView.text ?? "")
         
     }

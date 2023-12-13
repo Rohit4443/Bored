@@ -18,9 +18,10 @@ class BlockReportPopUpVC: UIViewController {
     //MARK: - Variables -
     var delegate: BlockReportPopUpVCDelegate?
     var controller: UIViewController?
+    var userID: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(userID)
         dismissPopUpOnViewTap()
     }
  
@@ -42,8 +43,11 @@ class BlockReportPopUpVC: UIViewController {
     
     @IBAction func reportAction(_ sender: UIButton) {
         dismiss(animated: true)
-        let vc = ReportUserPopupVC()
-        vc.modalPresentationStyle = .overFullScreen
-        self.controller?.present(vc, true)
+        let vc = ReportViewController()
+        vc.userId = userID
+        self.controller?.pushViewController(vc, true)
+//        let vc = ReportUserPopupVC()
+//        vc.modalPresentationStyle = .overFullScreen
+//        self.controller?.present(vc, true)
     }
 }

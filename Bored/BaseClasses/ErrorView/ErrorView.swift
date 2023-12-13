@@ -65,20 +65,46 @@ class ErrorView: UIView {
             self.statusIcon.image = #imageLiteral(resourceName: "ic_BoredImage").withRenderingMode(.alwaysOriginal)
             label_width = SCREEN_SIZE.width - 90
         }
+//        self.errorMessage.text = message
+//        var height = message.heightWithConstrainedWidth(width: label_width, font: UIFont.systemFont(ofSize: 14)).height
+//        if isError == .notification && height < 25 {
+//            height = 25
+//        }
+//        if height > 14 {
+//            self.frame.size.height = (HEIGHT.errorMessageHeight - 13) + (height)
+//        //    + size.height
+//            //+ UIApplication.shared.statusBarFrame.height
+//            self.frame.origin.y = -self.frame.height
+//        }
+//        self.setNeedsLayout()
+//        self.layoutIfNeeded()
+//        self.showErrorMessage(message: message)
+        
         self.errorMessage.text = message
-        var height = message.heightWithConstrainedWidth(width: label_width, font: UIFont.systemFont(ofSize: 14)).height
-        if isError == .notification && height < 25 {
-            height = 25
-        }
-        if height > 14 {
-            self.frame.size.height = (HEIGHT.errorMessageHeight - 13) + (height)
-        //    + size.height
-            //+ UIApplication.shared.statusBarFrame.height
+        let size = message.heightWithConstrainedWidth(width: SCREEN_SIZE.width-57, font: UIFont.systemFont(ofSize: 14))
+        if size.height > 14 {
+            self.frame.size.height = (HEIGHT.errorMessageHeight) + size.height
+//                + UIApplication.shared.statusBarFrame.height
             self.frame.origin.y = -self.frame.height
         }
-        self.setNeedsLayout()
-        self.layoutIfNeeded()
-        self.showErrorMessage(message: message)
+        self.showErrorMessage()
+    }
+    
+    
+    func showErrorMessage() {
+        var height:CGFloat = 0
+        if #available(iOS 13.0, *) {
+            let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow == true})
+            height = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        } else {
+            height = UIApplication.shared.statusBarFrame.height
+        }
+        
+        UIView.animate(withDuration: 0.8, delay: 0.5, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.0, options: .beginFromCurrentState) {
+            self.transform = CGAffineTransform(translationX: 0, y: self.frame.height + height)
+        } completion: { finished in
+            self.perform(#selector(self.hideErrorMessageWithoutTap), with: nil, afterDelay: 3.0)
+        }
     }
     
     func showErrorMessage(message:String) {

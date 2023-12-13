@@ -42,12 +42,14 @@ class Validator {
         return (isValid, "Usernames must include at least one of which must be a letter.")
     }
     
-    static public func validateName(name: String, message: String) -> (Bool,String) {
-        guard name.count > 0  else {
-            return (false, message)
+        static public func validateName(name: String, message: String) -> (Bool,String) {
+            guard name.count > 0  else {
+                return (false, message)
+            }
+            return (true, message)
         }
-        return (true, message)
-    }
+
+    
     static public func validateSeries(name: String, message: String) -> (Bool,String) {
         guard name.count > 0  else {
             return (false, message)
@@ -69,17 +71,18 @@ class Validator {
         return (true, message)
     }
     
-    static public func validateDescription(words: String?) -> (Bool,String) {
-        guard let desc = words, desc.count > 0  else {
-            return (false,"Please enter description")
+    static public func validateDescription(words: String?) -> (Bool, String) {
+        guard let desc = words, !desc.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return (false, "Please enter description")
         }
         
         guard desc.count <= 650 else {
-            return (false,"Description has only 500 words")
+            return (false, "Description exceeds the limit of 650 characters")
         }
         
-        return (true,"")
+        return (true, "")
     }
+
     
     static public func validateTimelineDescription(words: String?) -> (Bool,String) {
         guard let desc = words, desc.count > 0  else {
@@ -218,15 +221,15 @@ class Validator {
         
         return (true, "")
     }
- 
+    
     static public func validateButtonSelection(buttons: [UIButton]) -> (Bool, String) {
         guard buttons.contains(where: { $0.isSelected }) else {
-            return (false, "Please select a button")
+            return (false, "Please select Gender")
         }
-
+        
         return (true, "")
     }
-
+    
     
     
 }

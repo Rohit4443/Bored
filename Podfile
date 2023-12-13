@@ -6,7 +6,7 @@ target 'Bored' do
   use_frameworks!
 
   # Pods for Bored
-pod 'IQKeyboardManager'
+pod 'IQKeyboardManagerSwift', '6.3.0'
 pod 'GrowingTextView'
 pod 'MultiSlider'
 pod 'SVProgressHUD'
@@ -18,6 +18,7 @@ pod 'Koloda'
 pod 'Socket.IO-Client-Swift', '~> 15.1.0'
 pod 'GooglePlaces'
   pod 'GoogleMaps'
+
 pod 'Swifter', :git => "https://github.com/mattdonnelly/Swifter.git"
 post_install do |installer|
      installer.pods_project.targets.each do |target|

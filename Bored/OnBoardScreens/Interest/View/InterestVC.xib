@@ -79,7 +79,7 @@
                                 <constraint firstItem="1BE-0C-0dF" firstAttribute="centerX" secondItem="WJm-0u-zOU" secondAttribute="centerX" id="wTz-y7-SBK"/>
                             </constraints>
                         </view>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hln-Xg-783">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hln-Xg-783">
                             <rect key="frame" x="0.0" y="120" width="375" height="497"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fvJ-xQ-elp">
@@ -168,12 +168,12 @@
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="jVh-Zo-oXh" secondAttribute="bottom" constant="30" id="1La-sp-jSZ"/>
                                         <constraint firstItem="iDf-ja-s2J" firstAttribute="top" secondItem="fvJ-xQ-elp" secondAttribute="top" id="5g9-qg-u1d"/>
                                         <constraint firstItem="jVh-Zo-oXh" firstAttribute="leading" secondItem="CDZ-c3-rN2" secondAttribute="leading" id="DuF-xM-NBK"/>
                                         <constraint firstAttribute="trailing" secondItem="iDf-ja-s2J" secondAttribute="trailing" constant="20" id="FkN-rm-iA1"/>
                                         <constraint firstItem="CDZ-c3-rN2" firstAttribute="top" secondItem="iDf-ja-s2J" secondAttribute="bottom" id="O1A-yg-JCo"/>
                                         <constraint firstItem="jVh-Zo-oXh" firstAttribute="top" secondItem="CDZ-c3-rN2" secondAttribute="bottom" constant="19" id="bqF-l1-PgH"/>
-                                        <constraint firstAttribute="bottom" secondItem="jVh-Zo-oXh" secondAttribute="bottom" constant="30" id="gHA-TS-Ut7"/>
                                         <constraint firstItem="jVh-Zo-oXh" firstAttribute="trailing" secondItem="CDZ-c3-rN2" secondAttribute="trailing" id="gpz-A9-P5L"/>
                                         <constraint firstItem="CDZ-c3-rN2" firstAttribute="leading" secondItem="fvJ-xQ-elp" secondAttribute="leading" constant="20" id="iSJ-Gf-Ztz"/>
                                         <constraint firstItem="iDf-ja-s2J" firstAttribute="leading" secondItem="fvJ-xQ-elp" secondAttribute="leading" constant="20" id="mDJ-tn-Gz8"/>
@@ -221,13 +221,13 @@
     </objects>
     <resources>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray3Color">
-            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -45,6 +45,8 @@ class signUpVC: UIViewController {
         createDatePicker()
         setCollectionViewDelegates()
         setViewModel()
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
         
     }
     
@@ -74,15 +76,33 @@ class signUpVC: UIViewController {
     }
     
     @objc func datePickerDoneButtonTapped() {
-        
         let datePicker = birthdayTextField.inputView as! UIDatePicker
-        let selectedDate = datePicker.date
+        let calendar = Calendar.current
+        var components = DateComponents()
+        components.year = 2005
+        components.month = 1
+        components.day = 1
+        let minimumAllowedDate = calendar.date(from: components)
+        
+        datePicker.minimumDate = minimumAllowedDate
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
+        let selectedDate = datePicker.date
         let formattedDate = dateFormatter.string(from: selectedDate)
         birthdayTextField.text = formattedDate
         birthdayTextField.resignFirstResponder()
     }
+
+//
+//        let datePicker = birthdayTextField.inputView as! UIDatePicker
+//        let selectedDate = datePicker.date
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd/MM/yyyy"
+//        let formattedDate = dateFormatter.string(from: selectedDate)
+//        birthdayTextField.text = formattedDate
+//        birthdayTextField.resignFirstResponder()
+    
         
         
     //MARK: - IBAction -
@@ -106,14 +126,16 @@ class signUpVC: UIViewController {
     
     
     @IBAction func signUpAction(_ sender: UIButton) {
-      
+//        self.popVC()
         let vc = LoginVC()
         self.navigationController?.navigationBar.isHidden = true
-        self.pushViewController(vc, true)
+        self.pushViewController(vc, false)
     }
     
     @IBAction func interestCollectionButton(_ sender: UIButton) {
         let vc = InterestVC()
+        vc.alredySelectedInterest = interestItems
+        vc.alreadySelectedID = interestID
         vc.delegate = self
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true, completion: {
@@ -364,7 +386,23 @@ extension signUpVC: SignUpVMObserver{
     
     
 }
-
+extension signUpVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == firstNameTextField {
+            let allowedCharacter = CharacterSet.letters
+            let allowedCharacter1 = CharacterSet.whitespaces
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacter.isSuperset(of: characterSet) //|| allowedCharacter1.isSuperset(of: characterSet)
+        }
+        if textField == lastNameTextField {
+            let allowedCharacter = CharacterSet.letters
+            let allowedCharacter1 = CharacterSet.whitespaces
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacter.isSuperset(of: characterSet) //|| allowedCharacter1.isSuperset(of: characterSet)
+        }
+        return true
+    }
+}
 //extension signUpVC : UICollectionViewDelegate, UICollectionViewDataSource {
 //
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

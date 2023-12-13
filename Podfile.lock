@@ -10,7 +10,7 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (8.0.0)
   - GrowingTextView (0.7.2)
-  - IQKeyboardManager (6.5.10)
+  - IQKeyboardManagerSwift (6.3.0)
   - Kingfisher (7.7.0)
   - Koloda (5.0.1):
     - pop (~> 1.0)
@@ -32,7 +32,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - GrowingTextView
-  - IQKeyboardManager
+  - IQKeyboardManagerSwift (= 6.3.0)
   - Kingfisher (~> 7.0)
   - Koloda
   - MultiSlider
@@ -49,7 +49,7 @@ SPEC REPOS:
     - GoogleMaps
     - GooglePlaces
     - GrowingTextView
-    - IQKeyboardManager
+    - IQKeyboardManagerSwift
     - Kingfisher
     - Koloda
     - MultiSlider
@@ -76,7 +76,7 @@ SPEC CHECKSUMS:
   GoogleMaps: 0dce473ab18742d0f327887853630927cbee9127
   GooglePlaces: 46231f49e2dc52aa9a604f99e2e6b29996f30cc7
   GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
-  IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
+  IQKeyboardManagerSwift: a8228c257614af98743b4cd8584637025f36358f
   Kingfisher: f043ac666dfc96c1f37604f93effb45a7ee3a3e1
   Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   MultiSlider: 81f5eb60f0a05073e6ee49c0b90426e4d1267b02
@@ -87,6 +87,6 @@ SPEC CHECKSUMS:
   SweeterSwift: 3910bab8ba35b6964d5169a3c52b2c87d930b61c
   Swifter: 4c2f8cf320c2f751c10128f841d8e9bd8609d988
 
-PODFILE CHECKSUM: 27616c1f82d3d82c7db38cce3aca92d03ea96761
+PODFILE CHECKSUM: b421d63dc7189f9b74bc60ff63fcab20c76f04c4
 
 COCOAPODS: 1.11.3

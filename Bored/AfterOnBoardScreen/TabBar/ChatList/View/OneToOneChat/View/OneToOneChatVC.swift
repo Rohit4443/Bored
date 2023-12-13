@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import IQKeyboardManager
+import IQKeyboardManagerSwift
 import GrowingTextView
 
 class OneToOneChatVC: UIViewController {
@@ -199,7 +199,8 @@ extension OneToOneChatVC : UITableViewDelegate,UITableViewDataSource{
                 let date = dateFormatter.date(from: dateString)
                 print(date)
                 
-                cell.lblTime.text = date?.dateToString(format: timeFormat)
+//                cell.lblTime.text = date?.dateToString(format: timeFormat)
+                cell.lblTime.text = dateString.convertTimeStampToStringDate(format: "hh:mm a")
                 if indexPath.row == 0 {
                 cell.setDate(currentDate: date, previousDate: nil)
                 }else{
@@ -226,7 +227,8 @@ extension OneToOneChatVC : UITableViewDelegate,UITableViewDataSource{
                 
                 cell.rightProfileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
                 cell.rightUserNameLabel.text = UserDefaultsCustom.getUserData()?.name
-                cell.lblTime.text = date?.dateToString(format: timeFormat)
+//                cell.lblTime.text = date?.dateToString(format: timeFormat)
+                cell.lblTime.text = dateString.convertTimeStampToStringDate(format: "hh:mm a")
                 print(cell.lblTime)
                 if indexPath.row == 0 {
                 cell.setDate(currentDate: date, previousDate: nil)
