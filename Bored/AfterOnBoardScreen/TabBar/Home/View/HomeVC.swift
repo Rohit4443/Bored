@@ -7,6 +7,7 @@
 
 import UIKit
 import Koloda
+import CoreLocation
 
 class HomeVC: UIViewController{
     
@@ -19,9 +20,21 @@ class HomeVC: UIViewController{
     @IBOutlet weak var profileImage: UIImageView!
     
     
-    
+    var locationManager: CLLocationManager?
+    var locationUpdateTimer: Timer?
+    var apiCallDelay: TimeInterval = 2.0
+    var hasHitAPI = false
+    var comeFromFilter = false
+    var comeFromFilterToHome = false
     var viewModel: HomeVM?
     var downSwipeCount = 0
+    var lat : String?
+    var long:String?
+    var minValue:String?
+    var maxValue:String?
+    var interest:String?
+
+    
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
@@ -29,7 +42,6 @@ class HomeVC: UIViewController{
         setCollectionViewDelegates()
         //        setSwipe()
         setSwipeEvent()
-        setViewModel()
         
         //        self.profileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
         //        self.nameLabel.text = "\("Hi")\(",")\(UserDefaultsCustom.getUserData()?.first_name ?? "")\(" ")\(UserDefaultsCustom.getUserData()?.last_name ?? "")"
@@ -40,7 +52,15 @@ class HomeVC: UIViewController{
         setViewModel()
         self.profileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
         self.nameLabel.text = "\("Hi")\(", ")\(UserDefaultsCustom.getUserData()?.first_name ?? "")\(" ")\(UserDefaultsCustom.getUserData()?.last_name ?? "")"
-       
+        
+        
+        if comeFromFilterToHome{
+        self.viewModel?.pageNo = 0
+        self.viewModel?.eventListing = []
+        self.viewModel?.eventListingWithFilterApi(type: "1", lat: lat ?? "", long: long ?? "", disStart: minValue ?? "", disEnd: maxValue ?? "", interest: interest ?? "")
+        }else{
+            setupLocationManager()
+        }
     }
     
     func setCollectionViewDelegates(){
@@ -53,10 +73,44 @@ class HomeVC: UIViewController{
         
     }
     
+    func setupLocationManager() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest // Set desired accuracy
+        locationManager?.requestWhenInUseAuthorization() // Request location authorization
+        locationManager?.startUpdatingLocation() // Start receiving location updates
+    }
+    
+    func startLocationUpdateTimer() {
+        locationUpdateTimer = Timer.scheduledTimer(timeInterval: apiCallDelay, target: self, selector: #selector(handleLocationUpdate), userInfo: nil, repeats: false)
+    }
+    
+    @objc func handleLocationUpdate() {
+        guard let location = locationManager?.location else { return }
+        print("Latitude: \(location.coordinate.latitude), Longitude: \(location.coordinate.longitude)")
+        // Hit the API with the coordinates
+        if !hasHitAPI {
+            let lat = "\(location.coordinate.latitude)"
+            let long = "\(location.coordinate.longitude)"
+            UserDefaultsCustom.latitude = lat
+            UserDefaultsCustom.longitude = long
+//            if comeFromFilter == false{
+                self.viewModel?.eventListing = []
+                self.viewModel?.pageNo = 0
+                self.viewModel?.eventListingApi(type: "1",lat: lat,long: long)
+                hasHitAPI = true
+//            }else{
+//                print("come from filter")
+//
+//            }
+            
+        }
+    }
+ 
     func setViewModel(){
+        self.hasHitAPI = false
         self.viewModel = HomeVM(observer: self)
-        self.viewModel?.eventListingApi(type: "1")
-        self.eventSwipeKolodaView.reloadData()
+//        self.eventSwipeKolodaView.reloadData()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -106,6 +160,29 @@ class HomeVC: UIViewController{
         eventSwipeKolodaView.reloadData()
     }
     
+    func getPlaceNameFromCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+            if let error = error {
+                print("Reverse geocoding failed with error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placemark = placemarks?.first {
+                print("Place Details:")
+                print("Name: \(placemark.name ?? "N/A")")
+                print("Thoroughfare: \(placemark.thoroughfare ?? "N/A")")
+                print("Locality: \(placemark.locality ?? "N/A")")
+                print("Country: \(placemark.country ?? "N/A")")
+                // Access other properties as needed
+            } else {
+                print("No placemark available for the provided coordinates")
+            }
+        }
+    }
+    
     
     //MARK: - IBAction -
     @IBAction func notificationAction(_ sender: UIButton) {
@@ -116,15 +193,37 @@ class HomeVC: UIViewController{
     
     @IBAction func filterAction(_ sender: UIButton) {
         let vc = FilterVC()
+        
+        vc.completion = {lat,long,minValue,maxValue,interest in
+            
+            print("lat - ",lat ?? "")
+            print("long - ",long ?? "")
+            print("minValue - ",minValue ?? "")
+            print("maxValue - ",maxValue ?? "")
+            print("interest - ",interest ?? "")
+            
+            self.lat = lat
+            self.long = long
+            self.minValue = minValue
+            self.maxValue = maxValue
+            self.interest = interest
+            
+            self.comeFromFilterToHome = true
+            
+           
+          //
+            
+
+        }
         vc.hidesBottomBarWhenPushed = true
         self.pushViewController(vc , true)
+        
+        //        let vc = ReportUserPopUpVC()
+        //        vc.modalPresentationStyle = .overFullScreen
+        //        self.navigationController?.present(vc, true)
+        
+        
     }
-    
-    //        let vc = ReportUserPopUpVC()
-    //        vc.modalPresentationStyle = .overFullScreen
-    //        self.navigationController?.present(vc, true)
-    
-    
 }
 
 //MARK: - CollectionView Delegate and DataSource -
@@ -268,6 +367,12 @@ extension HomeVC: KolodaViewDelegate, KolodaViewDataSource{
     
 }
 extension HomeVC: HomeVMObserver{
+    func observerFilterEventListing() {
+        comeFromFilterToHome = false
+        self.eventSwipeKolodaView.reloadData()
+
+    }
+    
     func observerinterestedNotInterested() {
         
         self.eventSwipeKolodaView.reloadData()
@@ -307,5 +412,18 @@ extension HomeVC: CreateEventPopUpDelegate{
         //
     }
     
+    
+}
+extension HomeVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // Stop the location updates to prevent continuous calls to handleLocationUpdate
+        locationManager?.stopUpdatingLocation()
+        // Start the timer after receiving the initial location
+        startLocationUpdateTimer()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Location manager failed with error: \(error.localizedDescription)")
+    }
     
 }

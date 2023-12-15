@@ -14,6 +14,8 @@ class MyEventVC: UIViewController {
     var viewModel: HomeVM?
     var viewModel1: MyEventVM?
     var eventID: String?
+    var lat: String?
+    var long: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
@@ -36,7 +38,9 @@ class MyEventVC: UIViewController {
     func setViewModel(){
         self.viewModel = HomeVM(observer: self)
         self.viewModel1 = MyEventVM(observer: self)
-        self.viewModel?.eventListingApi(type: "2")
+        self.lat = UserDefaultsCustom.getProfileData()?.latitude
+        self.long = UserDefaultsCustom.getProfileData()?.longitude
+        self.viewModel?.eventListingApi(type: "2",lat: self.lat ?? "",long: self.long ?? "")
         self.myEventsTableView.reloadData()
     }
    
@@ -104,6 +108,10 @@ extension MyEventVC: UITableViewDelegate,UITableViewDataSource{
 //  
 }
 extension MyEventVC: HomeVMObserver{
+    func observerFilterEventListing() {
+        
+    }
+    
     func observerEventListing() {
         if viewModel?.eventListing.count ?? 0 > 0 {
             self.myEventsTableView.backgroundView = nil
@@ -143,7 +151,7 @@ extension MyEventVC: MyEventVMObserver{
         self.dismiss(animated: true)
         self.viewModel?.eventListing.removeAll()
         DispatchQueue.main.async {
-            self.viewModel?.eventListingApi(type: "2")
+            self.viewModel?.eventListingApi(type: "2",lat:self.lat ?? "",long: self.long ?? "")
             self.myEventsTableView.reloadData()
         }
        

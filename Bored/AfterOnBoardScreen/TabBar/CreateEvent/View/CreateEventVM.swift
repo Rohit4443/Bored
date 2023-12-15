@@ -34,4 +34,6 @@ class CreateEventVM: NSObject{
         print("parameters:-  \(params)")
         return params
     }
+    
+    
 }

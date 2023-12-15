@@ -10,6 +10,7 @@ import SVProgressHUD
 
 protocol HomeVMObserver{
     func observerEventListing()
+    func observerFilterEventListing()
     func observerinterestedNotInterested()
 }
 
@@ -26,11 +27,28 @@ class HomeVM: NSObject{
         self.observer = observer
     }
     
-    func eventParams(type: String) -> [String:Any]{
+    func eventParams(type: String, lat: String, long: String) -> [String:Any]{
         let params: [String:Any] = [
             "per_page": perPage,
             "page_no": pageNo,
-            "type": type
+            "type": type,
+            "latitude": lat,
+            "longitude": long
+        ]
+        print("parameters:-  \(params)")
+        return params
+    }
+    
+    func eventWithFilterParams(type: String, lat: String, long: String, disStart: String,disEnd: String, interest: String) -> [String:Any]{
+        let params: [String:Any] = [
+            "per_page": perPage,
+            "page_no": pageNo,
+            "type": type,
+            "lat": lat,
+            "log": long,
+            "distance_start": disStart,
+            "distance_end": disEnd,
+            "interests": interest
         ]
         print("parameters:-  \(params)")
         return params
@@ -46,9 +64,9 @@ class HomeVM: NSObject{
     }
     
     
-    func eventListingApi(type: String){
+    func eventListingApi(type: String, lat: String,long: String){
         SVProgressHUD.show()
-        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.homeEventListing, params: eventParams(type: type), success: {
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.homeEventListing, params: eventParams(type: type, lat: lat,long: long), success: {
             (reponse) in
             print(reponse)
             SVProgressHUD.dismiss()
@@ -80,6 +98,40 @@ class HomeVM: NSObject{
             print(error.debugDescription)
         })
     }
+    func eventListingWithFilterApi(type: String, lat: String,long: String,disStart: String,disEnd: String, interest: String){
+        SVProgressHUD.show()
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.homeEventWithFilter, params: eventWithFilterParams(type: type, lat: lat,long: long, disStart: disStart, disEnd: disEnd, interest: interest), success: {
+            (reponse) in
+            print(reponse)
+            SVProgressHUD.dismiss()
+            if let parsedData = try? JSONSerialization.data(withJSONObject: reponse,options: .prettyPrinted){
+                do{
+                    let userModel = try JSONDecoder().decode(HomeListingModel.self, from: parsedData)
+                } catch{
+                    print(error)
+                }
+                if let userModel = try? JSONDecoder().decode(HomeListingModel.self, from: parsedData){
+                    if let data = userModel.data{
+//                        self.eventListing = data
+                        self.eventListing.append(contentsOf: data)
+                        print("Count=====\(self.eventListing.count)")
+                        print(self.eventListing)
+                        
+                        self.observer?.observerFilterEventListing()
+                    }else{
+//                        self.eventListing.removeAll()
+                    }
+                }
+            }
+            
+            
+        }, failure: {
+            (error) in
+            print(error.debugDescription)
+        })
+    }
+    
+    
     
     func interestedNotInterestedApi(type: String, eventId: String){
         SVProgressHUD.show()

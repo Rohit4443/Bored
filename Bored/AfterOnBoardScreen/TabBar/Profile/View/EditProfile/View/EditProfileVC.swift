@@ -130,6 +130,8 @@ class EditProfileVC: UIViewController {
         let vc = InterestEventTags()
         vc.delegate = self
         vc.selectedArray = viewModel?.interestData
+        vc.alredySelectedInterest = interestItems
+        vc.alreadySelectedID = interestID
         self.pushViewController(vc, true)
 //        let vc = InterestVC()
 //        vc.delegate = self

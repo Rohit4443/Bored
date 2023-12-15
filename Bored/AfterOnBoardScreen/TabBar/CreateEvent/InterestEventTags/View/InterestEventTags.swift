@@ -28,6 +28,8 @@ class InterestEventTags: UIViewController {
     var arraySelectedID:[String] = []
     var comefrom: String?
     
+    var alredySelectedInterest: String?
+    var alreadySelectedID: String?
     var comeToEdit: Bool?
     var viewModel: InterestVM?
     var selectedArray: [InterestsDatum]?
@@ -42,10 +44,10 @@ class InterestEventTags: UIViewController {
         print(selectedArray?.count)
         setViewModel()
         
-        if let selectedInterests = selectedArray {
-            arraySelectedValue = selectedInterests.map { $0.interest_name ?? "" }
-            arraySelectedID = selectedInterests.map { $0.interest_id ?? "" }
-        }
+//        if let selectedInterests = selectedArray {
+//            arraySelectedValue = selectedInterests.map { $0.interest_name ?? "" }
+//            arraySelectedID = selectedInterests.map { $0.interest_id ?? "" }
+//        }
         
     }
     
@@ -181,16 +183,35 @@ extension InterestEventTags : UICollectionViewDelegateFlowLayout, UICollectionVi
         
         cell.interestNameButton.setTitle(currentInterest?.interest_name, for: .normal)
         
-        if let selectedInterests = selectedArray,let interestId = currentInterest?.interest_id,
-            selectedInterests.contains(where: { $0.interest_id == interestId }) {
-            // The current interest is among the selected items in selectedArray
-            cell.backgroundCellView.setBorder(.black, corner: 20, 1)
+        if let selectedIDs = alreadySelectedID?.components(separatedBy: ","), // Split the string into an array
+           let currentInterestID = viewModel?.interestData[indexPath.row].interest_id,
+           selectedIDs.contains(currentInterestID) {
+            print(selectedIDs)
+            // Handle the appearance for selected items
+            cell.backgroundCellView.borderColor = .black
             cell.interestNameButton.setTitleColor(.black, for: .normal)
+            // Add to the selected arrays
+            if let currentInterestName = viewModel?.interestData[indexPath.row].interest_name {
+                arraySelectedValue.append(currentInterestName)
+                arraySelectedID.append(currentInterestID)
+            }
         } else {
-            // The current interest is not among the selected items in selectedArray
-            cell.backgroundCellView.setBorder(.lightGray, corner: 20, 1)
+            // Handle the appearance for non-selected items
+            cell.backgroundCellView.borderColor = .systemGray
             cell.interestNameButton.setTitleColor(.systemGray, for: .normal)
         }
+
+        
+//        if let selectedInterests = selectedArray,let interestId = currentInterest?.interest_id,
+//            selectedInterests.contains(where: { $0.interest_id == interestId }) {
+//            // The current interest is among the selected items in selectedArray
+//            cell.backgroundCellView.setBorder(.black, corner: 20, 1)
+//            cell.interestNameButton.setTitleColor(.black, for: .normal)
+//        } else {
+//            // The current interest is not among the selected items in selectedArray
+//            cell.backgroundCellView.setBorder(.lightGray, corner: 20, 1)
+//            cell.interestNameButton.setTitleColor(.systemGray, for: .normal)
+//        }
 
         return cell
     }

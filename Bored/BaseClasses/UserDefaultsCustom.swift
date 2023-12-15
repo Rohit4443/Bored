@@ -17,6 +17,8 @@ struct UserDefaultsCustom {
     static let eventFieldsModel = "EventFieldsModel"
     
     
+    
+    
     static func getDeviceToken() -> String {
 
         if let value = UserDefaults.standard.value(forKey: UserDefaultsCustom.getUserData()?.device_token ?? "") as? String {
@@ -95,6 +97,23 @@ struct UserDefaultsCustom {
         return nil
     }
     
+    
+    static var latitude : String?{
+        set{
+            UserDefaults.standard.set(newValue,forKey: "lat")
+        }
+        get{
+            UserDefaults.standard.string(forKey: "lat")
+        }
+    }
+    static var longitude : String?{
+        set{
+            UserDefaults.standard.set(newValue,forKey: "long")
+        }
+        get{
+            UserDefaults.standard.string(forKey: "long")
+        }
+    }
     
 //
 //    static func getUserId() -> String {

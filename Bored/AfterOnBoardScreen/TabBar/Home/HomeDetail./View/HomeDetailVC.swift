@@ -236,6 +236,10 @@ extension HomeDetailVC: HomeDetailVMObserver{
     
 }
 extension HomeDetailVC: HomeVMObserver{
+    func observerFilterEventListing() {
+        
+    }
+    
     func observerEventListing() {
        
     }

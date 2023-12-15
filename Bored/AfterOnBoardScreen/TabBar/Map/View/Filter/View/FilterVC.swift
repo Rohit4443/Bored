@@ -12,7 +12,7 @@ import GooglePlaces
 import CoreLocation
 
 class FilterVC: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet weak var slider: MultiSlider!
     @IBOutlet weak var filterCollectionView: UICollectionView!
     @IBOutlet weak var locationTF: UITextField!
@@ -20,7 +20,7 @@ class FilterVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var maxValue: UILabel!
     var arrayName = ["Baking","Cooking","Dance","Swing Dancing","Picnics","Hiking","Rock Climbing","Pickleball","Plants","Yoga","Museums","Video Game","Fitness","BBQ","Singing","Festivals","Sports","Camping","Concerts","Trivia",]
     
-  //  var completion : (() -> Void)? = nil
+    //  var completion : (() -> Void)? = nil
     var arraySelectedValue:[String] = []
     let locationManager = CLLocationManager()
     var lat: String?
@@ -29,12 +29,17 @@ class FilterVC: UIViewController, UITextFieldDelegate {
     var interestData: String?
     var selectedArray: [InterestsDatum]?
     var arraySelectedID:[String] = []
-  //  var selectedInterest: String?
+    var placeName: String?
+    var completion : ((_ lat:String?,_ long:String?,_ minValue:String?,_ maxValue:String?,_ interest:String?) -> Void)? = nil
+    var maxSlideValue: String?
+    var minSlideValue: String?
+    
+    //  var selectedInterest: String?
     
     //MARK: - LifeCycleMethods -
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setCollectionViewDelegates()
         slider.valueLabelPosition = .left
         slider.valueLabelPosition = .top
@@ -42,7 +47,8 @@ class FilterVC: UIViewController, UITextFieldDelegate {
         slider.valueLabelColor = .black
         filterCollectionView.collectionViewLayout = createCenterAlignedLayout()
         getUserLocation()
-        setSlider()
+        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+        slider.valueLabelPosition = .notAnAttribute
         setViewModel()
     }
     
@@ -51,31 +57,23 @@ class FilterVC: UIViewController, UITextFieldDelegate {
         self.viewModel?.getInterest()
         self.interestData = UserDefaultsCustom.getProfileData()?.interests
         print(self.interestData)
-        if let selectedInterests = selectedArray {
-            arraySelectedID = selectedInterests.map { $0.interest_id ?? "" }
-        }
+        //        if let selectedInterests = selectedArray {
+        //            arraySelectedID = selectedInterests.map { $0.interest_id ?? "" }
+        //        }
         
     }
     
-    func setSlider() {
-        slider.minimumValue = 0.0
-        slider.maximumValue = 200.0
-        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-        updateLabels(min: slider.value[0], max: slider.value[1])
-        minValue.text = "0 miles"//"\(slider.value[0])"
-        maxValue.text = "0 miles"
-    }
-
+    
+    
     @objc func sliderValueChanged(_ slider: MultiSlider) {
-        updateLabels(min: slider.value[0], max: slider.value[1])
-    }
-
-    func updateLabels(min: CGFloat, max: CGFloat) {
-        minValue.text = "\(Int(min)) miles"
-        maxValue.text = "\(Int(max)) miles"
+        minValue.text = "\(Int(slider.value.first ?? 0.0)) miles"
+        maxValue.text = "\(Int(slider.value.last ?? 0.0)) miles"
         print("\(minValue.text)\(maxValue.text)")
+        self.maxSlideValue = "\(slider.value.last ?? 0.0)"
+        self.minSlideValue = "\(slider.value.first ?? 0.0)"
     }
-
+    
+    
     
     func getUserLocation() {
         locationManager.delegate = self
@@ -92,9 +90,9 @@ class FilterVC: UIViewController, UITextFieldDelegate {
         filterCollectionView.dataSource = self
         filterCollectionView.register(UINib(nibName: "interestCVCell", bundle: nil), forCellWithReuseIdentifier: "interestCVCell")
         locationTF.delegate = self
-        locationTF.addTarget(self, action: #selector(locationPicker), for: .valueChanged)
+        //        locationTF.addTarget(self, action: #selector(locationPicker), for: .valueChanged)
     }
-
+    
     
     @objc func locationPicker() {
         let autocompleteController = GMSAutocompleteViewController()
@@ -166,14 +164,21 @@ class FilterVC: UIViewController, UITextFieldDelegate {
         
         return selectedInterests
     }
-
+    
     
     @IBAction func backAction(_ sender: UIButton) {
         popVC()
     }
     
     @IBAction func filterAction(_ sender: UIButton) {
-        print(arraySelectedValue.count)
+        print("\(arraySelectedValue.count)\(arraySelectedID)")
+        let stringRepresentation = arraySelectedID.map { String($0) }.joined(separator: ", ")
+        print(stringRepresentation) // Output: "1, 2, 3"
+        if let completion = completion{
+                  popVC()
+            completion(self.lat,self.long,self.minSlideValue,self.maxSlideValue,stringRepresentation)
+              }
+        
     }
 }
 
@@ -182,64 +187,80 @@ class FilterVC: UIViewController, UITextFieldDelegate {
 extension FilterVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel?.interestData.count ?? 0
-//        return arrayName.count
+        //        return arrayName.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "interestCVCell", for: indexPath) as! interestCVCell
-        
-        // Get the selected interest IDs from UserDefaults
-        if let selectedInterestIDs = UserDefaultsCustom.getProfileData()?.interests {
-            // Retrieve the ID for the current interest cell
-            if let interestId = viewModel?.interestData[indexPath.row].interest_id {
-                if selectedInterestIDs.contains(interestId) {
-                    
-                    cell.backgroundCellView.setBorder(.black, corner: 20, 1)
-                    cell.interestNameButton.setTitleColor(.black, for: .normal)
-                } else {
-                    cell.backgroundCellView.setBorder(.lightGray, corner: 20, 1)
-                    cell.interestNameButton.setTitleColor(.lightGray, for: .normal)
-                }
-            }
-        }
         cell.interestNameButton.setTitle(viewModel?.interestData[indexPath.row].interest_name, for: .normal)
-        
+        // Get the selected interest IDs from UserDefaults
+        if let selectedInterestIDs = UserDefaultsCustom.getProfileData()?.interests?.components(separatedBy: ","),
+           let currentInterestID = viewModel?.interestData[indexPath.row].interest_id,
+           selectedInterestIDs.contains(currentInterestID) {
+            print(selectedInterestIDs)
+            // Handle the appearance for selected items
+            cell.backgroundCellView.borderColor = .black
+            cell.interestNameButton.setTitleColor(.black, for: .normal)
+            // Add to the selected arrays
+            if let currentInterestName = viewModel?.interestData[indexPath.row].interest_name {
+                arraySelectedValue.append(currentInterestName)
+                arraySelectedID.append(currentInterestID)
+            }
+        } else {
+            // Handle the appearance for non-selected items
+            cell.backgroundCellView.borderColor = .systemGray
+            cell.interestNameButton.setTitleColor(.systemGray, for: .normal)
+        }
         return cell
+        
+        // Retrieve the ID for the current interest cell
+        //            if let interestId = viewModel?.interestData[indexPath.row].interest_id {
+        //                if selectedInterestIDs.contains(interestId) {
+        //
+        //                    cell.backgroundCellView.setBorder(.black, corner: 20, 1)
+        //                    cell.interestNameButton.setTitleColor(.black, for: .normal)
+        //                } else {
+        //                    cell.backgroundCellView.setBorder(.lightGray, corner: 20, 1)
+        //                    cell.interestNameButton.setTitleColor(.lightGray, for: .normal)
+        //                }
+        //            }
     }
+    
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //            return CGSize(width: arrayName[indexPath.item].size(withAttributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13)]).width + 55, height: 51)
         return CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.width)
     }
-
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedInterest = viewModel?.interestData[indexPath.item].interest_name ?? ""
+       guard let selectedInterest = viewModel?.interestData[indexPath.item].interest_name,
+        let selectedID = viewModel?.interestData[indexPath.row].interest_id else {
+      return
+  }
         
-        if let cell = collectionView.cellForItem(at: indexPath) as? interestCVCell {
-            if arraySelectedValue.contains(selectedInterest) {
-                arraySelectedValue.removeAll { $0 == selectedInterest }
-            } else {
-                arraySelectedValue.append(selectedInterest)
+        let isSelected = arraySelectedID.contains(selectedID)
+        if isSelected {
+            if let index = arraySelectedID.firstIndex(of: selectedID) {
+                arraySelectedValue.remove(at: index)
+                arraySelectedID.remove(at: index)
             }
-            
-            let isSelected = arraySelectedValue.contains(selectedInterest)
-            cell.backgroundCellView.borderColor = isSelected ? .black : .systemGray
-            cell.interestNameButton.setTitleColor(isSelected ? .black : .systemGray, for: .normal)
-            
-            // Get all the selected interests whenever a selection is made
-            let selectedInterests = getSelectedInterests()
-            // Use the selected interests as needed
-            print(selectedInterests)
+        } else {
+            arraySelectedValue.append(selectedInterest)
+            arraySelectedID.append(selectedID)
+        }
+
+        if let cell = collectionView.cellForItem(at: indexPath) as? interestCVCell {
+            cell.backgroundCellView.borderColor = isSelected ? .systemGray : .black
+            cell.interestNameButton.setTitleColor(isSelected ? .systemGray : .black, for: .normal)
         }
     }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let selectedInterest = viewModel?.interestData[indexPath.item].interest_name ?? ""
-//
+        
+        
+        
 //        if let cell = collectionView.cellForItem(at: indexPath) as? interestCVCell {
-//
 //            if arraySelectedValue.contains(selectedInterest) {
 //                arraySelectedValue.removeAll { $0 == selectedInterest }
 //            } else {
@@ -250,8 +271,31 @@ extension FilterVC : UICollectionViewDelegateFlowLayout, UICollectionViewDataSou
 //            cell.backgroundCellView.borderColor = isSelected ? .black : .systemGray
 //            cell.interestNameButton.setTitleColor(isSelected ? .black : .systemGray, for: .normal)
 //
+//            // Get all the selected interests whenever a selection is made
+//            let selectedInterests = getSelectedInterests()
+//            // Use the selected interests as needed
+//            print(selectedInterests)
 //        }
 //    }
+//
+    
+    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    //        let selectedInterest = viewModel?.interestData[indexPath.item].interest_name ?? ""
+    //
+    //        if let cell = collectionView.cellForItem(at: indexPath) as? interestCVCell {
+    //
+    //            if arraySelectedValue.contains(selectedInterest) {
+    //                arraySelectedValue.removeAll { $0 == selectedInterest }
+    //            } else {
+    //                arraySelectedValue.append(selectedInterest)
+    //            }
+    //
+    //            let isSelected = arraySelectedValue.contains(selectedInterest)
+    //            cell.backgroundCellView.borderColor = isSelected ? .black : .systemGray
+    //            cell.interestNameButton.setTitleColor(isSelected ? .black : .systemGray, for: .normal)
+    //
+    //        }
+    //    }
     
 }
 
@@ -286,19 +330,12 @@ extension FilterVC: CLLocationManagerDelegate{
             // Here you can access the place name and other address information
             if let placeName = placemark.name {
                 print("Place Name: \(placeName)")
+                self.placeName = placeName
             }
             if let city = placemark.locality {
                 print("City: \(city)")
-//                self.cityName = city
-//                self.locationBtn.setTitle(self.cityName, for: .normal)
+                self.locationTF.text = "\(self.placeName ?? "")\(" , ")\(city)"
             }
-            
-//            self.checkLocationServices()
-#if targetEnvironment(simulator)
-//        self.viewModel?.homeDispensaryListApi(lat: "30.7046", long: "76.7179", search: "")
-#else
-            
-#endif
             
         }
     }
@@ -321,8 +358,8 @@ extension FilterVC: GMSAutocompleteViewControllerDelegate {
                 
                 if let city = placemark.locality,
                    let name = placemark.name {
-                    print(city)
-//                    self.locationBtn.setTitle("\(name) \(city)", for: .normal)
+                    print("Placeeeeeeeeee ===== \(name)\(city)")
+                    self.locationTF.text = "\(name)\(" , ")\(city)"
                 }
             }
         })

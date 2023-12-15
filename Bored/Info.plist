@@ -4,14 +4,6 @@
 <dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>NSLocationUsageDescription</key>
-	<string></string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Black.ttf</string>

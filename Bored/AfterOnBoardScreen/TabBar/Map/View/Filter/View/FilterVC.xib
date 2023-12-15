@@ -51,7 +51,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7f-kS-y8D">
-                                    <rect key="frame" x="152.5" y="20.5" width="70" height="39.5"/>
+                                    <rect key="frame" x="152.5" y="20.5" width="70" height="39"/>
                                     <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -130,7 +130,6 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="thumbCount">
                                     <integer key="value" value="2"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="keepsDistanceBetweenThumbs" value="YES"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="snapStepSize">
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
@@ -145,6 +144,12 @@
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="centerThumbOnTrackEnd" value="NO"/>
                                 <userDefinedRuntimeAttribute type="color" keyPath="outerTrackColor">
                                     <color key="value" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                    <real key="value" value="200"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>

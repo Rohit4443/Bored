@@ -77,7 +77,7 @@ class CreateEventVC: UIViewController {
     
     @objc func DatePickerValueChanged(sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .short
+        dateFormatter.dateStyle = .medium
         if startDateTF.isFirstResponder {
             startDateTF.text = dateFormatter.string(from: sender.date)
         } else if endDateTF.isFirstResponder {
@@ -122,7 +122,47 @@ class CreateEventVC: UIViewController {
     
     //MARK: - IBAction -
     @IBAction func createAction(_ sender: UIButton) {
-       
+        let isValidEventName = Validator.validateName(name: eventNameTextField.text ?? "", message: "Please enter Event Name")
+        let isValidDescrip = Validator.validateDescription(words: descriptionTextView.text ?? "")
+        let isValidStartDate = Validator.validateName(name: startDateTF.text ?? "", message: "Please enter start date")
+        let isValidEndDate = Validator.validateName(name: endDateTF.text ?? "", message: "Please enter end date")
+        let isValidStartTime = Validator.validateName(name: startTimeTextField.text ?? "", message: "Please enter start time")
+        let isValidEndTime = Validator.validateName(name: endTimeTextField.text ?? "", message: "Please enter start date")
+        let isValidCollectionView = Validator.validateCollectionView(collectionView: eventsTagCollectionView)
+        let isValidLocation = Validator.validateName(name: endTimeTextField.text ?? "", message: "Please select location")
+        
+        
+        
+        guard isValidEventName.0 == true else {
+            Singleton.showMessage(message: isValidEventName.1, isError: .error)
+            return
+        }
+        guard isValidDescrip.0 == true else {
+            Singleton.showMessage(message: isValidDescrip.1, isError: .error)
+            return
+        }
+        guard isValidStartDate.0 == true else {
+            Singleton.showMessage(message: isValidStartDate.1, isError: .error)
+            return
+        }
+        guard isValidEndDate.0 == true else {
+            Singleton.showMessage(message: isValidEndDate.1, isError: .error)
+            return
+        }
+        guard isValidStartTime.0 == true else {
+            Singleton.showMessage(message: isValidStartTime.1, isError: .error)
+            return
+        }
+        guard isValidEndTime.0 == true else {
+            Singleton.showMessage(message: isValidEndTime.1, isError: .error)
+            return
+        }
+        guard isValidLocation.0 == true else {
+            Singleton.showMessage(message: isValidLocation.1, isError: .error)
+            return
+        }
+        
+        
     }
     
     @IBAction func eventTagsAction(_ sender: UIButton) {
@@ -220,9 +260,7 @@ extension CreateEventVC: UICollectionViewDataSource, UICollectionViewDelegate, U
             return
         }
         
-        
         imageArray.remove(at: indexPath.item)
-        
         
         showUploadPhotosCollectionView.performBatchUpdates({
             
