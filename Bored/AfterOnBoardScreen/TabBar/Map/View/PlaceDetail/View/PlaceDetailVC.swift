@@ -38,6 +38,7 @@ class PlaceDetailVC: UIViewController {
     func setViewModel(){
         if comFromSearch == true{
             self.viewModel1 = PlaceDetailVM(observer: self)
+            print(otherID)
             viewModel1?.mapDetailApi(otherUserID: otherID ?? "")
             self.viewModel = ChatListingVM(observer: self)
         }else{

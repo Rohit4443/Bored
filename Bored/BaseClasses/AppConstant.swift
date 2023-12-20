@@ -60,6 +60,8 @@ struct Constant {
     static let blockList = baseUrl + "user/block-listing"
     static let reportList = baseUrl + "report/all-report-reasons-listing"
     static let addReport = baseUrl + "report/report-user"
+    static let createEvent = baseUrl + "event/add-events"
+    static let editEvent = baseUrl + "event/edit-events"
 }
 
 

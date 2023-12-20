@@ -139,6 +139,9 @@
 		A86DFD7B2B19A961003C6127 /* MapListingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86DFD7A2B19A961003C6127 /* MapListingModel.swift */; };
 		A86DFD7D2B19C0A8003C6127 /* MapVisibilityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86DFD7C2B19C0A8003C6127 /* MapVisibilityModel.swift */; };
 		A86DFD7F2B19E22F003C6127 /* MyEventVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86DFD7E2B19E22F003C6127 /* MyEventVM.swift */; };
+		A86F15E92B32D24200686758 /* SearchLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F15E82B32D24200686758 /* SearchLocationModel.swift */; };
+		A86F15EB2B32D30900686758 /* SearchLocationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F15EA2B32D30900686758 /* SearchLocationVM.swift */; };
+		A86F15ED2B32D92C00686758 /* SearchGooglePlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F15EC2B32D92C00686758 /* SearchGooglePlaces.swift */; };
 		A86F16852B0C7C36003F342C /* InterestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16842B0C7C36003F342C /* InterestModel.swift */; };
 		A86F16872B0C7DF4003F342C /* InterestVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16862B0C7DF4003F342C /* InterestVM.swift */; };
 		A86F16892B0C8526003F342C /* UICollectionView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */; };
@@ -162,6 +165,7 @@
 		A892F1882B1AF99E002A4AF7 /* ChatListingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F1872B1AF99E002A4AF7 /* ChatListingVM.swift */; };
 		A892F18A2B1B1896002A4AF7 /* CreateRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F1892B1B1896002A4AF7 /* CreateRoomModel.swift */; };
 		A892F18C2B1B2A98002A4AF7 /* Socketton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892F18B2B1B2A98002A4AF7 /* Socketton.swift */; };
+		A893967C2B31623400623231 /* CreateEventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893967B2B31623400623231 /* CreateEventModel.swift */; };
 		A893A1C22B2824CA00C7CD97 /* BlockedUserVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893A1C12B2824CA00C7CD97 /* BlockedUserVM.swift */; };
 		A893E8352B0B3169004A1980 /* AFWrapperClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8342B0B3169004A1980 /* AFWrapperClass.swift */; };
 		A893E8372B0B31D0004A1980 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A893E8362B0B31D0004A1980 /* AppConstant.swift */; };
@@ -335,6 +339,9 @@
 		A86DFD7A2B19A961003C6127 /* MapListingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapListingModel.swift; sourceTree = "<group>"; };
 		A86DFD7C2B19C0A8003C6127 /* MapVisibilityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVisibilityModel.swift; sourceTree = "<group>"; };
 		A86DFD7E2B19E22F003C6127 /* MyEventVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventVM.swift; sourceTree = "<group>"; };
+		A86F15E82B32D24200686758 /* SearchLocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationModel.swift; sourceTree = "<group>"; };
+		A86F15EA2B32D30900686758 /* SearchLocationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationVM.swift; sourceTree = "<group>"; };
+		A86F15EC2B32D92C00686758 /* SearchGooglePlaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchGooglePlaces.swift; sourceTree = "<group>"; };
 		A86F16842B0C7C36003F342C /* InterestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestModel.swift; sourceTree = "<group>"; };
 		A86F16862B0C7DF4003F342C /* InterestVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestVM.swift; sourceTree = "<group>"; };
 		A86F16882B0C8526003F342C /* UICollectionView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Custom.swift"; sourceTree = "<group>"; };
@@ -358,6 +365,7 @@
 		A892F1872B1AF99E002A4AF7 /* ChatListingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListingVM.swift; sourceTree = "<group>"; };
 		A892F1892B1B1896002A4AF7 /* CreateRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomModel.swift; sourceTree = "<group>"; };
 		A892F18B2B1B2A98002A4AF7 /* Socketton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socketton.swift; sourceTree = "<group>"; };
+		A893967B2B31623400623231 /* CreateEventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventModel.swift; sourceTree = "<group>"; };
 		A893A1C12B2824CA00C7CD97 /* BlockedUserVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUserVM.swift; sourceTree = "<group>"; };
 		A893E8342B0B3169004A1980 /* AFWrapperClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AFWrapperClass.swift; sourceTree = "<group>"; };
 		A893E8362B0B31D0004A1980 /* AppConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
@@ -612,10 +620,12 @@
 		5F99E5DE2AF27A8B003F2065 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A86F15EC2B32D92C00686758 /* SearchGooglePlaces.swift */,
 				5F99E5DF2AF27A9F003F2065 /* SelectLocationVC.swift */,
 				5F99E5E02AF27A9F003F2065 /* SelectLocationVC.xib */,
 				5F99E5E32AF27C3A003F2065 /* SelectLocationTVCell.swift */,
 				5F99E5E42AF27C3A003F2065 /* SelectLocationTVCell.xib */,
+				A86F15EA2B32D30900686758 /* SearchLocationVM.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1200,6 +1210,8 @@
 				A8B9F01E2B20891D00B32A79 /* MapDetailModel.swift */,
 				A86F2E0E2B297C5700D53FA0 /* BlockModel.swift */,
 				A86F2E102B29868600D53FA0 /* ReportModel.swift */,
+				A893967B2B31623400623231 /* CreateEventModel.swift */,
+				A86F15E82B32D24200686758 /* SearchLocationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1451,6 +1463,7 @@
 				A893E8532B0B4977004A1980 /* SignUpModel.swift in Sources */,
 				A86C68C02B0CBBF1004CEB1C /* ForgotPasswordVM.swift in Sources */,
 				5F629ADE2AF36C0F002AD6B4 /* DeleteAccountPopUpVC.swift in Sources */,
+				A86F15ED2B32D92C00686758 /* SearchGooglePlaces.swift in Sources */,
 				A896828D2B145E1400DF5B6A /* HomeDetailModel.swift in Sources */,
 				5FAE8FBE2AE29AB300B222D5 /* UIView+Custom.swift in Sources */,
 				A86F2E232B299F9B00D53FA0 /* ReportViewController.swift in Sources */,
@@ -1461,6 +1474,7 @@
 				5FD624A42AF0D05B0096A347 /* RightTVCell.swift in Sources */,
 				5FB2E3792AF101C800CFF385 /* SettingsTVCell.swift in Sources */,
 				A86DFD7B2B19A961003C6127 /* MapListingModel.swift in Sources */,
+				A86F15EB2B32D30900686758 /* SearchLocationVM.swift in Sources */,
 				A81E3FAF2B18688500F9D4E8 /* TermAndConditionVC.swift in Sources */,
 				A893E8822B0B4C27004A1980 /* Date+Custom.swift in Sources */,
 				5FE3DADB2AEA2B5D008663B7 /* CreateEventPopUp.swift in Sources */,
@@ -1480,6 +1494,7 @@
 				5F629AE22AF398A5002AD6B4 /* ProfileEventsTVCell.swift in Sources */,
 				A8B9F0132B205C6E00B32A79 /* NotificationVM.swift in Sources */,
 				5F9BE3682AE2AE88004AD2F4 /* signUpVC.swift in Sources */,
+				A86F15E92B32D24200686758 /* SearchLocationModel.swift in Sources */,
 				5F569F382AEBA149008CA03F /* MapCVCell.swift in Sources */,
 				A86F168B2B0C85F8003F342C /* UITableView+Custom.swift in Sources */,
 				5F99E5DB2AF26DC1003F2065 /* InterestEventTags.swift in Sources */,
@@ -1498,6 +1513,7 @@
 				A81184812B0F7504005DC8C0 /* UIImageView+Custom.swift in Sources */,
 				A893A1C22B2824CA00C7CD97 /* BlockedUserVM.swift in Sources */,
 				A893E8802B0B4BBB004A1980 /* String+Custom.swift in Sources */,
+				A893967C2B31623400623231 /* CreateEventModel.swift in Sources */,
 				A86F168D2B0C8BD9003F342C /* LoginVM.swift in Sources */,
 				5F99E5E52AF27C3A003F2065 /* SelectLocationTVCell.swift in Sources */,
 				A8B9F0192B207B2E00B32A79 /* SearchModel.swift in Sources */,
@@ -1679,7 +1695,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QNR52LVFZ2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Bored/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -1700,7 +1716,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bored;
+				PRODUCT_BUNDLE_IDENTIFIER = com.IncaseD.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1721,7 +1737,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = QNR52LVFZ2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Bored/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -1742,7 +1758,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bored;
+				PRODUCT_BUNDLE_IDENTIFIER = com.IncaseD.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

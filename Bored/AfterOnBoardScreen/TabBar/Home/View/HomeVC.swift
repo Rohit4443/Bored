@@ -73,6 +73,18 @@ class HomeVC: UIViewController{
         
     }
     
+    // Inside the view controller corresponding to the first tab
+    func popToSpecificViewController() {
+        if let navigationController = self.navigationController {
+            for viewController in navigationController.viewControllers {
+                if let desiredViewController = viewController as? CreateEventVC {
+                    navigationController.popToViewController(desiredViewController, animated: true)
+                    return
+                }
+            }
+        }
+    }
+    
     func setupLocationManager() {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
@@ -110,7 +122,7 @@ class HomeVC: UIViewController{
     func setViewModel(){
         self.hasHitAPI = false
         self.viewModel = HomeVM(observer: self)
-//        self.eventSwipeKolodaView.reloadData()
+        self.eventSwipeKolodaView.reloadData()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

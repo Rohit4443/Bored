@@ -124,7 +124,6 @@ class HomeVM: NSObject{
                 }
             }
             
-            
         }, failure: {
             (error) in
             print(error.debugDescription)

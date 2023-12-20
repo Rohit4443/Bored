@@ -114,6 +114,13 @@ class OneToOneChatVC: UIViewController {
         openCamera()
     }
     
+    @IBAction func otherProfileAction(_ sender: UIButton) {
+        let vc = PlaceDetailVC()
+        vc.otherID = "\(recieverID ?? 0)"
+        vc.comFromSearch = true
+        vc.hidesBottomBarWhenPushed = true
+        self.pushViewController(vc, true)
+    }
 }
 
 extension OneToOneChatVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -161,7 +168,14 @@ extension OneToOneChatVC: UIImagePickerControllerDelegate, UINavigationControlle
         alert.addAction(action2)
         present(alert, animated: true, completion: nil)
     }
-    
+    func getCurrentTime() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm a" // You can change the format as needed
+        
+        let currentTime = formatter.string(from: Date())
+        return currentTime
+    }
+
 }
 
 
@@ -380,8 +394,7 @@ extension OneToOneChatVC: OneToOneChatVMObserver{
         socketton?.sendMessage(json, roomId: roomID ?? "")
         self.chatTableView.tableHeaderView = nil
         sendMessageBtn.isUserInteractionEnabled = true
-       
-        
+   
     }
     
     

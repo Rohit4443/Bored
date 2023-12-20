@@ -8,7 +8,7 @@
 import UIKit
 
 class MyEventVC: UIViewController {
-
+    
     @IBOutlet weak var myEventsTableView: UITableView!
     
     var viewModel: HomeVM?
@@ -19,14 +19,28 @@ class MyEventVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
-        setViewModel()
+        //        setViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        setViewModel()
-//        self.viewModel?.eventListing.removeAll()
-//        self.viewModel?.eventListingApi(type: "2")
+        setViewModel()
+        //        self.viewModel?.eventListing.removeAll()
+        //        self.viewModel?.eventListingApi(type: "2")
+        // Observe the notification
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDeleteEventNotification), name: Notification.Name("DeleteEventNotification"), object: nil)
         self.myEventsTableView.reloadData()
+        
+        
+        
+    }
+    @objc func handleDeleteEventNotification() {
+        // Pop to the previous view controller
+        navigationController?.popViewController(animated: true)
+    }
+    
+    deinit {
+        // Remove observer when the view controller is deallocated
+        NotificationCenter.default.removeObserver(self)
     }
     
     func setTableView(){
@@ -43,7 +57,7 @@ class MyEventVC: UIViewController {
         self.viewModel?.eventListingApi(type: "2",lat: self.lat ?? "",long: self.long ?? "")
         self.myEventsTableView.reloadData()
     }
-   
+    
     @IBAction func backAction(_ sender: UIButton) {
         popVC()
     }
@@ -51,7 +65,7 @@ class MyEventVC: UIViewController {
 
 extension MyEventVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 1
+        //        return 1
         print(viewModel?.eventListing.count)
         return viewModel?.eventListing.count ?? 0
     }
@@ -64,9 +78,11 @@ extension MyEventVC: UITableViewDelegate,UITableViewDataSource{
         cell.eventID = viewModel?.eventListing[indexPath.row].event_id
         cell.delegate = self
         cell.myEventCollectionView.reloadData()
-//        cell.menuBtn.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
+        cell.menuBtn.isHidden = true
+        
+        //        cell.menuBtn.addTarget(self, action: #selector(menuButtonTapped), for: .touchUpInside)
         let date = viewModel?.eventListing[indexPath.row].created_at
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -100,12 +116,12 @@ extension MyEventVC: UITableViewDelegate,UITableViewDataSource{
         vc.eventID = viewModel?.eventListing[indexPath.row].event_id
         self.pushViewController(vc, true)
     }
-  
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
-//  
+    //
 }
 extension MyEventVC: HomeVMObserver{
     func observerFilterEventListing() {
@@ -120,11 +136,11 @@ extension MyEventVC: HomeVMObserver{
         }
         self.myEventsTableView.reloadData()
     }
-
+    
     func observerinterestedNotInterested() {
-       
+        
     }
- 
+    
 }
 extension MyEventVC: MyEventTVCellDelegate{
     func menuAction(eventID:String) {
@@ -154,7 +170,7 @@ extension MyEventVC: MyEventVMObserver{
             self.viewModel?.eventListingApi(type: "2",lat:self.lat ?? "",long: self.long ?? "")
             self.myEventsTableView.reloadData()
         }
-       
+        
     }
     
     

@@ -72,14 +72,27 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aa9-Hx-avy">
+                            <rect key="frame" x="87.5" y="20" width="200" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="o9p-xp-3uY"/>
+                                <constraint firstAttribute="height" constant="40" id="ssm-C3-Rdd"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <connections>
+                                <action selector="otherProfileAction:" destination="-1" eventType="touchUpInside" id="RIi-jZ-VpZ"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="X91-N5-dQf" secondAttribute="bottom" id="3Gq-1N-9OY"/>
+                        <constraint firstItem="aa9-Hx-avy" firstAttribute="centerY" secondItem="in7-EJ-tNS" secondAttribute="centerY" id="HBX-WO-DTv"/>
                         <constraint firstAttribute="height" constant="80" id="OwA-20-b4o"/>
                         <constraint firstItem="X91-N5-dQf" firstAttribute="leading" secondItem="OMR-ae-9W0" secondAttribute="leading" constant="25" id="Qk9-1F-53c"/>
                         <constraint firstItem="in7-EJ-tNS" firstAttribute="centerY" secondItem="OMR-ae-9W0" secondAttribute="centerY" id="Sz6-02-Pzf"/>
                         <constraint firstItem="4FA-gL-d5x" firstAttribute="centerY" secondItem="s5V-wL-dV6" secondAttribute="centerY" id="XNH-Mt-ssh"/>
+                        <constraint firstItem="aa9-Hx-avy" firstAttribute="centerX" secondItem="OMR-ae-9W0" secondAttribute="centerX" id="fsH-Ea-c1I"/>
                         <constraint firstItem="4FA-gL-d5x" firstAttribute="leading" secondItem="s5V-wL-dV6" secondAttribute="trailing" constant="10" id="mHS-Lb-Qa8"/>
                         <constraint firstAttribute="trailing" secondItem="X91-N5-dQf" secondAttribute="trailing" constant="25" id="maT-Z6-1Yo"/>
                         <constraint firstItem="in7-EJ-tNS" firstAttribute="leading" secondItem="OMR-ae-9W0" secondAttribute="leading" constant="15" id="pK4-As-g86"/>

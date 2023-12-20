@@ -42,6 +42,7 @@ class InterestEventTags: UIViewController {
         showInterestCollectionView.collectionViewLayout = createCenterAlignedLayout()
 //        collheightConstraint.constant = CGFloat(50*arrayName.count)
         print(selectedArray?.count)
+        print(alreadySelectedID)
         setViewModel()
         
 //        if let selectedInterests = selectedArray {
@@ -54,8 +55,8 @@ class InterestEventTags: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if comefrom == "eventTags"{
-            otherBgView.isHidden = true
-            otherViewHeightConstraint.constant = 0
+//            otherBgView.isHidden = true
+//            otherViewHeightConstraint.constant = 0
 
         }else{
 

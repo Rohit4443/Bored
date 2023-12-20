@@ -82,10 +82,18 @@ class EditProfileVC: UIViewController {
     }
     
     @objc func datePickerDoneButtonTapped() {
-        
         let datePicker = birthdayTextField.inputView as! UIDatePicker
-        let selectedDate = datePicker.date
+        let calendar = Calendar.current
+        var components = DateComponents()
+        components.year = 2005
+        components.month = 1
+        components.day = 1
+        let minimumAllowedDate = calendar.date(from: components)
+        
+        datePicker.minimumDate = minimumAllowedDate
+
         let dateFormatter = DateFormatter()
+        let selectedDate = datePicker.date
         dateFormatter.dateFormat = "dd/MM/yyyy"
         let formattedDate = dateFormatter.string(from: selectedDate)
         birthdayTextField.text = formattedDate

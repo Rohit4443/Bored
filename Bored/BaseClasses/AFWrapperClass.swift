@@ -145,6 +145,13 @@ class AFWrapperClass{
             return
         }
         
+        // Check if the counts of imageKeys and imageDatas match
+        print("\(imageKeys)\(imageDatas)")
+        guard imageKeys.count == imageDatas.count else {
+            print("Mismatch in the count of image keys and image datas")
+            return
+        }
+        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
@@ -157,14 +164,16 @@ class AFWrapperClass{
                     if let temp = value as? String {
                         multiPart.append(temp.data(using: .utf8)!, withName: key)
                     }
+                    
                 }
             }
             
             // Append the image data to the multipart form data
             for (index, imageData) in imageDatas.enumerated() {
                 let imageKey = imageKeys[index]
-                multiPart.append(imageData, withName: imageKey, fileName: "\(UUID()).jpg", mimeType: "image/jpeg")
+                multiPart.append(imageData, withName: imageKey, fileName: "\(UUID()).jpg", mimeType: "files/jpeg")
             }
+            print(multiPart)
         }, with: urlRequest)
         .uploadProgress(queue: .main, closure: { progress in
             print("Upload Progress: \(progress.fractionCompleted)")
@@ -180,6 +189,7 @@ class AFWrapperClass{
             }
         }
     }
+
 
     
     

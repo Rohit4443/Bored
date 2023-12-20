@@ -134,6 +134,8 @@ class MyEventDetailVC: UIViewController {
     
     @IBAction func menuAction(_ sender: UIButton) {
         let vc = EditDeleteEventPopUpVC()
+        vc.eventID = viewModel?.eventData?.event_id
+        vc.eventData = viewModel?.eventData
         vc.controller = self
         vc.modalPresentationStyle = .overFullScreen
         self.present(vc, true)

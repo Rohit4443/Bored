@@ -96,7 +96,7 @@ extension ReportViewController: ReportFooterViewDelegate{
             viewModel?.addReportApi(reportTo: self.userId ?? "", reasonId: self.reasonId ?? "", reportReason: "", reportType: "1")
         }else{
             print(otherReason)
-            viewModel?.addReportApi(reportTo:self.userId ?? "", reasonId: "", reportReason: self.otherReason ?? "", reportType: "1")
+            viewModel?.addReportApi(reportTo:self.userId ?? "", reasonId: "0", reportReason: self.otherReason ?? "", reportType: "1")
         }
   
     } 
