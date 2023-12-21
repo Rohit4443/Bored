@@ -38,7 +38,7 @@ class OneToOneChatVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setSocket()
-      
+        self.viewModel?.chatHistory.removeAll()
         self.viewModel?.allMessageListApi(roomID: roomID ?? "")
     }
     
@@ -116,7 +116,9 @@ class OneToOneChatVC: UIViewController {
     
     @IBAction func otherProfileAction(_ sender: UIButton) {
         let vc = PlaceDetailVC()
-        vc.otherID = "\(recieverID ?? 0)"
+        let id = chatDetail?.receiver_id
+        print(id)
+        vc.otherID = "\(id ?? 0)"
         vc.comFromSearch = true
         vc.hidesBottomBarWhenPushed = true
         self.pushViewController(vc, true)
@@ -175,6 +177,22 @@ extension OneToOneChatVC: UIImagePickerControllerDelegate, UINavigationControlle
         let currentTime = formatter.string(from: Date())
         return currentTime
     }
+    func convertIntoTime(time: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        if let date = dateFormatter.date(from: time) {
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = "hh:mm a"
+            let formattedTime = dateFormatter.string(from: date)
+            print("Converted Time: \(formattedTime)")
+            return formattedTime
+        } else {
+            print("Invalid date format")
+            return nil
+        }
+    }
 
 }
 
@@ -203,18 +221,21 @@ extension OneToOneChatVC : UITableViewDelegate,UITableViewDataSource{
                 cell.userProfileImage.setImage(image: self.viewModel?.userDetail?.image,placeholder: UIImage(named: "placeholder"))
                 cell.userNameLabel.text = self.viewModel?.userDetail?.name
                 cell.messsageBGView.clipsToBounds = true
-                
-//                let date = Date(timeIntervalSince1970: TimeInterval(dict?.created_at ?? "") ?? 0.0)
                 let dateString = dict?.created_at ?? ""
-                
+                print(dict?.created_at ?? "")
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                print(dict?.created_at ?? "")
                 let date = dateFormatter.date(from: dateString)
                 print(date)
-                
-//                cell.lblTime.text = date?.dateToString(format: timeFormat)
-                cell.lblTime.text = dateString.convertTimeStampToStringDate(format: "hh:mm a")
+
+                if let convertedTime = convertIntoTime(time: dateString) {
+                    print("Device Time: \(convertedTime)")
+                    cell.lblTime.text = convertedTime
+                } else {
+                    print("Conversion failed")
+                }
+
+                print(cell.lblTime.text)
                 if indexPath.row == 0 {
                 cell.setDate(currentDate: date, previousDate: nil)
                 }else{
@@ -222,7 +243,6 @@ extension OneToOneChatVC : UITableViewDelegate,UITableViewDataSource{
                     let previousDate = dateFormatter.date(from: preDate)
                     cell.setDate(currentDate:date, previousDate:  previousDate)
                 }
-                
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "RightTVCell", for: indexPath) as! RightTVCell
@@ -231,18 +251,20 @@ extension OneToOneChatVC : UITableViewDelegate,UITableViewDataSource{
                 print(dict?.created_at ?? "")
 //                let date = Date(timeIntervalSince1970: TimeInterval(dict?.created_at ?? "") ?? 0.0)
                 let dateString = dict?.created_at ?? ""
-                
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
+                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
                 let date = dateFormatter.date(from: dateString)
-                    print(date)
-                
+       
+                if let convertedTime = convertIntoTime(time: dateString) {
+                    print("Device Time: \(convertedTime)")
+                    cell.lblTime.text = convertedTime
+                } else {
+                    print("Conversion failed")
+                }
                 
                 cell.rightProfileImage.setImage(image: UserDefaultsCustom.getUserData()?.image,placeholder: UIImage(named: "placeholder"))
                 cell.rightUserNameLabel.text = UserDefaultsCustom.getUserData()?.name
-//                cell.lblTime.text = date?.dateToString(format: timeFormat)
-                cell.lblTime.text = dateString.convertTimeStampToStringDate(format: "hh:mm a")
                 print(cell.lblTime)
                 if indexPath.row == 0 {
                 cell.setDate(currentDate: date, previousDate: nil)
@@ -267,7 +289,12 @@ extension OneToOneChatVC : UITableViewDelegate,UITableViewDataSource{
 
                 let date = dateFormatter.date(from: dateString)
                 print(date)
-                cell.timeLabel.text = date?.dateToString(format: timeFormat)
+                if let convertedTime = convertIntoTime(time: dateString) {
+                    print("Device Time: \(convertedTime)")
+                    cell.timeLabel.text = convertedTime
+                } else {
+                    print("Conversion failed")
+                }
                 cell.imageMessage.setImage(image: dict?.files)
                 if indexPath.row == 0 {
                 cell.setDate(currentDate: date, previousDate: nil)
@@ -290,7 +317,12 @@ extension OneToOneChatVC : UITableViewDelegate,UITableViewDataSource{
 
                 let date = dateFormatter.date(from: dateString)
                 print(date)
-                cell.timeLabel.text = date?.dateToString(format: timeFormat)
+                if let convertedTime = convertIntoTime(time: dateString) {
+                    print("Device Time: \(convertedTime)")
+                    cell.timeLabel.text = convertedTime
+                } else {
+                    print("Conversion failed")
+                }
                 cell.imageMessage.setImage(image: dict?.files)
                 if indexPath.row == 0 {
                 cell.setDate(currentDate: date, previousDate: nil)

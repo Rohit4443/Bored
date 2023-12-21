@@ -75,21 +75,23 @@ class SearchLocationVM: NSObject{
         })
     }
     
-    func recentSearchParams(otherUserId: String, isRecentSearch: String,search: String) -> [String:Any]{
+    func recentSearchParams(otherUserId: String, isRecentSearch: String,search: String, lat: String, long: String) -> [String:Any]{
         
         let params: [String:Any] = [
             "other_user_id": otherUserId,
             "is_recent_search": isRecentSearch,
-            "search": search
+            "search": search,
+            "latitude": lat,
+            "longitude": long
         ]
         print("parameters:-  \(params)")
         return params
         
     }
     
-    func recentSearchApi(otherUserId: String, isRecentSearch: String,search: String){
+    func recentSearchApi(otherUserId: String, isRecentSearch: String,search: String, lat: String, long: String){
         SVProgressHUD.show()
-        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.recentSearch, params: recentSearchParams(otherUserId: otherUserId, isRecentSearch: isRecentSearch, search: search), success: {
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.recentSearch, params: recentSearchParams(otherUserId: otherUserId, isRecentSearch: isRecentSearch, search: search,lat: lat,long: long), success: {
             (response) in
                 print(response)
                 SVProgressHUD.dismiss()
@@ -121,7 +123,7 @@ class SearchLocationVM: NSObject{
     
     func deleteRecentSearch(otherUserId: String, isRecentSearch: String,search: String){
         SVProgressHUD.show()
-        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.deleteRecent, params: recentSearchParams(otherUserId: otherUserId, isRecentSearch: isRecentSearch, search: search), success: {
+        AFWrapperClass.sharedInstance.requestPOSTSURL(Constant.deleteRecent, params: deleteParams(otherUserId: otherUserId, isRecentSearch: isRecentSearch, search: search), success: {
             (response) in
                 print(response)
                 SVProgressHUD.dismiss()

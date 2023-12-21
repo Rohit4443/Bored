@@ -56,11 +56,8 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marke Blis" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8X-HS-SKh">
-                                    <rect key="frame" x="115" y="25.5" width="163" height="39.5"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="39.5" id="Z8g-zY-qVU"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="22"/>
+                                    <rect key="frame" x="115" y="31.5" width="163" height="27"/>
+                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="19"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -261,8 +258,8 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marke Blis" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wn5-J1-gQD">
-                            <rect key="frame" x="115" y="20.5" width="145" height="39.5"/>
-                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="28"/>
+                            <rect key="frame" x="120.5" y="22" width="134.5" height="36.5"/>
+                            <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="26"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>

@@ -53,6 +53,22 @@ class ChatListVC: UIViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    func convertIntoTime(time: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        if let date = dateFormatter.date(from: time) {
+            dateFormatter.timeZone = TimeZone.current
+            dateFormatter.dateFormat = "hh:mm a"
+            let formattedTime = dateFormatter.string(from: date)
+            print("Converted Time: \(formattedTime)")
+            return formattedTime
+        } else {
+            print("Invalid date format")
+            return nil
+        }
+    }
     
     
     
@@ -89,14 +105,22 @@ extension ChatListVC : UITableViewDelegate, UITableViewDataSource {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        if let date = dateFormatter.date(from: timestampString) {
-            dateFormatter.dateFormat = "HH:mm a"
-            let formattedTime = dateFormatter.string(from: date)
-            print(formattedTime) // This will print the time in HH:mm a format
-            cell.timeLabel.text = formattedTime
+        if let convertedTime = convertIntoTime(time: timestampString) {
+            print("Device Time: \(convertedTime)")
+            cell.timeLabel.text = convertedTime
         } else {
-            print("Invalid date format")
+            print("Conversion failed")
         }
+
+        
+//        if let date = dateFormatter.date(from: timestampString) {
+//            dateFormatter.dateFormat = "HH:mm a"
+//            let formattedTime = dateFormatter.string(from: date)
+//            print(formattedTime) // This will print the time in HH:mm a format
+//            cell.timeLabel.text = formattedTime
+//        } else {
+//            print("Invalid date format")
+//        }
         
         return cell
     }

@@ -423,6 +423,10 @@ extension String {
         return localDate
     }
     
+    
+    
+    
+    
     func convertStringToDate(myString: String, time: String, format: String) -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = format // "yyyy-MM-dd hh:mm a"

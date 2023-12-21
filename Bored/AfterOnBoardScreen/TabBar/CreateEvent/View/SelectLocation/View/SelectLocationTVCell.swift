@@ -6,12 +6,18 @@
 //
 
 import UIKit
+protocol SelectLocationTVCellDelegate{
+    func deleteAction(cell: SelectLocationTVCell)
+}
 
 class SelectLocationTVCell: UITableViewCell {
 
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var locationImage: UIImageView!
+    
+    var delegate: SelectLocationTVCellDelegate?
+    var searchLocation: RecentSearchLocationData?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,4 +29,11 @@ class SelectLocationTVCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func passData(data:RecentSearchLocationData){
+        self.searchLocation = data
+    }
+    
+    @IBAction func deleteAction(_ sender: UIButton) {
+        self.delegate?.deleteAction(cell: self)
+    }
 }

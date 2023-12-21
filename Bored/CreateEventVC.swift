@@ -541,6 +541,7 @@ extension CreateEventVC: AddLocationVCDelegate{
             self.locationTextField.text = address
             self.lat = "\(lat)"
             self.long = "\(long)"
+            print("\(address)\(lat)\(long)")
         }
        
         

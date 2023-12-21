@@ -16,12 +16,14 @@ class SearchLocationModel: Codable{
 }
 class RecentSearchLocationData: Codable{
     var id: String?
-    var userID: String?
-    var otherUserID: String?
+    var user_id: String?
+    var other_user_id: String?
     var search: String?
+    var latitude: String?
+    var longitude: String?
     var type: String?
-    var createdAt: String?
-    var updatedAt: String?
+    var created_at: String?
+    var updated_at: String?
 }
 class searchLocationData: Codable{
     

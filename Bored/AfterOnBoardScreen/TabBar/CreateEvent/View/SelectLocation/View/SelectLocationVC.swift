@@ -19,6 +19,8 @@ class SelectLocationVC: UIViewController {
     var timer: Timer?
     var searchValue: String?
     var city : [Cities] = []
+    var lat: String?
+    var long: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +73,8 @@ extension SelectLocationVC : UITableViewDelegate, UITableViewDataSource {
         }else{
             cell.locationLabel.text = viewModel?.recentSearchListing[indexPath.row].search
             cell.deleteButton.isHidden = false
+            cell.delegate = self
+            cell.passData(data: (viewModel?.recentSearchListing[indexPath.row])!)
         }
         
         return cell
@@ -99,13 +103,25 @@ extension SelectLocationVC : UITableViewDelegate, UITableViewDataSource {
         return UITableView.automaticDimension
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        SearchGooglePlaces.details(place_id: city[indexPath.row].placeId) { coordinates in
-            self.delegate?.setLocation(text: self.city[indexPath.row].city, lat: coordinates?.lat ?? 0.0, long: coordinates?.lng ?? 0.0 , address: self.city[indexPath.row].city, country: self.city[indexPath.row].shortName)
-        }
-        popVC()
+        
         if indexPath.section == 0{
-//            viewModel?.recentSearchApi(otherUserId: id ?? "", isRecentSearch: "1", search: self.searchValue ?? "")
+            SearchGooglePlaces.details(place_id: city[indexPath.row].placeId) { coordinates in
+                self.delegate?.setLocation(text: self.city[indexPath.row].city, lat: coordinates?.lat ?? 0.0, long: coordinates?.lng ?? 0.0 , address: self.city[indexPath.row].city, country: self.city[indexPath.row].shortName)
+                self.lat = "\(coordinates?.lat ?? Double())"
+                self.long = "\(coordinates?.lng ?? Double())"
+                print("\(self.lat)\(self.long)")
+                self.viewModel?.recentSearchApi(otherUserId:"", isRecentSearch: "2", search: self.city[indexPath.row].city,lat: self.lat ?? "" ,long: self.long ?? "")
+            }
+           
+        }else{
+            let lat = Double(viewModel?.recentSearchListing[indexPath.row].latitude ?? "")
+            let long = Double(viewModel?.recentSearchListing[indexPath.row].longitude ?? "")
+            self.delegate?.setLocation(text: "", lat: lat ?? Double(), long: long ?? Double(), address: viewModel?.recentSearchListing[indexPath.row].search ?? "", country: "")
         }
+        DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
+            self.popVC()
+        }
+        
     }
     
     
@@ -122,6 +138,7 @@ extension SelectLocationVC : UITextFieldDelegate {
            let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange, with: string)
             print("updatedText text is :-\(updatedText)")
+            self.searchValue = updatedText
             SearchGooglePlaces.findAutocompletePredictions(fromQuery: updatedText) { data in
                 DispatchQueue.main.async {
                     self.city = data
@@ -157,5 +174,23 @@ extension SelectLocationVC: SearchLocationVMObserver{
        
     }
     
+    
+}
+extension SelectLocationVC: SelectLocationTVCellDelegate{
+    func deleteAction(cell: SelectLocationTVCell) {
+        let id = "\(cell.searchLocation?.id ?? "")"
+        let search = cell.searchLocation?.search ?? ""
+        print(id)
+        self.viewModel?.deleteRecentSearch(otherUserId: id, isRecentSearch: "2", search:search)
+        self.viewModel?.recentSearchListing.removeAll()
+        self.selectLocationTableView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.viewModel?.recentSearchListing.removeAll()
+            self.viewModel?.getSearchListing(search: "", isRecentSearch: "2")
+            self.selectLocationTableView.reloadData()
+        }
+    }
+  
     
 }

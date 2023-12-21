@@ -56,10 +56,10 @@ class MapVC: UIViewController {
         setViewModel()
         setupLocationManager()
         print(UserDefaultsCustom.getUserData()?.is_private)
-        
         if UserDefaultsCustom.getUserData()?.is_private == "1"{
             toggleBtn.isOn = false
-            mapView.isHidden = true
+//            mapView.isHidden = true
+            removeAllMapAnnotations()
             mapUserCollectionView.isHidden = true
         }else{
             toggleBtn.isOn = true
@@ -94,7 +94,11 @@ class MapVC: UIViewController {
 //        }
 //    }
 //
-    
+    // Function to remove annotations from the map view
+        func removeAllMapAnnotations() {
+            let annotations = mapView.annotations.filter { $0 !== mapView.userLocation }
+            mapView.removeAnnotations(annotations)
+        }
     func setupLocationManager() {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
@@ -211,7 +215,8 @@ class MapVC: UIViewController {
             mapUserCollectionView.isHidden = false
         } else {
             viewModel?.mapVisibilityApi(isPrivate: "1")
-            mapView.isHidden = true
+//            mapView.isHidden = true
+            removeAllMapAnnotations()
             mapUserCollectionView.isHidden = true
             
         }
@@ -346,7 +351,7 @@ extension MapVC: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
            let reuseIdentifier = "customAnnotation"
            var mk_annView: MKAnnotationView
-           
+        
            if annotation is MKUserLocation {
                // Handle user's current location annotation
                mk_annView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
